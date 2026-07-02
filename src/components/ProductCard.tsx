@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
 import { motion } from "framer-motion";
-import { Product, collections } from "@/data/products";
+import { Product, collections, formatPrice } from "@/data/products";
 import { useWishlist } from "@/hooks/useWishlist";
 import { cn } from "@/lib/utils";
 
@@ -20,130 +20,104 @@ export const ProductCard = ({ product, index = 0, variant = "default" }: Product
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (inWishlist) {
-      removeItem(product.id);
-    } else {
-      addItem(product);
-    }
+    if (inWishlist) removeItem(product.id);
+    else addItem(product);
   };
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="group"
+      transition={{ duration: 0.6, delay: Math.min(index * 0.06, 0.4), ease: [0.25, 0.46, 0.45, 0.94] }}
+      className="group h-full"
     >
-      <Link to={`/product/${product.slug}`} className="block">
-        {/* Image Container */}
+      <Link to={`/product/${product.slug}`} className="block h-full">
         <div
           className={cn(
-            "relative overflow-hidden bg-muted/50 mb-5",
-            variant === "large" ? "aspect-[3/4]" : "aspect-[4/5]"
+            "relative overflow-hidden furniture-tile mb-4 rounded-sm",
+            variant === "large" ? "aspect-[3/4]" : "aspect-[4/5]",
           )}
         >
-          {/* Primary Image */}
           <img
             src={product.images[0]}
             alt={product.name}
+            loading="lazy"
             className={cn(
-              "w-full h-full object-cover transition-all duration-[1s] ease-out",
-              hasSecondImage
-                ? "group-hover:opacity-0 group-hover:scale-105"
-                : "group-hover:scale-105"
+              "w-full h-full object-cover transition-all duration-[900ms] ease-out",
+              hasSecondImage ? "group-hover:opacity-0 group-hover:scale-105" : "group-hover:scale-105",
             )}
           />
-
-          {/* Secondary Image (hover) */}
           {hasSecondImage && (
             <img
               src={product.images[1]}
-              alt={`${product.name} - alternate view`}
-              className="absolute inset-0 w-full h-full object-cover opacity-0 scale-105 transition-all duration-[1s] ease-out group-hover:opacity-100 group-hover:scale-100"
+              alt=""
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover opacity-0 scale-105 transition-all duration-[900ms] ease-out group-hover:opacity-100 group-hover:scale-100"
             />
           )}
 
-          {/* Gradient Overlay on Hover */}
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+          {/* Discount tag */}
+          {product.discountPercent && product.discountPercent > 0 && (
+            <span className="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold tracking-wider bg-primary text-primary-foreground rounded-sm">
+              {product.discountPercent}% OFF
+            </span>
+          )}
 
-          {/* Wishlist button */}
+          {product.new && (
+            <span className="absolute top-3 right-14 px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] uppercase bg-foreground text-background rounded-sm">
+              New
+            </span>
+          )}
+
           <button
             onClick={handleWishlistToggle}
+            aria-label="Save"
             className={cn(
-              "absolute top-5 right-5 p-2.5 rounded-full transition-all duration-500",
-              "bg-background/90 backdrop-blur-md hover:bg-background shadow-sm",
-              "opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0",
-              inWishlist && "opacity-100 translate-y-0"
+              "absolute top-3 right-3 p-2 rounded-full bg-background/95 backdrop-blur shadow-sm transition-all duration-300",
+              "opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0",
+              inWishlist && "opacity-100 translate-y-0",
             )}
           >
             <Heart
               className={cn(
-                "w-4 h-4 transition-all duration-300",
-                inWishlist ? "fill-primary text-primary scale-110" : "text-foreground"
+                "w-4 h-4 transition-colors",
+                inWishlist ? "fill-primary text-primary" : "text-foreground",
               )}
             />
           </button>
 
-          {/* Badges */}
-          <div className="absolute top-5 left-5 flex flex-col gap-2">
-            {product.new && (
-              <motion.span
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="px-3 py-1.5 text-[10px] font-semibold tracking-[0.2em] uppercase bg-foreground text-background"
-              >
-                New
-              </motion.span>
-            )}
-            {product.featured && (
-              <motion.span
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className="px-3 py-1.5 text-[10px] font-semibold tracking-[0.2em] uppercase bg-primary text-primary-foreground"
-              >
-                Featured
-              </motion.span>
-            )}
-          </div>
-
-          {/* Quick View Indicator */}
-          <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-6 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100">
-            <span className="px-6 py-2.5 text-xs font-medium tracking-[0.15em] uppercase bg-background/95 backdrop-blur-md text-foreground shadow-lg">
+          {/* Quick view bar */}
+          <div className="absolute inset-x-3 bottom-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+            <span className="block text-center px-4 py-2.5 text-[11px] font-medium tracking-[0.2em] uppercase bg-background/95 backdrop-blur text-foreground rounded-sm shadow">
               View Details
             </span>
           </div>
         </div>
 
-        {/* Product Info */}
-        <div className="space-y-2">
-          {/* Collection label */}
+        <div className="space-y-1.5">
           {collection && (
-            <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground/70 transition-colors duration-300 group-hover:text-primary">
+            <p className="text-[10px] font-medium tracking-[0.22em] uppercase text-muted-foreground/70">
               {collection.name}
             </p>
           )}
-
-          <h3 className="font-serif text-xl text-foreground transition-colors duration-300 group-hover:text-primary leading-snug">
+          <h3 className="font-serif text-lg md:text-xl text-foreground group-hover:text-primary transition-colors leading-snug line-clamp-1">
             {product.name}
           </h3>
-
-          <p className="text-sm text-muted-foreground line-clamp-1 leading-relaxed">
-            {product.description}
-          </p>
-
-          <div className="flex items-center gap-3 pt-1">
-            <p className="text-base font-medium text-foreground tracking-wide">
-              ${product.price.toLocaleString()}
-            </p>
-            {product.materials && (
+          <div className="flex items-baseline gap-2 flex-wrap pt-1">
+            <span className="text-base font-semibold text-foreground">
+              {formatPrice(product.price)}
+            </span>
+            {product.mrp && product.mrp > product.price && (
               <>
-                <span className="w-px h-3 bg-border" />
-                <p className="text-xs text-muted-foreground/60 tracking-wide">
-                  {product.materials.split(",")[0]}
-                </p>
+                <span className="text-xs text-muted-foreground line-through">
+                  {formatPrice(product.mrp)}
+                </span>
+                {product.discountPercent && (
+                  <span className="text-xs font-semibold text-primary">
+                    {product.discountPercent}% OFF
+                  </span>
+                )}
               </>
             )}
           </div>

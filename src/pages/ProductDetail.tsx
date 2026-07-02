@@ -1,22 +1,38 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Heart, ChevronLeft, ChevronRight, ArrowRight, ShoppingBag } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  Heart, ShoppingBag, Star, Truck, ShieldCheck, Video, Phone,
+  MessageCircle, MapPin, CheckCircle2, ChevronRight,
+} from "lucide-react";
 import { Layout } from "@/components/Layout";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductCarousel } from "@/components/ProductCarousel";
 import { QuantitySelector } from "@/components/QuantitySelector";
-import { getProductBySlug, getRelatedProducts, collections } from "@/data/products";
+import { ImageZoom } from "@/components/ImageZoom";
+import {
+  getProductBySlug, getRelatedProducts, collections, formatPrice,
+} from "@/data/products";
 import { useWishlist } from "@/hooks/useWishlist";
 import { useCart } from "@/hooks/useCart";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import {
+  Accordion, AccordionContent, AccordionItem, AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger,
+} from "@/components/ui/dialog";
 
 const ProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
   const product = getProductBySlug(slug || "");
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageIdx, setImageIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [pincode, setPincode] = useState("");
+  const [pincodeResult, setPincodeResult] = useState<null | { ok: boolean; msg: string }>(null);
   const { addItem: addToWishlist, removeItem: removeFromWishlist, isInWishlist } = useWishlist();
   const { addItem: addToCart } = useCart();
   const { toast } = useToast();
@@ -26,315 +42,429 @@ const ProductDetail = () => {
       <Layout>
         <div className="container-wide py-28 text-center">
           <h1 className="font-serif text-4xl mb-4">Product Not Found</h1>
-          <p className="text-muted-foreground mb-8">
-            The piece you're looking for doesn't exist.
-          </p>
-          <Button asChild className="rounded-none px-8 text-sm tracking-[0.1em] uppercase">
-            <Link to="/products">Browse All Products</Link>
-          </Button>
+          <p className="text-muted-foreground mb-8">The piece you're looking for doesn't exist.</p>
+          <Button asChild className="rounded-sm px-8"><Link to="/products">Browse All Products</Link></Button>
         </div>
       </Layout>
     );
   }
 
   const inWishlist = isInWishlist(product.id);
-  const relatedProducts = getRelatedProducts(product.id);
+  const related = getRelatedProducts(product.id);
   const collection = collections.find((c) => c.id === product.collection);
-
-  const handleWishlistToggle = () => {
-    if (inWishlist) {
-      removeFromWishlist(product.id);
-      toast({
-        title: "Removed from wishlist",
-        description: `${product.name} has been removed from your wishlist.`,
-      });
-    } else {
-      addToWishlist(product);
-      toast({
-        title: "Added to wishlist",
-        description: `${product.name} has been saved to your wishlist.`,
-      });
-    }
-  };
+  const emiMonthly = Math.ceil(product.price / 6);
 
   const handleAddToCart = () => {
     addToCart(product, quantity);
-    toast({
-      title: "Added to bag",
-      description: `${quantity} × ${product.name} added to your bag.`,
-    });
-    setQuantity(1);
+    toast({ title: "Added to cart", description: `${quantity} × ${product.name}` });
   };
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) =>
-      prev === product.images.length - 1 ? 0 : prev + 1
+  const handleBuyReadymade = () => {
+    addToCart(product, quantity);
+    navigate("/checkout");
+  };
+
+  const handleWishlist = () => {
+    if (inWishlist) {
+      removeFromWishlist(product.id);
+      toast({ title: "Removed from wishlist" });
+    } else {
+      addToWishlist(product);
+      toast({ title: "Saved to wishlist", description: product.name });
+    }
+  };
+
+  const checkPincode = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!/^\d{6}$/.test(pincode)) {
+      setPincodeResult({ ok: false, msg: "Please enter a valid 6-digit pincode." });
+      return;
+    }
+    // Mock: even last digit = available
+    const ok = parseInt(pincode.slice(-1), 10) % 2 === 0;
+    setPincodeResult(
+      ok
+        ? { ok: true, msg: `Delivery available — arrives in 7–10 days.` }
+        : { ok: false, msg: "Sorry, delivery to this pincode is not yet available." },
     );
   };
 
-  const prevImage = () => {
-    setCurrentImageIndex((prev) =>
-      prev === 0 ? product.images.length - 1 : prev - 1
-    );
-  };
+  const reviews = [
+    { name: "Aisha M.", rating: 5, text: "Build quality is spectacular. The oak finish is exactly as shown." },
+    { name: "Rohan K.", rating: 4, text: "Delivery was smooth and assembly team was professional." },
+    { name: "Meera S.", rating: 5, text: "Looks premium in our living room. Very happy with the purchase." },
+  ];
 
   return (
     <Layout>
       {/* Breadcrumb */}
-      <div className="container-full py-6 border-b border-border">
-        <div className="flex items-center gap-3 text-sm text-muted-foreground">
-          <Link
-            to="/products"
-            className="hover:text-foreground transition-colors"
-          >
-            Shop
-          </Link>
-          <span className="text-border">/</span>
+      <div className="container-full py-4 border-b border-border">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <Link to="/" className="hover:text-foreground">Home</Link>
+          <ChevronRight className="w-3 h-3" />
+          <Link to="/products" className="hover:text-foreground">Shop</Link>
           {collection && (
             <>
-              <Link
-                to={`/products?collection=${collection.slug}`}
-                className="hover:text-foreground transition-colors"
-              >
+              <ChevronRight className="w-3 h-3" />
+              <Link to={`/products?collection=${collection.slug}`} className="hover:text-foreground">
                 {collection.name}
               </Link>
-              <span className="text-border">/</span>
             </>
           )}
-          <span className="text-foreground">{product.name}</span>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-foreground truncate">{product.name}</span>
         </div>
       </div>
 
-      {/* Product Content */}
-      <section className="py-10 md:py-16">
+      {/* Main content */}
+      <section className="py-8 md:py-12">
         <div className="container-full">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
-            {/* Image Gallery — Takes 7 columns */}
-            <div className="lg:col-span-7 space-y-4">
-              {/* Main Image */}
-              <div className="relative aspect-[4/5] overflow-hidden bg-muted/30 group cursor-zoom-in">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={currentImageIndex}
-                    src={product.images[currentImageIndex]}
-                    alt={product.name}
-                    initial={{ opacity: 0, scale: 1.02 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const }}
-                    className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
-                  />
-                </AnimatePresence>
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-14">
+            {/* Gallery */}
+            <div className="lg:col-span-6 xl:col-span-5">
+              <ImageZoom src={product.images[imageIdx]} alt={product.name} />
 
-                {product.images.length > 1 && (
-                  <>
-                    <button
-                      onClick={prevImage}
-                      className="absolute left-5 top-1/2 -translate-y-1/2 p-3 bg-background/90 backdrop-blur-md hover:bg-background transition-all duration-300 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
-                    <button
-                      onClick={nextImage}
-                      className="absolute right-5 top-1/2 -translate-y-1/2 p-3 bg-background/90 backdrop-blur-md hover:bg-background transition-all duration-300 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
-
-                    {/* Image counter */}
-                    <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2">
-                      {product.images.map((_, index) => (
-                        <button
-                          key={index}
-                          onClick={() => setCurrentImageIndex(index)}
-                          className={cn(
-                            "w-8 h-0.5 transition-all duration-500",
-                            index === currentImageIndex
-                              ? "bg-foreground"
-                              : "bg-foreground/20 hover:bg-foreground/40"
-                          )}
-                        />
-                      ))}
-                    </div>
-                  </>
-                )}
-
-                {/* Badges */}
-                <div className="absolute top-5 left-5 flex flex-col gap-2">
-                  {product.new && (
-                    <span className="px-3 py-1.5 text-[10px] font-semibold tracking-[0.2em] uppercase bg-foreground text-background">
-                      New
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {/* Thumbnail strip */}
               {product.images.length > 1 && (
-                <div className="flex gap-3">
-                  {product.images.map((image, index) => (
+                <div className="flex gap-3 mt-4">
+                  {product.images.map((img, i) => (
                     <button
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
+                      key={i}
+                      onClick={() => setImageIdx(i)}
                       className={cn(
-                        "w-24 h-24 overflow-hidden transition-all duration-300",
-                        index === currentImageIndex
-                          ? "ring-2 ring-foreground ring-offset-2 ring-offset-background"
-                          : "opacity-60 hover:opacity-100"
+                        "w-20 h-20 overflow-hidden rounded-sm transition-all",
+                        i === imageIdx
+                          ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
+                          : "opacity-60 hover:opacity-100",
                       )}
                     >
-                      <img
-                        src={image}
-                        alt={`${product.name} view ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
+                      <img src={img} alt="" className="w-full h-full object-cover" />
                     </button>
                   ))}
                 </div>
               )}
             </div>
 
-            {/* Product Info — Takes 5 columns */}
+            {/* Info */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] as const }}
-              className="lg:col-span-5 lg:sticky lg:top-28 lg:self-start"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="lg:col-span-6 xl:col-span-7"
             >
               {collection && (
                 <Link
                   to={`/products?collection=${collection.slug}`}
-                  className="inline-block text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-5 hover:text-primary/80 transition-colors"
+                  className="inline-block text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-3"
                 >
                   {collection.name}
                 </Link>
               )}
-
-              <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-5 leading-[1.05]">
+              <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground leading-[1.05] mb-3">
                 {product.name}
               </h1>
 
-              <p className="text-2xl font-serif text-foreground mb-8">
-                ${product.price.toLocaleString()}
-              </p>
-
-              <div className="w-12 h-px bg-border mb-8" />
-
-              <p className="text-muted-foreground leading-[1.8] mb-10">
-                {product.longDescription}
-              </p>
-
-              {/* Details */}
-              <div className="space-y-5 mb-10 pb-10 border-b border-border">
-                <div>
-                  <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-muted-foreground block mb-1.5">
-                    Materials
-                  </span>
-                  <span className="text-sm text-foreground">{product.materials}</span>
+              {/* Rating */}
+              <div className="flex items-center gap-3 mb-6">
+                <div className="flex items-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <Star
+                      key={n}
+                      className={cn(
+                        "w-4 h-4",
+                        n <= Math.round(product.rating || 0)
+                          ? "fill-primary text-primary"
+                          : "text-muted-foreground/40",
+                      )}
+                    />
+                  ))}
                 </div>
-                {product.dimensions && (
-                  <div>
-                    <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-muted-foreground block mb-1.5">
-                      Dimensions
-                    </span>
-                    <span className="text-sm text-foreground">{product.dimensions}</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Quantity Selector */}
-              <div className="mb-6">
-                <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-muted-foreground block mb-3">
-                  Quantity
+                <span className="text-sm text-muted-foreground">
+                  {product.rating?.toFixed(1)} · {product.reviewCount} reviews
                 </span>
-                <QuantitySelector
-                  quantity={quantity}
-                  onQuantityChange={setQuantity}
-                />
               </div>
 
-              {/* Actions */}
-              <div className="flex flex-col gap-3">
+              {/* Price */}
+              <div className="p-5 bg-linen rounded-sm mb-6">
+                <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-primary mb-2">
+                  Today's Deal Price
+                </p>
+                <div className="flex items-baseline gap-3 flex-wrap">
+                  <span className="font-serif text-4xl text-foreground">{formatPrice(product.price)}</span>
+                  {product.mrp && (
+                    <span className="text-lg text-muted-foreground line-through">
+                      MRP {formatPrice(product.mrp)}
+                    </span>
+                  )}
+                  {product.discountPercent && (
+                    <span className="px-2 py-0.5 text-xs font-bold bg-primary text-primary-foreground rounded-sm">
+                      {product.discountPercent}% OFF
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-muted-foreground mt-2">Inclusive of all taxes</p>
+
+                {/* EMI */}
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button className="mt-3 text-xs text-primary hover:underline flex items-center gap-1">
+                      No-cost EMI from <span className="font-semibold">{formatPrice(emiMonthly)}/mo</span>
+                      <ChevronRight className="w-3 h-3" />
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>EMI Calculator</DialogTitle>
+                      <DialogDescription>Split your purchase into easy monthly installments.</DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-3 pt-2">
+                      {[3, 6, 9, 12].map((m) => (
+                        <div key={m} className="flex justify-between items-center py-3 border-b border-border">
+                          <span className="text-sm">{m} months</span>
+                          <span className="font-semibold">{formatPrice(Math.ceil(product.price / m))}/mo</span>
+                        </div>
+                      ))}
+                      <p className="text-xs text-muted-foreground pt-2">
+                        No-cost EMI on all major bank cards. Terms apply.
+                      </p>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
+
+              {/* Quantity + Pincode */}
+              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+                <div>
+                  <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-muted-foreground mb-2">Quantity</p>
+                  <QuantitySelector quantity={quantity} onQuantityChange={setQuantity} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-muted-foreground mb-2">
+                    Check Delivery
+                  </p>
+                  <form onSubmit={checkPincode} className="flex gap-2">
+                    <Input
+                      value={pincode}
+                      onChange={(e) => setPincode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                      placeholder="Enter pincode"
+                      className="rounded-sm"
+                      maxLength={6}
+                    />
+                    <Button type="submit" variant="outline" className="rounded-sm shrink-0">
+                      <MapPin className="w-4 h-4" />
+                    </Button>
+                  </form>
+                  {pincodeResult && (
+                    <p
+                      className={cn(
+                        "text-xs mt-2 flex items-start gap-1",
+                        pincodeResult.ok ? "text-primary" : "text-destructive",
+                      )}
+                    >
+                      {pincodeResult.ok && <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 shrink-0" />}
+                      {pincodeResult.msg}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* CTAs */}
+              <div className="grid sm:grid-cols-2 gap-3 mb-4">
                 <Button
                   size="lg"
-                  onClick={handleAddToCart}
-                  className="rounded-none w-full py-6 text-sm tracking-[0.15em] uppercase btn-premium"
+                  onClick={handleBuyReadymade}
+                  className="rounded-sm py-6 text-sm tracking-[0.15em] uppercase btn-premium"
                 >
-                  <ShoppingBag className="w-4 h-4 mr-3" />
-                  Add to Bag
+                  <ShoppingBag className="w-4 h-4 mr-2" /> Buy Readymade
                 </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="rounded-none w-full py-6 text-sm tracking-[0.1em] uppercase"
-                  onClick={handleWishlistToggle}
-                >
-                  <Heart
-                    className={cn(
-                      "w-4 h-4 mr-3 transition-all duration-300",
-                      inWishlist && "fill-primary text-primary"
-                    )}
-                  />
-                  {inWishlist ? "Saved to Wishlist" : "Add to Wishlist"}
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" size="lg" className="rounded-sm py-6 text-sm tracking-[0.15em] uppercase">
+                      Book Now
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Book a custom order</DialogTitle>
+                      <DialogDescription>
+                        Share your details — our design team will contact you within 24 hours to discuss custom sizing, finishes and delivery timelines.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        toast({ title: "Booking received", description: "We'll be in touch within 24 hours." });
+                      }}
+                      className="space-y-3 pt-2"
+                    >
+                      <Input placeholder="Your name" required className="rounded-sm" />
+                      <Input placeholder="Phone number" required className="rounded-sm" />
+                      <Input placeholder="City" required className="rounded-sm" />
+                      <Button type="submit" className="w-full rounded-sm">Request Consultation</Button>
+                    </form>
+                  </DialogContent>
+                </Dialog>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3 mb-6">
+                <Button variant="ghost" onClick={handleWishlist} className="rounded-sm text-xs">
+                  <Heart className={cn("w-4 h-4 mr-2", inWishlist && "fill-primary text-primary")} />
+                  {inWishlist ? "Saved" : "Wishlist"}
+                </Button>
+                <Button asChild variant="ghost" className="rounded-sm text-xs">
+                  <a href="tel:+919876543210"><Phone className="w-4 h-4 mr-2" /> Call to Order</a>
+                </Button>
+                <Button asChild variant="ghost" className="rounded-sm text-xs">
+                  <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer">
+                    <MessageCircle className="w-4 h-4 mr-2" /> WhatsApp
+                  </a>
                 </Button>
               </div>
 
-              {/* Trust signals */}
-              <div className="mt-10 pt-8 border-t border-border grid grid-cols-2 gap-6">
-                <div>
-                  <p className="text-[11px] font-semibold tracking-[0.15em] uppercase text-muted-foreground/60 mb-1">
-                    Shipping
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Complimentary worldwide
-                  </p>
+              {/* Payment Options */}
+              <div className="border border-border rounded-sm p-4 mb-6">
+                <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-muted-foreground mb-3">
+                  Payment Options
+                </p>
+                <div className="flex flex-wrap items-center gap-2">
+                  {["UPI", "GPay", "PhonePe", "Paytm", "Net Banking", "Credit / Debit Card", "EMI"].map((m) => (
+                    <span
+                      key={m}
+                      className="px-3 py-1.5 text-xs bg-muted text-foreground rounded-sm border border-border"
+                    >
+                      {m}
+                    </span>
+                  ))}
                 </div>
-                <div>
-                  <p className="text-[11px] font-semibold tracking-[0.15em] uppercase text-muted-foreground/60 mb-1">
-                    Returns
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    14-day return policy
-                  </p>
-                </div>
+              </div>
+
+              {/* Trust badges */}
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { icon: Truck, label: "Safe & Swift Delivery" },
+                  { icon: ShieldCheck, label: "5-Year Warranty" },
+                  { icon: Video, label: "Shop via Video Call" },
+                ].map((b, i) => (
+                  <div key={i} className="flex flex-col items-center text-center gap-2 p-3 bg-linen rounded-sm">
+                    <b.icon className="w-5 h-5 text-primary" />
+                    <span className="text-[11px] text-muted-foreground leading-tight">{b.label}</span>
+                  </div>
+                ))}
               </div>
             </motion.div>
+          </div>
+
+          {/* Details Accordion */}
+          <div className="mt-16 max-w-4xl">
+            <Accordion type="multiple" defaultValue={["desc"]} className="border-t border-border">
+              <AccordionItem value="desc">
+                <AccordionTrigger className="text-sm tracking-[0.15em] uppercase font-semibold">
+                  Description
+                </AccordionTrigger>
+                <AccordionContent>
+                  <p className="text-muted-foreground leading-[1.8]">{product.longDescription}</p>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="specs">
+                <AccordionTrigger className="text-sm tracking-[0.15em] uppercase font-semibold">
+                  Specifications
+                </AccordionTrigger>
+                <AccordionContent>
+                  <dl className="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
+                    <div className="flex justify-between border-b border-border pb-2">
+                      <dt className="text-muted-foreground">Dimensions</dt>
+                      <dd className="text-foreground">{product.dimensions}</dd>
+                    </div>
+                    <div className="flex justify-between border-b border-border pb-2">
+                      <dt className="text-muted-foreground">Material</dt>
+                      <dd className="text-foreground">{product.materials}</dd>
+                    </div>
+                    <div className="flex justify-between border-b border-border pb-2">
+                      <dt className="text-muted-foreground">Finish</dt>
+                      <dd className="text-foreground">Warm Oak, Matte</dd>
+                    </div>
+                    <div className="flex justify-between border-b border-border pb-2">
+                      <dt className="text-muted-foreground">Assembly</dt>
+                      <dd className="text-foreground">Free professional assembly</dd>
+                    </div>
+                  </dl>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="care">
+                <AccordionTrigger className="text-sm tracking-[0.15em] uppercase font-semibold">
+                  Care & Maintenance
+                </AccordionTrigger>
+                <AccordionContent>
+                  <ul className="text-sm text-muted-foreground leading-[1.8] list-disc pl-5 space-y-1">
+                    <li>Dust regularly with a soft, dry cloth.</li>
+                    <li>Avoid direct sunlight for long periods to preserve the finish.</li>
+                    <li>Wipe spills immediately using a lightly damp microfiber cloth.</li>
+                    <li>Do not use harsh chemicals or abrasive cleaners.</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="reviews">
+                <AccordionTrigger className="text-sm tracking-[0.15em] uppercase font-semibold">
+                  Ratings & Reviews
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="space-y-5">
+                    <div className="flex items-center gap-4">
+                      <span className="font-serif text-4xl">{product.rating?.toFixed(1)}</span>
+                      <div>
+                        <div className="flex items-center gap-0.5">
+                          {[1, 2, 3, 4, 5].map((n) => (
+                            <Star
+                              key={n}
+                              className={cn(
+                                "w-4 h-4",
+                                n <= Math.round(product.rating || 0)
+                                  ? "fill-primary text-primary"
+                                  : "text-muted-foreground/40",
+                              )}
+                            />
+                          ))}
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Based on {product.reviewCount} verified reviews
+                        </p>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      {reviews.map((r, i) => (
+                        <div key={i} className="border-t border-border pt-4">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="font-medium text-sm">{r.name}</span>
+                            <div className="flex">
+                              {Array.from({ length: r.rating }).map((_, j) => (
+                                <Star key={j} className="w-3 h-3 fill-primary text-primary" />
+                              ))}
+                            </div>
+                          </div>
+                          <p className="text-sm text-muted-foreground">{r.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>
 
-      {/* Related Products */}
-      {relatedProducts.length > 0 && (
-        <section className="py-20 md:py-28 bg-linen">
-          <div className="container-full">
-            <div className="flex items-end justify-between mb-12">
-              <div>
-                <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-3">
-                  You May Also Like
-                </p>
-                <h2 className="font-serif text-3xl md:text-4xl text-foreground">
-                  More from {collection?.name}
-                </h2>
-              </div>
-              <Link
-                to={`/products?collection=${collection?.slug}`}
-                className="hidden md:flex items-center gap-2 text-sm tracking-[0.1em] uppercase text-muted-foreground hover:text-foreground transition-colors"
-              >
-                View All
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
-              {relatedProducts.map((product, index) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  index={index}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
+      {/* Related */}
+      {related.length > 0 && (
+        <div className="bg-linen">
+          <ProductCarousel
+            eyebrow="You may also like"
+            title={`More from ${collection?.name}`}
+            viewAllHref={`/products?collection=${collection?.slug}`}
+            products={related}
+          />
+        </div>
       )}
     </Layout>
   );

@@ -1,18 +1,10 @@
-import { Link } from "react-router-dom";
-import { Heart, Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Heart, Menu, Search, User, Package, X, Phone, Video } from "lucide-react";
+import { useState, useEffect, FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useWishlist } from "@/hooks/useWishlist";
 import { CartIcon } from "@/components/CartIcon";
 import { collections } from "@/data/products";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 import {
   Tooltip,
   TooltipContent,
@@ -23,92 +15,106 @@ import { cn } from "@/lib/utils";
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [query, setQuery] = useState("");
   const { items } = useWishlist();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleSearch = (e: FormEvent) => {
+    e.preventDefault();
+    const q = query.trim();
+    navigate(q ? `/products?q=${encodeURIComponent(q)}` : "/products");
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 transition-all duration-500",
-        scrolled
-          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
-          : "bg-background/80 backdrop-blur-sm border-b border-transparent"
+        "sticky top-0 z-50 transition-all duration-500 bg-background",
+        scrolled ? "shadow-sm border-b border-border" : "border-b border-border/60",
       )}
     >
-      <nav className="container-full">
-        <div className="flex items-center justify-between h-16 md:h-20">
+      {/* Top utility bar */}
+      <div className="hidden md:block bg-foreground text-background/80 text-[11px]">
+        <div className="container-full flex items-center justify-between h-8">
+          <div className="flex items-center gap-5">
+            <a href="tel:+919876543210" className="flex items-center gap-2 hover:text-background transition-colors">
+              <Phone className="w-3 h-3" /> +91 98765 43210
+            </a>
+            <span className="opacity-60">Free delivery over ₹15,000</span>
+          </div>
+          <a href="#" className="flex items-center gap-2 hover:text-background transition-colors">
+            <Video className="w-3 h-3" /> Shop via Video Call
+          </a>
+        </div>
+      </div>
+
+      {/* Main bar */}
+      <div className="container-full">
+        <div className="flex items-center gap-4 md:gap-8 h-16 md:h-20">
           {/* Logo */}
           <Link
             to="/"
-            className="font-serif text-2xl md:text-3xl tracking-tight text-foreground hover:text-primary transition-colors duration-300"
+            className="flex items-center gap-2 shrink-0 text-foreground hover:text-primary transition-colors"
           >
-            Maison
+            <span className="w-9 h-9 rounded-sm bg-primary text-primary-foreground grid place-items-center font-serif text-xl">
+              R
+            </span>
+            <span className="hidden sm:flex flex-col leading-none">
+              <span className="font-serif text-xl md:text-2xl tracking-tight">Rizwan</span>
+              <span className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground">Furniture</span>
+            </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground">
-                    Collections
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-1 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      {collections.map((collection) => (
-                        <li key={collection.id}>
-                          <NavigationMenuLink asChild>
-                            <Link
-                              to={`/products?collection=${collection.slug}`}
-                              className={cn(
-                                "block select-none space-y-1 rounded-sm p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                              )}
-                            >
-                              <div className="text-sm font-medium leading-none">
-                                {collection.name}
-                              </div>
-                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                {collection.description}
-                              </p>
-                            </Link>
-                          </NavigationMenuLink>
-                        </li>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-
-            <Link
-              to="/products"
-              className="text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300 link-underline"
+          {/* Search */}
+          <form onSubmit={handleSearch} className="flex-1 max-w-2xl relative hidden md:block">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search for sofas, wardrobes, beds…"
+              className="w-full h-11 pl-11 pr-24 bg-muted/60 border border-transparent focus:border-primary/40 focus:bg-background outline-none text-sm rounded-sm transition-colors"
+            />
+            <button
+              type="submit"
+              className="absolute right-1.5 top-1.5 h-8 px-4 text-[11px] tracking-[0.15em] uppercase bg-primary text-primary-foreground hover:bg-primary/90 rounded-sm transition-colors"
             >
-              Shop All
-            </Link>
+              Search
+            </button>
+          </form>
 
-            <Link
-              to="/about"
-              className="text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300 link-underline"
-            >
-              About
-            </Link>
-          </div>
-
-          {/* Right side actions */}
-          <div className="flex items-center gap-2">
-            {/* Wishlist Icon with Tooltip */}
+          {/* Right actions */}
+          <div className="flex items-center gap-1 ml-auto">
             <Tooltip>
               <TooltipTrigger asChild>
-                <button className="relative p-2 hover:bg-accent transition-colors duration-300 group">
-                  <Heart className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                <Link to="/products" className="hidden md:flex flex-col items-center px-3 py-2 hover:bg-accent transition-colors rounded-sm">
+                  <User className="w-5 h-5" />
+                  <span className="text-[10px] mt-0.5 tracking-wider uppercase text-muted-foreground">Profile</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">Sign in</TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link to="/products" className="hidden md:flex flex-col items-center px-3 py-2 hover:bg-accent transition-colors rounded-sm">
+                  <Package className="w-5 h-5" />
+                  <span className="text-[10px] mt-0.5 tracking-wider uppercase text-muted-foreground">Orders</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">Track your orders</TooltipContent>
+            </Tooltip>
+
+            {/* Wishlist */}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button className="relative p-2 hover:bg-accent transition-colors rounded-sm">
+                  <Heart className="w-5 h-5" />
                   <AnimatePresence>
                     {items.length > 0 && (
                       <motion.span
@@ -127,50 +133,38 @@ export const Header = () => {
                 {items.length === 0 ? (
                   <p className="text-sm">Your wishlist is empty</p>
                 ) : (
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">{items.length} saved {items.length === 1 ? 'item' : 'items'}</p>
-                    <div className="space-y-1">
-                      {items.slice(0, 3).map((item) => (
-                        <p key={item.id} className="text-xs text-muted-foreground truncate">
-                          {item.name}
-                        </p>
-                      ))}
-                      {items.length > 3 && (
-                        <p className="text-xs text-muted-foreground">+{items.length - 3} more</p>
-                      )}
-                    </div>
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium">
+                      {items.length} saved {items.length === 1 ? "item" : "items"}
+                    </p>
+                    {items.slice(0, 3).map((item) => (
+                      <p key={item.id} className="text-xs text-muted-foreground truncate">
+                        {item.name}
+                      </p>
+                    ))}
+                    {items.length > 3 && (
+                      <p className="text-xs text-muted-foreground">+{items.length - 3} more</p>
+                    )}
                   </div>
                 )}
               </TooltipContent>
             </Tooltip>
 
-            {/* Cart Icon */}
             <CartIcon />
 
             {/* Mobile menu button */}
             <button
-              className="md:hidden p-2 hover:bg-accent transition-colors duration-300"
+              className="md:hidden p-2 hover:bg-accent transition-colors rounded-sm"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Menu"
             >
               <AnimatePresence mode="wait">
                 {mobileMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
                     <X className="w-5 h-5" />
                   </motion.div>
                 ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
                     <Menu className="w-5 h-5" />
                   </motion.div>
                 )}
@@ -179,65 +173,94 @@ export const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] as const }}
-              className="md:hidden border-t border-border overflow-hidden"
-            >
-              <div className="py-8 space-y-6">
-                <div className="space-y-1">
-                  <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-muted-foreground/50 px-2 mb-3">
-                    Collections
-                  </p>
-                  {collections.slice(0, 6).map((collection, i) => (
-                    <motion.div
-                      key={collection.id}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.05 }}
-                    >
+        {/* Category nav row */}
+        <nav className="hidden md:block border-t border-border/60">
+          <ul className="flex items-center gap-8 h-11 overflow-x-auto no-scrollbar">
+            {collections.map((c) => (
+              <li key={c.id} className="shrink-0">
+                <Link
+                  to={`/products?collection=${c.slug}`}
+                  className="text-[11px] font-medium tracking-[0.18em] uppercase text-muted-foreground hover:text-primary transition-colors link-underline py-2"
+                >
+                  {c.name}
+                </Link>
+              </li>
+            ))}
+            <li className="shrink-0 ml-auto">
+              <Link
+                to="/about"
+                className="text-[11px] font-medium tracking-[0.18em] uppercase text-muted-foreground hover:text-primary transition-colors link-underline"
+              >
+                About
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden border-t border-border overflow-hidden bg-background"
+          >
+            <div className="container-full py-6 space-y-6">
+              <form onSubmit={handleSearch} className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search furniture…"
+                  className="w-full h-11 pl-11 pr-4 bg-muted/60 outline-none text-sm rounded-sm"
+                />
+              </form>
+
+              <div>
+                <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-muted-foreground/60 mb-3">
+                  Categories
+                </p>
+                <ul className="space-y-1">
+                  {collections.map((c) => (
+                    <li key={c.id}>
                       <Link
-                        to={`/products?collection=${collection.slug}`}
-                        className="block px-2 py-2.5 text-sm hover:bg-accent transition-colors duration-300"
+                        to={`/products?collection=${c.slug}`}
                         onClick={() => setMobileMenuOpen(false)}
+                        className="block py-2 text-sm hover:text-primary transition-colors"
                       >
-                        {collection.name}
+                        {c.name}
                       </Link>
-                    </motion.div>
+                    </li>
                   ))}
-                </div>
-                <div className="pt-6 border-t border-border space-y-1">
-                  {[
-                    { to: "/products", label: "Shop All" },
-                    { to: "/about", label: "About" },
-                    { to: "/cart", label: "Shopping Bag" },
-                  ].map((link, i) => (
-                    <motion.div
-                      key={link.to}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3 + i * 0.05 }}
-                    >
-                      <Link
-                        to={link.to}
-                        className="block px-2 py-2.5 text-sm font-medium hover:bg-accent transition-colors duration-300"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {link.label}
-                      </Link>
-                    </motion.div>
-                  ))}
-                </div>
+                </ul>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
+
+              <div className="pt-4 border-t border-border space-y-1">
+                {[
+                  { to: "/products", label: "Shop All" },
+                  { to: "/about", label: "About" },
+                  { to: "/cart", label: "Shopping Cart" },
+                ].map((l) => (
+                  <Link
+                    key={l.to}
+                    to={l.to}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block py-2 text-sm font-medium hover:text-primary transition-colors"
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+                <a href="tel:+919876543210" className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
+                  <Phone className="w-4 h-4" /> +91 98765 43210
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
