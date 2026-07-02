@@ -1,233 +1,84 @@
 
+# Rizwan Furniture — Urban Ladder-Inspired Rebuild
 
-# Homepage & Store Restructure
+Rebrand the existing Maison store into **Rizwan Furniture**: a premium, minimalist furniture e-commerce site with a monochromatic warm-oak palette, horizontal carousels on the homepage, and a fully-featured product detail page. Placeholders will be styled so real 4K product photos can be swapped in later without touching layout.
 
-This plan transforms the portfolio/inquiry-only website into a fully functional e-commerce store with cart, checkout, and proper product flow.
+## 1. Brand & Design System
 
----
+- Rename Maison → **Rizwan Furniture** across header, footer, meta tags, page titles.
+- Refined monochromatic palette in `index.css` (HSL tokens):
+  - Background: soft cream `#FAF7F2`
+  - Surface / cards: warm ivory `#F2EDE4`
+  - Foreground: deep espresso `#2A1F17`
+  - Accent (CTAs, discount tags): light oak `#B08A5B`
+  - Muted borders: `#E5DDD1`
+- Typography: keep Cormorant Garamond for display headings, Inter for body/UI. Tight tracking on nav.
+- Reusable pieces: rounded-sm CTAs, oak-underline nav hovers, subtle card hover-lift.
 
-## Summary of Changes
+## 2. Header (Urban Ladder-style)
 
-### Current State → New State
-- **Wishlist page** → Removed (keep wishlist functionality in header icon only)
-- **Inquiry-based flow** → Shopping cart + checkout flow
-- **Product detail "Inquire" button** → "Add to Bag" + quantity selector
-- **Homepage structure** → Reorganized to match reference layout
+Replace current `Header.tsx` with three-row layout:
+- Top bar: contact number + "Shop via Video Call" link.
+- Main bar: **Rizwan Furniture** logo (left) · centered **search input** with icon (functional — filters `/products` by query param) · right-side icons for **Profile**, **Orders**, **Wishlist**, **Cart** (all with tooltips, cart/wishlist badges preserved).
+- Category nav row: Home Interiors · Modular Kitchen · Wardrobes · Beds · Living · Dining · Study — each links to `/products?category=<slug>`.
+- Mobile: collapsible drawer with search on top, categories listed below.
 
----
+## 3. Product Data
 
-## 1. Homepage Restructure
+Extend `src/data/products.ts`:
+- Add categories matching the nav (tv-units, wardrobes, beds, modular-kitchen, dining, study, sofas-lounge).
+- ~6–8 mock products per section with: name, price, mrp, discountPercent, category, image (placeholder styled tile), short description, dimensions, material.
+- Keep the demo behavior: all product cards route to the single detail page (per project memory).
 
-Reorganize sections to follow this exact order:
+## 4. Homepage Sections (horizontal carousels)
 
-| Section | Description |
-|---------|-------------|
-| Hero Banner | Keep existing lifestyle hero |
-| Featured Collection(s) | 1-2 highlighted collections with editorial imagery |
-| Latest Products | Grid of newest arrivals |
-| Collections | Grid/list of all collection categories |
-| About Us | Brand philosophy snippet with link |
-| Follow Us | Social media / Instagram feed placeholder |
+Rebuild `pages/Index.tsx`:
+1. **Hero banner** — full-width premium sofa scene, headline "FullHouse Fiesta — up to 70% OFF", subcopy, **SHOP NOW** CTA.
+2. Reusable `<ProductCarousel title="…" products={…} />` built on existing shadcn `carousel.tsx` with visible left/right arrow buttons, snap scrolling, 4-up desktop / 2-up tablet / 1.2-up mobile. Each card shows image, title, **offer price**, struck-through MRP, and **XX% OFF** tag.
+3. Sections in order: Explore TV Units · Explore Wardrobes · Explore Beds · Modular Kitchens & Dining · Explore Study Tables · Explore Lounge Chairs & Sofas.
+4. Trust strip (Free delivery / Warranty / Video-call shopping) above footer.
 
-### Remove from Homepage
-- Philosophy statement section (move essence to About Us section)
-- Marquee text banner
-- Full-width lifestyle banner mid-page
-- Newsletter section (move to footer only)
+## 5. Product Detail Page
 
----
+Rewrite `pages/ProductDetail.tsx`:
+- **Left**: main 4K image with interactive **magnifier lens** — a square overlay follows the cursor and a zoomed panel renders to the right (desktop) / below (mobile). Implemented with a small custom component using CSS background-position (no new deps). Thumbnail rail underneath.
+- **Right column**:
+  - Breadcrumbs, title, star rating, review count.
+  - Price block: **Today's Deal Price**, MRP struck-through, **% OFF** tag, "No-cost EMI from ₹X/mo" line with a small calculator popover.
+  - Quantity selector (+/-), **Pincode availability check** input with mock validation and delivery ETA response.
+  - CTAs: **Buy Readymade** (adds to cart → /checkout) and **Book Now** (opens booking dialog for custom orders).
+  - Payment options row: UPI (GPay / PhonePe / Paytm), Net Banking, Cards — as icon chips.
+  - **Call to Order / WhatsApp** panel with phone number + WhatsApp deep link.
+  - Trust badges row: Safe & Swift Delivery · Warranty · Shop via Video Call.
+- **Below the fold**: Accordion (shadcn) with Description · Specifications (Width/Height/Depth/Material) · Care & Maintenance · Ratings & Reviews (mock reviews list with star average).
+- Related products carousel at the bottom.
 
-## 2. Collection/Products Page Updates
+## 6. Supporting Pages
 
-### Add Filters
-- Collection filter (already exists)
-- Price range filter (Low to High, High to Low)
-- Material type filter
-- "New Arrivals" and "Featured" quick filters
+- `pages/Products.tsx`: category + search filtering via query params, sort dropdown, grid of cards.
+- `pages/Cart.tsx` & `pages/Checkout.tsx`: keep existing behavior; restyle to match new palette and rename Maison → Rizwan Furniture.
+- Footer: rename brand, adjust column copy for furniture categories, keep newsletter form.
 
-### Add Sorting
-- Dropdown with options:
-  - Featured (default)
-  - Newest
-  - Price: Low to High
-  - Price: High to Low
-  - Alphabetical A-Z
+## 7. SEO / Meta
 
-### Product Grid
-- Keep existing editorial-style grid
-- Ensure all cards show mock data
-- Only the first product links to real detail page (others link to same product for demo purposes)
+- `index.html`: title "Rizwan Furniture — Premium Modern Furniture", meta description, og:title / og:description / twitter:card.
 
----
+## Technical Notes
 
-## 3. Product Detail Page Updates
+- Everything stays frontend-only. No backend changes; cart/wishlist remain Zustand+localStorage.
+- Carousels use existing `embla-carousel-react` via `components/ui/carousel.tsx` — no new deps.
+- Magnifier is a self-contained component (`components/ImageZoom.tsx`) using pointer events + CSS `background-image` + `background-position` on a square lens preview panel.
+- Pincode check, EMI calc, Book Now dialog, WhatsApp link are UI-only mocks with toast feedback.
+- Images are styled placeholder tiles (subtle gradient + product silhouette label) sized at 4:3 / 1:1 so real HD photos drop in as `<img src>` swaps later.
+- All new colors go into `index.css` + `tailwind.config.ts` as HSL tokens; no hardcoded color classes in components.
 
-### Current → New Layout
-| Element | Change |
-|---------|--------|
-| Images | Keep existing gallery |
-| Title, Description, Price | Keep |
-| "Inquire About This Piece" | → "Add to Bag" primary CTA |
-| Wishlist button | Keep as secondary action |
-| **New: Quantity Selector** | Add increment/decrement control |
-| Related Products | Keep existing |
+## Rollout Order
 
-### New Elements to Add
-- Quantity selector (1-10, with +/- buttons)
-- "Add to Bag" button replaces inquiry button
-- Toast notification on add to cart
+1. Brand tokens + Header + Footer + meta.
+2. Product data expansion + `ProductCarousel` component + Homepage rebuild.
+3. `ImageZoom` component + Product Detail rewrite.
+4. Products listing filters + Cart/Checkout restyle.
 
----
+## Open Question
 
-## 4. New Cart System
-
-### Create Cart Store (Zustand)
-Similar to wishlist but with quantity:
-- `items: { product, quantity }[]`
-- `addItem(product, quantity)`
-- `updateQuantity(productId, quantity)`
-- `removeItem(productId)`
-- `getTotal()`
-- `getItemCount()`
-- Persist to localStorage
-
-### Cart Page (`/cart`)
-| Element | Description |
-|---------|-------------|
-| Product List | Image, title, price, quantity selector, remove button |
-| Cart Summary | Subtotal, estimated shipping, total |
-| Checkout CTA | Button linking to checkout page |
-| Continue Shopping | Secondary link back to products |
-
----
-
-## 5. Checkout Page (`/checkout`)
-
-### Coming Soon Banner
-- Prominent banner: "Online checkout coming soon"
-- Message: "Please contact us to complete your order"
-- Email/phone contact info
-
-### Order Summary
-- List of cart items (read-only)
-- Quantities and prices
-- Subtotal and total
-
-### Contact Form
-- Name, Email, Phone
-- Shipping address fields
-- Order notes/special requests
-- "Submit Order Request" button
-- Form submits and clears cart with success message
-
----
-
-## 6. Header Updates
-
-### Navigation Changes
-| Current | New |
-|---------|-----|
-| Wishlist icon | Keep (but no dedicated page, opens mini drawer or tooltip) |
-| **New:** Cart icon | Bag icon with item count badge |
-
-### Cart Icon Behavior
-- Shows item count
-- Links to `/cart` page
-
----
-
-## 7. Mock Data Strategy
-
-### Product Cards Approach
-- All product cards render with unique mock data (images, names, prices)
-- For demo simplicity, clicking any product goes to a single working detail page
-- This prevents broken pages while showcasing the grid design
-
-### Implementation
-- Keep existing product data
-- First product (Arc Pendant Light) is the "real" linkable product
-- Other cards can link to this same product for the demo
-
----
-
-## 8. Files to Create
-
-| File | Purpose |
-|------|---------|
-| `src/hooks/useCart.ts` | Cart state management with Zustand |
-| `src/pages/Cart.tsx` | Shopping cart page |
-| `src/pages/Checkout.tsx` | Checkout page with form |
-| `src/components/QuantitySelector.tsx` | Reusable +/- quantity control |
-| `src/components/CartIcon.tsx` | Header cart icon with badge |
-
----
-
-## 9. Files to Modify
-
-| File | Changes |
-|------|---------|
-| `src/pages/Index.tsx` | Restructure sections per new layout |
-| `src/pages/Products.tsx` | Add filters and sorting UI |
-| `src/pages/ProductDetail.tsx` | Add quantity selector, change CTA to "Add to Bag" |
-| `src/components/Header.tsx` | Add cart icon, update wishlist behavior |
-| `src/components/Footer.tsx` | Remove wishlist link, keep rest |
-| `src/App.tsx` | Add `/cart` and `/checkout` routes, remove `/wishlist` |
-| `src/components/Layout.tsx` | Fix TypeScript error with Framer Motion variants |
-
----
-
-## 10. Files to Delete
-
-| File | Reason |
-|------|--------|
-| `src/pages/Wishlist.tsx` | User requested removal |
-
----
-
-## Technical Details
-
-### Fix Build Error (Layout.tsx)
-The Framer Motion `ease` array needs to be typed as a tuple:
-```typescript
-ease: [0.25, 0.46, 0.45, 0.94] as const
-```
-
-### Cart Store Structure
-```typescript
-interface CartItem {
-  product: Product;
-  quantity: number;
-}
-
-interface CartState {
-  items: CartItem[];
-  addItem: (product: Product, quantity: number) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
-  removeItem: (productId: string) => void;
-  clearCart: () => void;
-  getSubtotal: () => number;
-  getItemCount: () => number;
-}
-```
-
-### Quantity Selector Component
-- Shows current quantity (default: 1)
-- Minus button (disabled at 1)
-- Plus button (max 10)
-- Clean, minimal styling matching brand
-
-### Sorting Implementation
-- URL parameter based (`?sort=price-asc`)
-- Combined with existing collection filter
-- `useMemo` for filtered and sorted products
-
----
-
-## Visual Design Notes
-
-- Maintain warm, Scandinavian aesthetic throughout
-- Cart and checkout pages use same cream/neutral tones
-- No dark theming - keep light, warm palette
-- Generous whitespace on cart/checkout pages
-- Form inputs match existing inquiry form styling
-
+Would you like me to (a) implement the entire scope in one pass, or (b) ship it phase-by-phase (starting with brand + header + homepage carousels) so you can review before I move to the detail page and beyond?
