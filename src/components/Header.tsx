@@ -1,36 +1,42 @@
-import { Link, useNavigate } from "react-router-dom";
-import { Heart, Menu, Search, User, Package, X, Phone, Video } from "lucide-react";
-import { useState, useEffect, FormEvent } from "react";
+import { Link } from "react-router-dom";
+import { Heart, Menu, User, Package, X, Phone, MessageCircle, LogIn } from "lucide-react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 import { useWishlist } from "@/hooks/useWishlist";
 import { CartIcon } from "@/components/CartIcon";
+import { LiveSearch } from "@/components/LiveSearch";
 import { collections } from "@/data/products";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { CONTACT, whatsappUrl } from "@/config/contact";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+
+const homepageCategoryIds = [
+  "beds",
+  "wardrobes",
+  "modular-kitchen",
+  "tv-units",
+  "dining",
+  "wooden-cabinets",
+  "bookshelves",
+  "decorative-lights",
+];
+
+const primaryCategories = collections.filter((c) => homepageCategoryIds.includes(c.id));
+
+const comingSoon = () =>
+  toast("Coming soon", { description: "Accounts and orders launch with the next update." });
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [query, setQuery] = useState("");
   const { items } = useWishlist();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const handleSearch = (e: FormEvent) => {
-    e.preventDefault();
-    const q = query.trim();
-    navigate(q ? `/products?q=${encodeURIComponent(q)}` : "/products");
-    setMobileMenuOpen(false);
-  };
 
   return (
     <header
@@ -43,77 +49,71 @@ export const Header = () => {
       <div className="hidden md:block bg-foreground text-background/80 text-[11px]">
         <div className="container-full flex items-center justify-between h-8">
           <div className="flex items-center gap-5">
-            <a href="tel:+919876543210" className="flex items-center gap-2 hover:text-background transition-colors">
-              <Phone className="w-3 h-3" /> +91 98765 43210
+            <a href={`tel:${CONTACT.phoneTel}`} className="flex items-center gap-2 hover:text-background transition-colors">
+              <Phone className="w-3 h-3" /> {CONTACT.phone}
+            </a>
+            <a
+              href={whatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-background transition-colors"
+            >
+              <MessageCircle className="w-3 h-3" /> WhatsApp
             </a>
             <span className="opacity-60">Free delivery over ₹15,000</span>
           </div>
-          <a href="#" className="flex items-center gap-2 hover:text-background transition-colors">
-            <Video className="w-3 h-3" /> Shop via Video Call
-          </a>
+          <div className="flex items-center gap-5">
+            <button onClick={comingSoon} className="hover:text-background transition-colors">Login</button>
+            <button onClick={comingSoon} className="hover:text-background transition-colors">My Account</button>
+          </div>
         </div>
       </div>
 
       {/* Main bar */}
       <div className="container-full">
         <div className="flex items-center gap-4 md:gap-8 h-16 md:h-20">
-          {/* Logo */}
-          <Link
-            to="/"
-            className="flex items-center gap-2 shrink-0 text-foreground hover:text-primary transition-colors"
-          >
-            <span className="w-9 h-9 rounded-sm bg-primary text-primary-foreground grid place-items-center font-serif text-xl">
-              R
-            </span>
+          <Link to="/" className="flex items-center gap-2 shrink-0 text-foreground hover:text-primary transition-colors">
+            <span className="w-9 h-9 rounded-sm bg-primary text-primary-foreground grid place-items-center font-serif text-xl">R</span>
             <span className="hidden sm:flex flex-col leading-none">
               <span className="font-serif text-xl md:text-2xl tracking-tight">Rizwan</span>
               <span className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground">Furniture</span>
             </span>
           </Link>
 
-          {/* Search */}
-          <form onSubmit={handleSearch} className="flex-1 max-w-2xl relative hidden md:block">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search for sofas, wardrobes, beds…"
-              className="w-full h-11 pl-11 pr-24 bg-muted/60 border border-transparent focus:border-primary/40 focus:bg-background outline-none text-sm rounded-sm transition-colors"
-            />
-            <button
-              type="submit"
-              className="absolute right-1.5 top-1.5 h-8 px-4 text-[11px] tracking-[0.15em] uppercase bg-primary text-primary-foreground hover:bg-primary/90 rounded-sm transition-colors"
-            >
-              Search
-            </button>
-          </form>
+          <div className="flex-1 max-w-2xl hidden md:block">
+            <LiveSearch />
+          </div>
 
-          {/* Right actions */}
           <div className="flex items-center gap-1 ml-auto">
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link to="/products" className="hidden md:flex flex-col items-center px-3 py-2 hover:bg-accent transition-colors rounded-sm">
+                <button
+                  onClick={comingSoon}
+                  className="hidden md:flex flex-col items-center px-3 py-2 hover:bg-accent transition-colors rounded-sm"
+                >
                   <User className="w-5 h-5" />
                   <span className="text-[10px] mt-0.5 tracking-wider uppercase text-muted-foreground">Profile</span>
-                </Link>
+                </button>
               </TooltipTrigger>
               <TooltipContent side="bottom">Sign in</TooltipContent>
             </Tooltip>
 
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link to="/products" className="hidden md:flex flex-col items-center px-3 py-2 hover:bg-accent transition-colors rounded-sm">
+                <button
+                  onClick={comingSoon}
+                  className="hidden md:flex flex-col items-center px-3 py-2 hover:bg-accent transition-colors rounded-sm"
+                >
                   <Package className="w-5 h-5" />
                   <span className="text-[10px] mt-0.5 tracking-wider uppercase text-muted-foreground">Orders</span>
-                </Link>
+                </button>
               </TooltipTrigger>
               <TooltipContent side="bottom">Track your orders</TooltipContent>
             </Tooltip>
 
-            {/* Wishlist */}
             <Tooltip>
               <TooltipTrigger asChild>
-                <button className="relative p-2 hover:bg-accent transition-colors rounded-sm">
+                <button className="relative p-2 hover:bg-accent transition-colors rounded-sm" aria-label="Wishlist">
                   <Heart className="w-5 h-5" />
                   <AnimatePresence>
                     {items.length > 0 && (
@@ -133,26 +133,24 @@ export const Header = () => {
                 {items.length === 0 ? (
                   <p className="text-sm">Your wishlist is empty</p>
                 ) : (
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">
-                      {items.length} saved {items.length === 1 ? "item" : "items"}
-                    </p>
-                    {items.slice(0, 3).map((item) => (
-                      <p key={item.id} className="text-xs text-muted-foreground truncate">
-                        {item.name}
-                      </p>
-                    ))}
-                    {items.length > 3 && (
-                      <p className="text-xs text-muted-foreground">+{items.length - 3} more</p>
-                    )}
-                  </div>
+                  <p className="text-sm">{items.length} saved {items.length === 1 ? "item" : "items"}</p>
                 )}
               </TooltipContent>
             </Tooltip>
 
             <CartIcon />
 
-            {/* Mobile menu button */}
+            {/* WhatsApp quick action (desktop) */}
+            <a
+              href={whatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden lg:inline-flex items-center gap-2 ml-2 px-3 py-2 text-[11px] tracking-[0.15em] uppercase bg-primary text-primary-foreground hover:bg-primary/90 rounded-sm transition-colors"
+              aria-label="Chat on WhatsApp"
+            >
+              <MessageCircle className="w-4 h-4" /> Chat
+            </a>
+
             <button
               className="md:hidden p-2 hover:bg-accent transition-colors rounded-sm"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -173,10 +171,9 @@ export const Header = () => {
           </div>
         </div>
 
-        {/* Category nav row */}
         <nav className="hidden md:block border-t border-border/60">
           <ul className="flex items-center gap-8 h-11 overflow-x-auto no-scrollbar">
-            {collections.map((c) => (
+            {primaryCategories.map((c) => (
               <li key={c.id} className="shrink-0">
                 <Link
                   to={`/products?collection=${c.slug}`}
@@ -198,7 +195,6 @@ export const Header = () => {
         </nav>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -209,22 +205,14 @@ export const Header = () => {
             className="md:hidden border-t border-border overflow-hidden bg-background"
           >
             <div className="container-full py-6 space-y-6">
-              <form onSubmit={handleSearch} className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <input
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search furniture…"
-                  className="w-full h-11 pl-11 pr-4 bg-muted/60 outline-none text-sm rounded-sm"
-                />
-              </form>
+              <LiveSearch onNavigate={() => setMobileMenuOpen(false)} />
 
               <div>
                 <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-muted-foreground/60 mb-3">
                   Categories
                 </p>
                 <ul className="space-y-1">
-                  {collections.map((c) => (
+                  {primaryCategories.map((c) => (
                     <li key={c.id}>
                       <Link
                         to={`/products?collection=${c.slug}`}
@@ -253,8 +241,19 @@ export const Header = () => {
                     {l.label}
                   </Link>
                 ))}
-                <a href="tel:+919876543210" className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
-                  <Phone className="w-4 h-4" /> +91 98765 43210
+                <button onClick={comingSoon} className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
+                  <LogIn className="w-4 h-4" /> Login / My Account
+                </button>
+                <a href={`tel:${CONTACT.phoneTel}`} className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
+                  <Phone className="w-4 h-4" /> {CONTACT.phone}
+                </a>
+                <a
+                  href={whatsappUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 py-2 text-sm text-primary"
+                >
+                  <MessageCircle className="w-4 h-4" /> WhatsApp us
                 </a>
               </div>
             </div>
