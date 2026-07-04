@@ -566,15 +566,20 @@ import { defineTool as defineTool4 } from "npm:@lovable.dev/mcp-js@0.20.0";
 // src/config/contact.ts
 var CONTACT = {
   /** Displayed phone number */
-  phone: "+91 98765 43210",
+  phone: "+91 63942 49533",
   /** Number for tel: links (no spaces) */
-  phoneTel: "+919876543210",
+  phoneTel: "+916394249533",
   /** WhatsApp number in international format, digits only */
-  whatsapp: "919876543210",
+  whatsapp: "916394249533",
   /** Support email */
   email: "hello@rizwanfurniture.com",
   /** Full brand address (for footer / contact) */
-  address: "Rizwan Furniture Studio, MG Road, Bengaluru 560001"
+  address: "Rizwan Furniture Studio, MG Road, Bengaluru 560001",
+  /** Business hours */
+  hours: [
+    { days: "Monday \u2013 Saturday", time: "10:00 AM \u2013 8:00 PM" },
+    { days: "Sunday", time: "11:00 AM \u2013 6:00 PM" }
+  ]
 };
 var whatsappUrl = (message = "Hi Rizwan Furniture, I'd like to know more.") => `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
 
