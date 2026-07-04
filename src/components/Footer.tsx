@@ -69,7 +69,7 @@ export const Footer = () => {
               <li><Link to="/products" className="text-sm text-background/60 hover:text-background transition-colors">Shop All</Link></li>
               <li><Link to="/about" className="text-sm text-background/60 hover:text-background transition-colors">Our Story</Link></li>
               <li><Link to="/cart" className="text-sm text-background/60 hover:text-background transition-colors">Shopping Cart</Link></li>
-              <li><a href="#contact" className="text-sm text-background/60 hover:text-background transition-colors">Interior Design Service</a></li>
+              <li><Link to="/contact" className="text-sm text-background/60 hover:text-background transition-colors">Contact Us</Link></li>
             </ul>
           </div>
 
