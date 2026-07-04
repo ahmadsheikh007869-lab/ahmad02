@@ -1,5 +1,5 @@
 import { defineTool } from "@lovable.dev/mcp-js";
-import { CONTACT, whatsappUrl } from "../../config/contact";
+import { CONTACT, whatsappUrl } from "../../../config/contact.ts";
 
 export default defineTool({
   name: "get_contact_info",

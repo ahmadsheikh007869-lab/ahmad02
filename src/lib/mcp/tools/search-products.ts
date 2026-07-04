@@ -1,6 +1,6 @@
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
-import { products } from "../../data/products";
+import { products } from "../../../data/products.ts";
 
 export default defineTool({
   name: "search_products",
