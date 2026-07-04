@@ -94,7 +94,7 @@ export const CompareBar = () => {
                       <td key={p.id} className="py-3 px-3">
                         {r.key === "price"
                           ? formatPrice(p.price)
-                          : String((p as Record<string, unknown>)[r.key as string] ?? "—")}
+                          : String((p as unknown as Record<string, unknown>)[r.key as string] ?? "—")}
                       </td>
                     ))}
                   </tr>
