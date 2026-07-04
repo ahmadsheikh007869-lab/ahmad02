@@ -1,29 +1,38 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Heart, ShoppingBag, Star, Truck, ShieldCheck, Video, Phone,
-  MessageCircle, MapPin, CheckCircle2, ChevronRight,
+  MessageCircle, MapPin, CheckCircle2, ChevronRight, Share2, Scale,
+  Maximize2, ChevronLeft,
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { QuantitySelector } from "@/components/QuantitySelector";
 import { ImageZoom } from "@/components/ImageZoom";
+import { BookingDialog } from "@/components/BookingDialog";
 import {
-  getProductBySlug, getRelatedProducts, collections, formatPrice,
+  getProductBySlug, getRelatedProducts, collections, formatPrice, products,
 } from "@/data/products";
 import { useWishlist } from "@/hooks/useWishlist";
 import { useCart } from "@/hooks/useCart";
+import { useCompare } from "@/hooks/useCompare";
+import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { toast as sonner } from "sonner";
 import { cn } from "@/lib/utils";
+import { CONTACT, whatsappUrl } from "@/config/contact";
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger,
 } from "@/components/ui/dialog";
+
+interface UserReview { name: string; rating: number; text: string; ts: number }
 
 const ProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -33,9 +42,30 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [pincode, setPincode] = useState("");
   const [pincodeResult, setPincodeResult] = useState<null | { ok: boolean; msg: string }>(null);
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [reviewForm, setReviewForm] = useState({ name: "", rating: 5, text: "" });
+  const [userReviews, setUserReviews] = useState<UserReview[]>([]);
   const { addItem: addToWishlist, removeItem: removeFromWishlist, isInWishlist } = useWishlist();
   const { addItem: addToCart } = useCart();
+  const { toggle: toggleCompare, has: inCompare } = useCompare();
+  const pushRecent = useRecentlyViewed((s) => s.push);
+  const recentItems = useRecentlyViewed((s) => s.items);
   const { toast } = useToast();
+
+  const reviewsKey = product ? `rf.reviews.${product.id}` : "";
+
+  useEffect(() => {
+    if (!product) return;
+    pushRecent(product);
+    setImageIdx(0);
+    try {
+      const raw = localStorage.getItem(reviewsKey);
+      setUserReviews(raw ? JSON.parse(raw) : []);
+    } catch {
+      setUserReviews([]);
+    }
+  }, [product, pushRecent, reviewsKey]);
 
   if (!product) {
     return (
