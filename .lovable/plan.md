@@ -1,75 +1,82 @@
-# Phase 2 — Premium Homepage
+# Phase 3 — Product Detail, Booking & Contact
 
-Scope confirmed: **homepage + header/footer only**, 12 products × 8 core categories, Call/WhatsApp wired to a placeholder constant you can edit.
+Scope is homepage-plus-detail experience polish. No backend/DB — bookings are stored in `localStorage` and confirmed via WhatsApp deep-link (per your flow).
 
-## 1. Config & data
+## 1. Switch every contact number to 6394249533
 
-- `src/config/contact.ts` — single source of truth: `PHONE = "+91 98765 43210"`, `WHATSAPP = "919876543210"`, `EMAIL`. Header buttons and Footer read from here; edit one line to change everywhere.
-- `src/data/products.ts` — expand to **96 products** across 8 categories, each with distinct name / material / finish / color / style / price / MRP / rating / reviewCount / isNew / isBestSeller / isTrending flags:
-  - Beds, Wardrobes, Modular Kitchens, TV Units, Dining Tables, Wooden Cabinets, Bookshelves, Decorative Lights.
-- `src/data/categories.ts` — the 8 categories with icon + tile gradient for the Featured Categories grid.
-- `src/data/heroSlides.ts` — 5 hero slides (Premium Beds, Modular Kitchens, Wardrobes, Wooden Interiors, Festive Offers) with headline, sub, CTA, background gradient.
-- `src/data/reviews.ts`, `src/data/faqs.ts`, `src/data/whyUs.ts` — content for those sections.
+Update `src/config/contact.ts` once — everything else already reads from it:
 
-## 2. Header (`src/components/Header.tsx`)
+- `phone` → `+91 63942 49533`
+- `phoneTel` → `+916394249533`
+- `whatsapp` → `916394249533`
 
-Sticky, three-row on desktop, condensed on mobile:
+Sweep the codebase for any remaining hardcoded `9876543210` (currently in `ProductDetail.tsx`) and replace with `CONTACT` helpers.
 
-- **Top bar**: "Free shipping on ₹10,000+" · Call button (`tel:`) · WhatsApp button (`wa.me`) · Login · My Account (both open a "Coming soon" toast for now).
-- **Main bar**: Logo · **Live search** (see §3) · Wishlist · Cart.
-- **Category bar**: horizontal nav of the 8 categories → smooth-scrolls to that carousel on `/`, or navigates to `/products?category=slug` elsewhere.
-- **Mobile**: hamburger → `Sheet` drawer with the same links, search, contact buttons.
-- Sticky with subtle shadow on scroll (IntersectionObserver on a sentinel div).
+## 2. Product Detail Page upgrades (`src/pages/ProductDetail.tsx`)
 
-## 3. Live search (`src/components/LiveSearch.tsx`)
+Keep existing structure; add:
 
-- Controlled input; on each keystroke filters `products` by name / category / code / material / finish / color / style (case-insensitive substring match).
-- Dropdown panel (Radix Popover) shows up to 8 results with thumbnail tile, name, category, price. "No results found" empty state. Enter → `/products?q=...`. Click result → product detail.
-- Debounced 120ms, keyboard nav (↑/↓/Enter/Esc).
+- **Fullscreen image lightbox** — click main image → shadcn `Dialog` with keyboard arrows and swipe.
+- **Rich specs table** — extend `Product` with optional `specs` block (Material, Board, Laminate, Hardware, Handle, Glass, Finish, Color, Available Colors, W×H×L, Thickness, Weight, Manufacturing/Delivery/Installation time, Warranty, Care, Customisable Y/N). Fall back to sensible defaults per category so all 100 products render cleanly.
+- **Action bar**: Book Now · Order Now · Buy Now · Add to Cart · Wishlist · Compare · Share. Share = native Web Share API with copy-link fallback. Compare toggles product into a `useCompare` zustand store (see §5). All actions have hover/tap micro-animations.
+- **Related / Similar / Frequently Bought Together** — three carousels driven by `collection` + `style` + price bucket.
+- **Recently Viewed** — carousel at the bottom, powered by `useRecentlyViewed` (§5). Push current product on mount.
+- **Reviews** — existing static list + a review-submission form (name, rating, text) stored in `localStorage` per product; new reviews appear instantly.
+- **Pricing block** already shows MRP strike-through, discount %, offer tag — add a subtle "Limited-time offer — ends midnight" strip when `discountPercent >= 30`.
+- Keep pincode checker, EMI dialog, payment badges, trust badges — these already satisfy the spec.
 
-## 4. Homepage sections (`src/pages/Index.tsx`)
+## 3. Booking flow (`src/components/BookingDialog.tsx` — new)
 
-Ordered exactly:
+Reusable dialog opened from Book Now / Order Now on the detail page and from product cards' Book Now.
 
-1. **Hero slider** — new `HeroSlider.tsx` using existing `embla-carousel-react` + `embla-carousel-autoplay`. Auto-advance 6s, loop, prev/next arrows, pagination dots, touch/swipe, Ken-Burns background, fade-up headline.
-2. **Featured Categories** — 8-tile responsive grid (4/3/2 cols), oak-gradient tile with category name and item count, hover-lift, links to `/products?category=slug`.
-3. **Trending Products** — carousel of `isTrending` items.
-4. **New Arrivals** — carousel of `isNew` items.
-5. **Best Sellers** — carousel of `isBestSeller` items.
-6. **Premium Collections** — 3 large editorial cards (Bedroom, Kitchen, Living) linking to filtered listings.
-7. **Today's Offers** — carousel of items with `discountPercent >= 20`, with a slim countdown strip (ends midnight, purely visual).
-8. **Customer Reviews** — 3-up testimonial grid on desktop / carousel on mobile, with avatar initial, star rating, quote.
-9. **Why Choose Us** — 4 feature tiles (Handcrafted, 10-yr Warranty, Free Delivery, Design Consult).
-10. **FAQ** — shadcn `Accordion`, 6 questions.
-11. **Contact** — split panel: left copy + Call/WhatsApp/Email buttons, right simple inquiry form (name/phone/message → toast "We'll be in touch"; no backend).
-12. **Footer** — 4-column (Brand, Shop, Support, Contact) + newsletter input + social icons + legal row. Reads phone/email from `contact.ts`.
+- Fields: Full Name (required, ≥2 chars), Mobile Number (required, /^[6-9]\d{9}$/). zod schema, inline errors.
+- Auto-captured: product name, id, price, ISO booking date, `crypto.randomUUID()` bookingId.
+- On submit:
+  1. Validate → toast error on fail.
+  2. Persist `{ bookingId, name, phone, product, price, ts }` to `localStorage["rf.bookings"]`.
+  3. Toast success "Booking confirmed — redirecting to WhatsApp…".
+  4. After ~700 ms, `window.location.href` = pre-filled `https://wa.me/916394249533?text=…` with the exact message template from the brief.
 
-All carousels use the existing `ProductCarousel`. Responsive slidesPerView 5 desktop / 3 tablet / 2 mobile (updated from current values), snap scrolling, arrows on hover, touch-drag.
+## 4. Floating contact stack (`src/components/FloatingContact.tsx` — new)
 
-## 5. Product card polish (`ProductCard.tsx`)
+Rendered inside `Layout`, so it appears on every page.
 
-Add: product code line, star rating + review count, share button (Web Share API + copy-link fallback), Quick View (opens a Dialog with image + summary + Book Now/Buy Now), Book Now button alongside existing View Details. Keep wishlist button. All hover animations via existing `hover-lift` and `image-reveal` utilities.
+- One primary FAB (bottom-right) — clicking opens a small popover with two clearly labelled actions:
+  - **Call** → `tel:+916394249533`
+  - **WhatsApp** → `https://wa.me/916394249533`
+- Second, always-visible WhatsApp pill just above the FAB for one-tap access on mobile (spec calls for a dedicated WhatsApp button too).
+- Framer-motion entrance + subtle pulse ring on WhatsApp; respects `prefers-reduced-motion`.
+- Hidden on `/checkout` to avoid overlapping the sticky order summary on mobile.
 
-## 6. UX polish
+## 5. New client stores / hooks
 
-- Skeleton loaders on hero and each carousel for a 300ms artificial delay on first mount so the pattern is in place for future async data.
-- Route-level `Suspense` fallback (skeleton hero).
-- `loading="lazy"` and `decoding="async"` on every non-hero tile.
-- Reduce-motion respected via `prefers-reduced-motion` in autoplay/Ken-Burns.
+- `src/hooks/useCompare.ts` — zustand + `persist`, max 4 items, `toggle/clear/has`.
+- `src/hooks/useRecentlyViewed.ts` — zustand + `persist`, max 8, dedupes, most-recent-first.
+- `src/components/CompareBar.tsx` — fixed bottom strip (like Amazon/Pepperfry) when ≥2 products selected: thumbnails + "Compare (N)" → opens a Dialog with a side-by-side spec table.
 
-## 7. Responsive verification
+## 6. Contact page (`src/pages/Contact.tsx` — new, routed at `/contact`)
 
-Manually check breakpoints 375 / 768 / 1024 / 1440 with Playwright screenshots after build. Fix overflow, spacing, and font-size regressions before closing the phase.
+Two-column premium layout:
 
-## Out of scope (next phases)
+- Left: brand paragraph, business hours (Mon–Sat 10:00–20:00, Sun 11:00–18:00), phone (click → Call/WhatsApp popover), WhatsApp button, email placeholder (`hello@rizwanfurniture.com`), address, embedded Google Maps `<iframe>` (Bengaluru placeholder; single `MAP_EMBED_URL` constant near the top so it's a one-line swap).
+- Right: contact form (name, phone, email, subject, message) with zod validation → toast + reset. No backend; add a note "Your message opens WhatsApp with these details" and pre-fill wa.me on submit as the effective delivery.
+- Add `/contact` to `src/App.tsx` routes and link it from Header (desktop utility bar) and Footer.
 
-- Category listing pages, filters, sorting UI → Phase 3.
-- Real auth, backend, checkout logic → Phase 5+.
-- Real product photography — placeholder oak-gradient tiles remain; swappable via a single `image` field per product.
+## 7. Small polish
+
+- `ProductCard.tsx` — add small Compare toggle + Share icon next to wishlist heart; Book Now button opens `BookingDialog`.
+- `ScrollToTop` already handles route scroll — no change.
+- All new images use `loading="lazy"` `decoding="async"`.
+- Verify with `bun run build` and a Playwright pass on `/`, `/product/arc-pendant-light`, `/contact` at 375 / 768 / 1440.
+
+## Out of scope (next phase)
+
+- Real auth, real payments, server-side booking storage.
+- 360° product view (spec says optional — skipping).
+- Real product photography.
 
 ## Technical notes
 
-- No new deps; `embla-carousel-autoplay` is already available via `embla-carousel-react` peer. If missing, add with `bun add embla-carousel-autoplay`.
-- No hardcoded colors — all tokens from `index.css` (`--oak`, `--cream`, `--espresso`, etc.).
-- All new components typed, under 200 lines each, colocated in `src/components/`.
-- Verify with `bun run build` and a Playwright pass on `/` at 3 viewports.
+- No new deps — zustand, framer-motion, zod, shadcn Dialog/Popover already present.
+- No hardcoded numbers/colors — everything reads from `CONTACT` and `index.css` tokens.
+- New components typed and under 200 lines each.
