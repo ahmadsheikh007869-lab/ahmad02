@@ -304,51 +304,73 @@ const ProductDetail = () => {
                   onClick={handleBuyReadymade}
                   className="rounded-sm py-6 text-sm tracking-[0.15em] uppercase btn-premium"
                 >
-                  <ShoppingBag className="w-4 h-4 mr-2" /> Buy Readymade
+                  <ShoppingBag className="w-4 h-4 mr-2" /> Buy Now
                 </Button>
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="outline" size="lg" className="rounded-sm py-6 text-sm tracking-[0.15em] uppercase">
-                      Book Now
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Book a custom order</DialogTitle>
-                      <DialogDescription>
-                        Share your details — our design team will contact you within 24 hours to discuss custom sizing, finishes and delivery timelines.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <form
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        toast({ title: "Booking received", description: "We'll be in touch within 24 hours." });
-                      }}
-                      className="space-y-3 pt-2"
-                    >
-                      <Input placeholder="Your name" required className="rounded-sm" />
-                      <Input placeholder="Phone number" required className="rounded-sm" />
-                      <Input placeholder="City" required className="rounded-sm" />
-                      <Button type="submit" className="w-full rounded-sm">Request Consultation</Button>
-                    </form>
-                  </DialogContent>
-                </Dialog>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => setBookingOpen(true)}
+                  className="rounded-sm py-6 text-sm tracking-[0.15em] uppercase"
+                >
+                  Book Now
+                </Button>
               </div>
 
-              <div className="grid grid-cols-3 gap-3 mb-6">
-                <Button variant="ghost" onClick={handleWishlist} className="rounded-sm text-xs">
-                  <Heart className={cn("w-4 h-4 mr-2", inWishlist && "fill-primary text-primary")} />
-                  {inWishlist ? "Saved" : "Wishlist"}
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                <Button variant="secondary" onClick={handleAddToCart} className="rounded-sm text-xs">
+                  <ShoppingBag className="w-4 h-4 mr-2" /> Add to Cart
                 </Button>
-                <Button asChild variant="ghost" className="rounded-sm text-xs">
-                  <a href="tel:+919876543210"><Phone className="w-4 h-4 mr-2" /> Call to Order</a>
+                <Button variant="secondary" onClick={() => setBookingOpen(true)} className="rounded-sm text-xs">
+                  Order Now
                 </Button>
-                <Button asChild variant="ghost" className="rounded-sm text-xs">
-                  <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer">
-                    <MessageCircle className="w-4 h-4 mr-2" /> WhatsApp
+              </div>
+
+              <div className="grid grid-cols-4 gap-2 mb-6">
+                <Button variant="ghost" onClick={handleWishlist} className="rounded-sm text-xs px-2">
+                  <Heart className={cn("w-4 h-4 md:mr-1.5", inWishlist && "fill-primary text-primary")} />
+                  <span className="hidden md:inline">{inWishlist ? "Saved" : "Wishlist"}</span>
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    const res = toggleCompare(product);
+                    if (res.full) sonner.error("Compare is full", { description: "Remove one to add another (max 4)." });
+                    else sonner(res.added ? "Added to compare" : "Removed from compare");
+                  }}
+                  className="rounded-sm text-xs px-2"
+                >
+                  <Scale className={cn("w-4 h-4 md:mr-1.5", inCompare(product.id) && "text-primary")} />
+                  <span className="hidden md:inline">Compare</span>
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={async () => {
+                    const url = window.location.href;
+                    const data = { title: product.name, text: product.description, url };
+                    try {
+                      if (navigator.share) await navigator.share(data);
+                      else { await navigator.clipboard.writeText(url); sonner("Link copied to clipboard"); }
+                    } catch { /* user cancelled */ }
+                  }}
+                  className="rounded-sm text-xs px-2"
+                >
+                  <Share2 className="w-4 h-4 md:mr-1.5" />
+                  <span className="hidden md:inline">Share</span>
+                </Button>
+                <Button asChild variant="ghost" className="rounded-sm text-xs px-2">
+                  <a href={whatsappUrl(`Hi, I'm interested in ${product.name} (${product.productCode})`)} target="_blank" rel="noreferrer">
+                    <MessageCircle className="w-4 h-4 md:mr-1.5" />
+                    <span className="hidden md:inline">WhatsApp</span>
                   </a>
                 </Button>
               </div>
+
+              <div className="mb-6">
+                <Button asChild variant="outline" className="w-full rounded-sm text-xs">
+                  <a href={`tel:${CONTACT.phoneTel}`}><Phone className="w-4 h-4 mr-2" /> Call to Order · {CONTACT.phone}</a>
+                </Button>
+              </div>
+
 
               {/* Payment Options */}
               <div className="border border-border rounded-sm p-4 mb-6">
