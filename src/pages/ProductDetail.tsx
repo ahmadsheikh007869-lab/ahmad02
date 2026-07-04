@@ -518,8 +518,21 @@ const ProductDetail = () => {
           />
         </div>
       )}
+
+      {/* Recently viewed */}
+      {recentItems.filter((p) => p.id !== product.id).length > 0 && (
+        <ProductCarousel
+          eyebrow="Recently viewed"
+          title="Continue browsing"
+          products={recentItems.filter((p) => p.id !== product.id)}
+        />
+      )}
+
+      <BookingDialog product={product} open={bookingOpen} onOpenChange={setBookingOpen} />
     </Layout>
   );
 };
+
+export default ProductDetail;
 
 export default ProductDetail;
