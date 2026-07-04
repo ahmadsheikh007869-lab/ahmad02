@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "rizwan-furniture-mcp",
+      "version": "0.1.0",
+      "title": "Rizwan Furniture MCP"
+    },
+    "tools": [
+      {
+        "name": "list_categories",
+        "title": "List categories",
+        "description": "List all furniture categories in the Rizwan Furniture catalog with product counts.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "search_products",
+        "title": "Search products",
+        "description": "Search the Rizwan Furniture catalog by keyword, category, price range, or flags (new, bestSeller, trending). Returns matching products with name, category, price, and product code.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "query": {
+              "description": "Free-text query matched against name, description, material, finish, color, style, and product code.",
+              "type": "string"
+            },
+            "category": {
+              "description": "Category id or slug (e.g. 'beds', 'wardrobes').",
+              "type": "string"
+            },
+            "minPrice": {
+              "description": "Minimum price in INR.",
+              "type": "number"
+            },
+            "maxPrice": {
+              "description": "Maximum price in INR.",
+              "type": "number"
+            },
+            "onlyNew": {
+              "type": "boolean"
+            },
+            "onlyBestSeller": {
+              "type": "boolean"
+            },
+            "onlyTrending": {
+              "type": "boolean"
+            },
+            "limit": {
+              "description": "Max results to return (default 10).",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_product",
+        "title": "Get product details",
+        "description": "Fetch full details for one product by its slug or product code.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "slugOrCode": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The product slug (e.g. 'arc-pendant-light') or productCode."
+            }
+          },
+          "required": [
+            "slugOrCode"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_contact_info",
+        "title": "Get store contact info",
+        "description": "Return the Rizwan Furniture store's phone, WhatsApp, and email contact details.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
