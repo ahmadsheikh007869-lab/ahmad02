@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { Heart, Menu, User, Package, X, Phone, MessageCircle, LogIn } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { toast } from "sonner";
 import { useWishlist } from "@/hooks/useWishlist";
+import { useAuth } from "@/hooks/useAuth";
 import { CartIcon } from "@/components/CartIcon";
 import { LiveSearch } from "@/components/LiveSearch";
 import { collections } from "@/data/products";
@@ -24,13 +24,11 @@ const homepageCategoryIds = [
 
 const primaryCategories = collections.filter((c) => homepageCategoryIds.includes(c.id));
 
-const comingSoon = () =>
-  toast("Coming soon", { description: "Accounts and orders launch with the next update." });
-
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { items } = useWishlist();
+  const { user, isAdminOrHigher } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
