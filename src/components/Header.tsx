@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { Heart, Menu, User, Package, X, Phone, MessageCircle, LogIn } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { toast } from "sonner";
 import { useWishlist } from "@/hooks/useWishlist";
+import { useAuth } from "@/hooks/useAuth";
 import { CartIcon } from "@/components/CartIcon";
 import { LiveSearch } from "@/components/LiveSearch";
 import { collections } from "@/data/products";
@@ -24,13 +24,11 @@ const homepageCategoryIds = [
 
 const primaryCategories = collections.filter((c) => homepageCategoryIds.includes(c.id));
 
-const comingSoon = () =>
-  toast("Coming soon", { description: "Accounts and orders launch with the next update." });
-
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { items } = useWishlist();
+  const { user, isAdminOrHigher } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -63,8 +61,17 @@ export const Header = () => {
             <span className="opacity-60">Free delivery over ₹15,000</span>
           </div>
           <div className="flex items-center gap-5">
-            <button onClick={comingSoon} className="hover:text-background transition-colors">Login</button>
-            <button onClick={comingSoon} className="hover:text-background transition-colors">My Account</button>
+            {user ? (
+              <>
+                <Link to="/account" className="hover:text-background transition-colors">My Account</Link>
+                {isAdminOrHigher && <Link to="/admin" className="hover:text-background transition-colors">Admin</Link>}
+              </>
+            ) : (
+              <>
+                <Link to="/auth" className="hover:text-background transition-colors">Login</Link>
+                <Link to="/admin/login" className="hover:text-background transition-colors">Admin</Link>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -87,26 +94,26 @@ export const Header = () => {
           <div className="flex items-center gap-1 ml-auto">
             <Tooltip>
               <TooltipTrigger asChild>
-                <button
-                  onClick={comingSoon}
+                <Link
+                  to={user ? "/account" : "/auth"}
                   className="hidden md:flex flex-col items-center px-3 py-2 hover:bg-accent transition-colors rounded-sm"
                 >
                   <User className="w-5 h-5" />
-                  <span className="text-[10px] mt-0.5 tracking-wider uppercase text-muted-foreground">Profile</span>
-                </button>
+                  <span className="text-[10px] mt-0.5 tracking-wider uppercase text-muted-foreground">{user ? "Account" : "Sign in"}</span>
+                </Link>
               </TooltipTrigger>
-              <TooltipContent side="bottom">Sign in</TooltipContent>
+              <TooltipContent side="bottom">{user ? "My account" : "Sign in"}</TooltipContent>
             </Tooltip>
 
             <Tooltip>
               <TooltipTrigger asChild>
-                <button
-                  onClick={comingSoon}
+                <Link
+                  to={user ? "/account" : "/auth"}
                   className="hidden md:flex flex-col items-center px-3 py-2 hover:bg-accent transition-colors rounded-sm"
                 >
                   <Package className="w-5 h-5" />
                   <span className="text-[10px] mt-0.5 tracking-wider uppercase text-muted-foreground">Orders</span>
-                </button>
+                </Link>
               </TooltipTrigger>
               <TooltipContent side="bottom">Track your orders</TooltipContent>
             </Tooltip>
@@ -241,9 +248,9 @@ export const Header = () => {
                     {l.label}
                   </Link>
                 ))}
-                <button onClick={comingSoon} className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
-                  <LogIn className="w-4 h-4" /> Login / My Account
-                </button>
+                <Link to={user ? "/account" : "/auth"} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
+                  <LogIn className="w-4 h-4" /> {user ? "My Account" : "Login / Sign up"}
+                </Link>
                 <a href={`tel:${CONTACT.phoneTel}`} className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
                   <Phone className="w-4 h-4" /> {CONTACT.phone}
                 </a>

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Product, formatPrice } from "@/data/products";
 import { CONTACT } from "@/config/contact";
+import { supabase } from "@/integrations/supabase/client";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter your full name").max(80),
@@ -62,7 +63,7 @@ export const BookingDialog = ({ product, open, onOpenChange, title = "Book this 
   const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = schema.safeParse({ name, phone });
     if (!parsed.success) {
@@ -84,6 +85,21 @@ export const BookingDialog = ({ product, open, onOpenChange, title = "Book this 
       ts: new Date().toISOString(),
     };
     persistBooking(booking);
+
+    // Persist to backend (best-effort; localStorage is source of truth for guest UX)
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      await supabase.from("bookings").insert({
+        user_id: sessionData.session?.user.id ?? null,
+        customer_name: booking.name,
+        customer_phone: booking.phone,
+        product_id: booking.productId,
+        product_name: booking.productName,
+        product_price: booking.price,
+      });
+    } catch {
+      /* non-blocking */
+    }
 
     toast.success("Booking confirmed", {
       description: "Redirecting you to WhatsApp to complete your order…",
