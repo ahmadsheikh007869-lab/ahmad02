@@ -248,9 +248,9 @@ export const Header = () => {
                     {l.label}
                   </Link>
                 ))}
-                <button onClick={comingSoon} className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
-                  <LogIn className="w-4 h-4" /> Login / My Account
-                </button>
+                <Link to={user ? "/account" : "/auth"} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
+                  <LogIn className="w-4 h-4" /> {user ? "My Account" : "Login / Sign up"}
+                </Link>
                 <a href={`tel:${CONTACT.phoneTel}`} className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
                   <Phone className="w-4 h-4" /> {CONTACT.phone}
                 </a>
