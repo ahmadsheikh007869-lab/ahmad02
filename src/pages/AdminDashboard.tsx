@@ -51,7 +51,7 @@ const AdminDashboard = () => {
   }, [isAdminOrHigher]);
 
   const updateStatus = async (id: string, status: string) => {
-    const { error } = await supabase.from("bookings").update({ status }).eq("id", id);
+    const { error } = await supabase.from("bookings").update({ status: status as Booking["status"] & any }).eq("id", id);
     if (error) return toast.error(error.message);
     setBookings((b) => b.map((x) => x.id === id ? { ...x, status } : x));
     toast.success("Updated");
