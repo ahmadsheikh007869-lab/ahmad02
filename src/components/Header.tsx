@@ -61,8 +61,17 @@ export const Header = () => {
             <span className="opacity-60">Free delivery over ₹15,000</span>
           </div>
           <div className="flex items-center gap-5">
-            <button onClick={comingSoon} className="hover:text-background transition-colors">Login</button>
-            <button onClick={comingSoon} className="hover:text-background transition-colors">My Account</button>
+            {user ? (
+              <>
+                <Link to="/account" className="hover:text-background transition-colors">My Account</Link>
+                {isAdminOrHigher && <Link to="/admin" className="hover:text-background transition-colors">Admin</Link>}
+              </>
+            ) : (
+              <>
+                <Link to="/auth" className="hover:text-background transition-colors">Login</Link>
+                <Link to="/admin/login" className="hover:text-background transition-colors">Admin</Link>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -85,26 +94,26 @@ export const Header = () => {
           <div className="flex items-center gap-1 ml-auto">
             <Tooltip>
               <TooltipTrigger asChild>
-                <button
-                  onClick={comingSoon}
+                <Link
+                  to={user ? "/account" : "/auth"}
                   className="hidden md:flex flex-col items-center px-3 py-2 hover:bg-accent transition-colors rounded-sm"
                 >
                   <User className="w-5 h-5" />
-                  <span className="text-[10px] mt-0.5 tracking-wider uppercase text-muted-foreground">Profile</span>
-                </button>
+                  <span className="text-[10px] mt-0.5 tracking-wider uppercase text-muted-foreground">{user ? "Account" : "Sign in"}</span>
+                </Link>
               </TooltipTrigger>
-              <TooltipContent side="bottom">Sign in</TooltipContent>
+              <TooltipContent side="bottom">{user ? "My account" : "Sign in"}</TooltipContent>
             </Tooltip>
 
             <Tooltip>
               <TooltipTrigger asChild>
-                <button
-                  onClick={comingSoon}
+                <Link
+                  to={user ? "/account" : "/auth"}
                   className="hidden md:flex flex-col items-center px-3 py-2 hover:bg-accent transition-colors rounded-sm"
                 >
                   <Package className="w-5 h-5" />
                   <span className="text-[10px] mt-0.5 tracking-wider uppercase text-muted-foreground">Orders</span>
-                </button>
+                </Link>
               </TooltipTrigger>
               <TooltipContent side="bottom">Track your orders</TooltipContent>
             </Tooltip>
