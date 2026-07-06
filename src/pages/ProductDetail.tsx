@@ -405,8 +405,37 @@ const ProductDetail = () => {
             </motion.div>
           </div>
 
+          {/* Kitchen dimensions — modular kitchens only */}
+          {product.collection === "modular-kitchen" && product.kitchenDims && (
+            <div className="mt-14 max-w-4xl">
+              <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-3">Design Dimensions</p>
+              <h2 className="font-serif text-2xl md:text-3xl mb-6">Kitchen footprint & clearances</h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                {[
+                  { label: "Length", value: product.kitchenDims.lengthCm },
+                  { label: "Width", value: product.kitchenDims.widthCm },
+                  { label: "Height", value: product.kitchenDims.heightCm },
+                  { label: "Depth", value: product.kitchenDims.depthCm },
+                ].map((d) => (
+                  <div key={d.label} className="p-5 bg-linen rounded-sm border border-border/60">
+                    <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-muted-foreground mb-1">
+                      {d.label}
+                    </p>
+                    <p className="font-serif text-2xl md:text-3xl text-foreground">
+                      {d.value.toLocaleString("en-IN")} <span className="text-base text-muted-foreground">cm</span>
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">
+                Overall footprint: L {product.kitchenDims.lengthCm} × W {product.kitchenDims.widthCm} × H {product.kitchenDims.heightCm} × D {product.kitchenDims.depthCm} cm. Every kitchen is re-measured on site before manufacturing.
+              </p>
+            </div>
+          )}
+
           {/* Details Accordion */}
           <div className="mt-16 max-w-4xl">
+
             <Accordion type="multiple" defaultValue={["desc"]} className="border-t border-border">
               <AccordionItem value="desc">
                 <AccordionTrigger className="text-sm tracking-[0.15em] uppercase font-semibold">
