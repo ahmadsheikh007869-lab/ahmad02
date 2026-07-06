@@ -21,32 +21,18 @@ import { faqs } from "@/data/faqs";
 import { whyUs } from "@/data/whyUs";
 import { CONTACT, whatsappUrl } from "@/config/contact";
 
-const homepageCategoryIds = [
-  "beds", "wardrobes", "modular-kitchen", "tv-units",
-  "dining", "wooden-cabinets", "bookshelves", "decorative-lights",
-];
-const featuredCats = collections.filter((c) => homepageCategoryIds.includes(c.id));
+// Home page leads with Modular Kitchen, then the three dedicated category sections.
+const homepageCategoryIds = ["modular-kitchen", "sofas", "beds", "wardrobes"];
+const featuredCats = homepageCategoryIds
+  .map((id) => collections.find((c) => c.id === id))
+  .filter((c): c is NonNullable<typeof c> => Boolean(c));
 
-const premiumCollections = [
-  {
-    title: "The Bedroom Suite",
-    subtitle: "Beds, wardrobes & lighting",
-    href: "/products?collection=beds",
-    image: "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=1400&q=80",
-  },
-  {
-    title: "The Modular Kitchen",
-    subtitle: "Layouts made to order",
-    href: "/products?collection=modular-kitchen",
-    image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1400&q=80",
-  },
-  {
-    title: "The Living Room",
-    subtitle: "TV walls, seating & shelves",
-    href: "/products?collection=tv-units",
-    image: "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1400&q=80",
-  },
-];
+const kitchenShowcase = {
+  title: "The Modular Kitchen",
+  subtitle: "Layouts, cabinetry & appliance provisions — made to order",
+  href: "/products?collection=modular-kitchen",
+  image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=2000&q=80",
+};
 
 const ContactForm = () => {
   const [state, setState] = useState({ name: "", phone: "", message: "" });

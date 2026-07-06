@@ -12,35 +12,11 @@ export interface HeroSlide {
 
 export const heroSlides: HeroSlide[] = [
   {
-    eyebrow: "Rizwan Furniture Presents",
-    title: "FullHouse Fiesta",
-    italicPart: "up to 70% off",
-    subtitle:
-      "Redesign every room with premium modular furniture in a warm oak finish — curated for modern homes.",
-    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=2000&q=80",
-    ctaLabel: "Shop the Sale",
-    ctaHref: "/products",
-    secondaryLabel: "Explore Sofas",
-    secondaryHref: "/products?collection=sofas",
-  },
-  {
-    eyebrow: "Bedroom Collection",
-    title: "Rest, Redefined",
-    italicPart: "in solid oak",
-    subtitle:
-      "Handcrafted beds and wardrobes engineered for a decade of daily use — starting at ₹32,999.",
-    image: "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=2000&q=80",
-    ctaLabel: "Shop Beds",
-    ctaHref: "/products?collection=beds",
-    secondaryLabel: "See Wardrobes",
-    secondaryHref: "/products?collection=wardrobes",
-  },
-  {
     eyebrow: "Made-to-Order",
     title: "Modular Kitchens",
     italicPart: "built around you",
     subtitle:
-      "Layouts from straight-line to island, delivered and installed anywhere in India.",
+      "Layouts from straight-line to island — designed, delivered and installed anywhere in India.",
     image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=2000&q=80",
     ctaLabel: "Design Your Kitchen",
     ctaHref: "/products?collection=modular-kitchen",
@@ -48,23 +24,45 @@ export const heroSlides: HeroSlide[] = [
     secondaryHref: "/about",
   },
   {
-    eyebrow: "Editor's Pick",
-    title: "Luxury Wooden",
-    italicPart: "interiors",
+    eyebrow: "Island Kitchens",
+    title: "The Island Kitchen",
+    italicPart: "in warm oak",
     subtitle:
-      "Live-edge tables, fluted panels and hand-finished cabinetry for statement rooms.",
-    image: "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=2000&q=80",
-    ctaLabel: "Explore Collection",
-    ctaHref: "/products?collection=wooden-cabinets",
+      "Statement islands with quartz tops, tall pantry columns and 90cm auto-clean chimneys.",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=2000&q=80",
+    ctaLabel: "Explore Island Kitchens",
+    ctaHref: "/products?collection=modular-kitchen",
   },
   {
-    eyebrow: "Festive Offers",
-    title: "Home Reset Sale",
-    italicPart: "flat 40% off",
+    eyebrow: "L-Shape & U-Shape",
+    title: "Handleless Kitchens",
+    italicPart: "modern, matte, minimal",
     subtitle:
-      "TV units, bookshelves, dining and lighting — refreshed pricing across every category.",
+      "Push-to-open shutters, soft-close tandem drawers and integrated appliance columns.",
     image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=2000&q=80",
-    ctaLabel: "See Today's Offers",
-    ctaHref: "/products?sort=discount",
+    ctaLabel: "See Layouts",
+    ctaHref: "/products?collection=modular-kitchen",
+  },
+  {
+    eyebrow: "Compact Kitchens",
+    title: "Small Space,",
+    italicPart: "full kitchen",
+    subtitle:
+      "Compact straight-line and parallel kitchens engineered for apartments — from 2.4m runs.",
+    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=2000&q=80",
+    ctaLabel: "Compact Kitchens",
+    ctaHref: "/products?collection=modular-kitchen",
+  },
+  {
+    eyebrow: "Premium Finishes",
+    title: "Shaker & Walnut",
+    italicPart: "kitchens",
+    subtitle:
+      "Shaker ivory, walnut woodgrain and high-gloss finishes — each installed in 21 days.",
+    image: "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=2000&q=80",
+    ctaLabel: "View Finishes",
+    ctaHref: "/products?collection=modular-kitchen",
+    secondaryLabel: "Book a Consult",
+    secondaryHref: "/about",
   },
 ];
