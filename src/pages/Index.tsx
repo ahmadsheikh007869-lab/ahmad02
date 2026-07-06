@@ -145,38 +145,42 @@ const Index = () => {
         </div>
       )}
 
-      {/* 6. Premium Collections */}
+      {/* 6. Modular Kitchen Showcase */}
       <section className="py-16 md:py-24">
         <div className="container-full">
-          <div className="text-center mb-12">
-            <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-2">Curated</p>
-            <h2 className="font-serif text-3xl md:text-5xl">Premium Collections</h2>
+          <div className="text-center mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-2">Made to Order</p>
+            <h2 className="font-serif text-3xl md:text-5xl">The Modular Kitchen</h2>
           </div>
-          <div className="grid gap-4 md:gap-6 md:grid-cols-3">
-            {premiumCollections.map((pc, i) => (
-              <motion.div
-                key={pc.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.08 }}
-              >
-                <Link to={pc.href} className="group block relative overflow-hidden rounded-sm aspect-[4/5] furniture-tile">
-                  <img src={pc.image} alt={pc.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-[1s] group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/25 to-transparent" />
-                  <div className="absolute inset-x-6 bottom-6 text-background">
-                    <p className="text-[11px] tracking-[0.3em] uppercase text-background/70 mb-2">{pc.subtitle}</p>
-                    <h3 className="font-serif text-2xl md:text-3xl mb-3">{pc.title}</h3>
-                    <span className="inline-flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase border-b border-background/50 pb-1 group-hover:text-primary group-hover:border-primary transition-colors">
-                      Explore <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <Link
+              to={kitchenShowcase.href}
+              className="group block relative overflow-hidden rounded-sm aspect-[21/9] md:aspect-[21/8] furniture-tile"
+            >
+              <img
+                src={kitchenShowcase.image}
+                alt={kitchenShowcase.title}
+                loading="lazy"
+                className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/40 to-transparent" />
+              <div className="absolute inset-y-0 left-0 flex flex-col justify-center pl-6 md:pl-16 max-w-xl text-background">
+                <p className="text-[11px] tracking-[0.3em] uppercase text-background/70 mb-3">{kitchenShowcase.subtitle}</p>
+                <h3 className="font-serif text-3xl md:text-5xl leading-[1.05] mb-5">{kitchenShowcase.title}</h3>
+                <span className="inline-flex items-center gap-2 text-xs tracking-[0.25em] uppercase border-b border-background/60 pb-1 self-start group-hover:text-primary group-hover:border-primary transition-colors">
+                  Design Your Kitchen <ArrowRight className="w-4 h-4" />
+                </span>
+              </div>
+            </Link>
+          </motion.div>
         </div>
       </section>
+
 
       {/* 7. Today's Offers */}
       {offers.length > 0 && (
