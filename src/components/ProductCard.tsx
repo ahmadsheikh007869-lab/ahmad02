@@ -15,7 +15,6 @@ export const ProductCard = ({ product, index = 0, variant = "default" }: Product
   const { addItem, removeItem, isInWishlist } = useWishlist();
   const inWishlist = isInWishlist(product.id);
   const collection = collections.find((c) => c.id === product.collection);
-  const hasSecondImage = product.images.length > 1;
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault();
