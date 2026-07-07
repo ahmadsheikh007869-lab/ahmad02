@@ -1,68 +1,83 @@
 
 ## Goal
 
-Make every furniture category strictly self-contained — Sofas show only sofas, Beds only beds, Wardrobes only wardrobes, Modular Kitchens only kitchens. Front page leads with Modular Kitchen and removes sofa/bed imagery. Kitchen designs carry full dimension details. Product detail pages surface many related pieces from the same category so users can browse variations.
+Turn the catalog into 28+ strictly-siloed categories, each with 50+ designs, disable the hover image swap on cards, and expand every product detail page with full dimensions (L/W/H/D in cm) plus material, color, finish, features and specifications.
 
-## What Changes for the User
+## 1. Category expansion (28+ dedicated categories)
 
-### Home page (`/`)
-- **Hero slider** replaced with a Modular Kitchen–only rotation (5 curated kitchen banners: island, L-shape, U-shape, parallel, handleless). No sofa or bed slides.
-- **Featured Collections grid** replaced with 4 large tiles: `Modular Kitchen`, `Sofas`, `Beds`, `Modular Wardrobes` — each tile uses an image strictly from that category and links to its dedicated section.
-- **Premium Collections strip** replaced with a single full-width "The Modular Kitchen" showcase (kitchen image only). Sofa and bed cover imagery removed from all home sections.
-- Trending / New Arrivals / Best Sellers / Offers carousels remain but are drawn from the mixed catalog (as today) — they don't visually dominate the front page.
+Extend `collections` in `src/data/products.ts` from 10 to 30 categories. Each has its own curated image pool and its own factory-generated set of 54 designs, so `getProductsByCollection(slug)` never returns anything from another category.
 
-### Category pages (`/products?collection=<slug>`)
-Four fully-populated dedicated sections, each showing only its own type:
+Categories (new ones marked *):
 
-| Section | Slug | Count | What appears |
-|---|---|---|---|
-| Sofas | `sofas` | 54 designs | Only sofa/sectional/loveseat/armchair photos |
-| Beds | `beds` | 54 designs | Only bed/headboard/platform/canopy photos |
-| Modular Wardrobes | `wardrobes` | 54 designs | Only wardrobe/closet/sliding-door photos |
-| Modular Kitchen | `modular-kitchen` | 36 designs | Only kitchen layouts with chimney / fridge / cabinets |
+```text
+1  Modular Kitchen          11  Study Tables *
+2  Sofas                    12  Office Furniture *
+3  Beds                     13  Shoe Racks *
+4  Modular Wardrobes        14  Coffee Tables *
+5  TV Units                 15  Side & End Tables *
+6  Dining Tables *          16  Recliners *
+7  Dining Chairs *          17  Bean Bags *
+8  Wooden Cabinets          18  Bar Units *
+9  Bookshelves              19  Console Tables *
+10 Decorative Lights        20  Dressing Tables *
+                            21  Wall Shelves *
+                            22  Kids Furniture *
+                            23  Bunk Beds *
+                            24  Mattresses *
+                            25  Bedside Tables *
+                            26  Outdoor Furniture *
+                            27  Swings & Jhoolas *
+                            28  Storage & Trunks *
+                            29  Poojas & Temples *
+                            30  Rugs & Carpets *
+```
 
-The existing filter chip bar on `/products` continues to work; picking a chip narrows to that category only.
+For each new category:
+- Add a `Collection` entry with `id`, `slug`, `name`, `description`, `image`.
+- Add a category-specific image pool (8–12 curated Unsplash URLs of ONLY that furniture type) inside the `IMG` map.
+- Generate 54 designs via the existing `p()` factory using `TYPES` + `PREFIXES` arrays for that category.
 
-### Product detail page (`/product/:slug`)
-- The existing "Related Products" section becomes **more prominent**: shows up to 16 related pieces from the same category (currently only a handful) so users can browse many variations of the design they clicked.
-- **Kitchen designs** get a new **Dimensions block** in the info panel showing Length, Width, Height, Depth in cm (e.g. `L 3600 × W 2400 × H 2400 × D 600 cm`) plus a full paragraph describing the layout, cabinet configuration, chimney/hob/sink placement, and appliance provisions.
-- Non-kitchen products keep the current single-line dimension string.
+### Honest caveat on "50+ unique images per category"
 
-## What Changes in the Code (technical)
+Sourcing 50 unique, licensed, on-topic photos for 30 different furniture types (1500+ images) isn't feasible in-catalog with free stock URLs. The plan uses ~8–12 curated per-category Unsplash images cycled across 54 uniquely-named, uniquely-priced designs (same approach already shipped for Sofas/Beds/Wardrobes). Every image in a category still shows only that furniture type, and no cross-category leakage occurs. If you want literally 50 unique photos per category, we'd need either paid stock, AI-generated images, or your own photography — happy to switch to AI-generated per-product images if you approve the extra generation cost.
 
-### `src/data/products.ts` — rebuilt
-- **Curated image pools**: 12–18 vetted Unsplash IDs per category, each manually confirmed to depict only that furniture type. Pools: `SOFAS`, `BEDS`, `WARDROBES`, `KITCHENS`. Images rotate deterministically across the 50+ variants so each card shows a category-appropriate photo (some repetition of photos across variant names is acceptable and unavoidable at 50+ items; visual variety comes from the pool size).
-- **Generators**:
-  - `generateSofas()` → 54 sofa products (names like "Alba 3-Seater Modern Sofa", "Cove L-Sectional", "Bosco Boucle Armchair", etc.) with 6 style buckets × 9 fabric/finish variants.
-  - `generateBeds()` → 54 beds (upholstered king/queen, platform, canopy, storage, fluted headboard, slat, etc.).
-  - `generateWardrobes()` → 54 wardrobes (2/3/4-door sliding, hinged, mirrored, walk-in, fluted, walnut, ivory, etc.).
-  - `generateKitchens()` → 36 kitchen designs across L-shape, U-shape, straight, parallel, island, peninsula, handleless, shaker layouts.
-- **New optional field on `Product`**: `kitchenDims?: { lengthCm: number; widthCm: number; heightCm: number; depthCm: number }` — only populated for kitchen products.
-- **Extended `longDescription`** for kitchens: layout narrative + cabinet count + chimney/hob/sink/fridge provision copy.
-- Existing categories (`tv-units`, `dining`, `wooden-cabinets`, `bookshelves`, `decorative-lights`, `study`) keep their current products so other pages and legacy links don't break.
-- `getRelatedProducts()` widened from its current small cap to return up to 16 items from the same collection.
+## 2. Disable hover image swap on product cards
 
-### `src/data/heroSlides.ts` — rewritten
-- All 5 slides become kitchen slides with strictly kitchen images. CTAs all point to `/products?collection=modular-kitchen` and `/about` (consult). No sofa/bed slides remain.
+In `src/components/ProductCard.tsx`:
+- Remove the second `<img>` overlay and the `group-hover:opacity-0` transition on the primary image.
+- Keep only a subtle `group-hover:scale-105` (or remove entirely if you'd prefer the image completely static — say the word).
+- Thumbnail stays identical before/during/after hover.
 
-### `src/pages/Index.tsx` — edited
-- `homepageCategoryIds` reduced to `["modular-kitchen", "sofas", "beds", "wardrobes"]` so the Featured Collections grid renders exactly these 4 dedicated tiles (kitchen tile first).
-- `premiumCollections` array replaced with one kitchen-only entry rendered as a full-width band (no sofa/bed cards).
-- No other section removed — carousels, reviews, why-us, FAQ, contact stay.
+## 3. Extended product detail page
 
-### `src/pages/ProductDetail.tsx` — small edits
-- When `product.collection === "modular-kitchen"` and `product.kitchenDims` exists, render a new **Dimensions** panel (label chips for L / W / H / D in cm) above the existing details accordion.
-- Related-products carousel already filters by same collection via `getRelatedProducts` — no logic change needed once the helper returns more items.
+In `src/pages/ProductDetail.tsx`, replace the current Specifications accordion contents with a full spec block shown for **every** product (not just kitchens):
 
-### Files touched
-- `src/data/products.ts` (rebuild data + generators + kitchen dims field)
-- `src/data/heroSlides.ts` (kitchen-only slides)
-- `src/pages/Index.tsx` (featured tiles + premium band)
-- `src/pages/ProductDetail.tsx` (kitchen dimensions block)
+- **Dimensions grid**: Length, Width, Height, Depth (cm) as four tiles — same visual treatment currently used for kitchens, now applied to all categories.
+- **Attributes list**: Material, Color, Finish, Style, Product Code.
+- **Features**: bullet list (soft-close hardware, 5-year warranty, free assembly, etc.).
+- **Additional information**: care, warranty, shipping.
 
-No route, auth, database, or backend changes. No new dependencies.
+To support this, extend `Product` in `src/data/products.ts`:
+- Add optional `dims?: { lengthCm: number; widthCm: number; heightCm: number; depthCm: number }` populated for every product (not just kitchens). The factory derives it by parsing/replacing the existing `dimensions` string, so nothing else breaks.
+- Add optional `features?: string[]` with 4–6 category-appropriate bullets generated by the factory.
+- Keep `kitchenDims` for backwards compatibility; the new `dims` supersedes it visually.
 
-## Out of Scope
-- Uploading real product photography (using curated Unsplash pools; you can later swap image URLs in `src/data/products.ts`).
-- Reworking cart / checkout / admin flows.
-- Adding a separate route per category — the existing `/products?collection=<slug>` pattern already gives each category its own dedicated page.
+Related-designs carousel below the detail page already filters by same-category only (`getRelatedProducts`) — no change needed.
+
+## 4. Homepage
+
+Already kitchen-only banner (done in prior phase). Only tweak: extend the "Featured Collections" row into a scrollable strip / larger grid so 8–12 of the 30 categories are showcased instead of just 4. All 30 remain reachable from the `/products` page's category filter.
+
+## Out of scope
+
+- Backend/auth/database changes (none needed).
+- Real photography — see caveat above.
+- Redesign of header nav (30 categories will be surfaced via the shop page filter, not a mega-menu, unless you ask).
+
+## Files touched
+
+- `src/data/products.ts` — 30 collections, 30 image pools, 30 factories (~54 items each = ~1,600 products), `Product.dims` + `Product.features`.
+- `src/components/ProductCard.tsx` — remove hover swap.
+- `src/pages/ProductDetail.tsx` — universal L/W/H/D grid + attributes + features section.
+- `src/data/heroSlides.ts` — unchanged (already kitchen-only).
+- `src/pages/Index.tsx` — small tweak to show more featured categories.
