@@ -16,7 +16,7 @@ const homepageCategoryIds = [
   "wardrobes",
   "modular-kitchen",
   "tv-units",
-  "dining",
+  "dining-tables",
   "wooden-cabinets",
   "bookshelves",
   "decorative-lights",

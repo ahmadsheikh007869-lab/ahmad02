@@ -22,7 +22,11 @@ import { whyUs } from "@/data/whyUs";
 import { CONTACT, whatsappUrl } from "@/config/contact";
 
 // Home page leads with Modular Kitchen, then the three dedicated category sections.
-const homepageCategoryIds = ["modular-kitchen", "sofas", "beds", "wardrobes"];
+const homepageCategoryIds = [
+  "modular-kitchen", "sofas", "beds", "wardrobes",
+  "tv-units", "dining-tables", "wooden-cabinets", "coffee-tables",
+  "recliners", "dressing-tables", "bar-units", "pooja-units",
+];
 const featuredCats = homepageCategoryIds
   .map((id) => collections.find((c) => c.id === id))
   .filter((c): c is NonNullable<typeof c> => Boolean(c));

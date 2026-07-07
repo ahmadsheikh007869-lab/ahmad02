@@ -9,83 +9,19 @@ import { defineMcp } from "npm:@lovable.dev/mcp-js@0.20.0";
 import { defineTool } from "npm:@lovable.dev/mcp-js@0.20.0";
 
 // src/data/products.ts
-var collections = [
-  {
-    id: "modular-kitchen",
-    name: "Modular Kitchen",
-    slug: "modular-kitchen",
-    description: "Made-to-measure modular kitchens with chimney, hob, cabinetry and appliance provisions.",
-    image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=80",
-    heroImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=2000&q=80"
-  },
-  {
-    id: "sofas",
-    name: "Sofas",
-    slug: "sofas",
-    description: "Sofas, sectionals, loveseats and armchairs \u2014 over fifty designs in modern silhouettes.",
-    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=80",
-    heroImage: "https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=2000&q=80"
-  },
-  {
-    id: "beds",
-    name: "Beds",
-    slug: "beds",
-    description: "Upholstered, storage, canopy and platform beds \u2014 over fifty designs for the modern bedroom.",
-    image: "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=1600&q=80",
-    heroImage: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=2000&q=80"
-  },
-  {
-    id: "wardrobes",
-    name: "Modular Wardrobes",
-    slug: "wardrobes",
-    description: "Sliding-door, hinged, mirrored and walk-in wardrobes \u2014 over fifty designer configurations.",
-    image: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1600&q=80",
-    heroImage: "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=2000&q=80"
-  },
-  {
-    id: "tv-units",
-    name: "TV Units",
-    slug: "tv-units",
-    description: "Modular TV units and living room storage in a warm oak finish.",
-    image: "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1600&q=80"
-  },
-  {
-    id: "dining",
-    name: "Dining",
-    slug: "dining",
-    description: "Dining tables and seating built for everyday gatherings.",
-    image: "https://images.unsplash.com/photo-1615873968403-89e068629265?w=1600&q=80"
-  },
-  {
-    id: "wooden-cabinets",
-    name: "Wooden Cabinets",
-    slug: "wooden-cabinets",
-    description: "Storage cabinets, sideboards and display units in solid wood.",
-    image: "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1600&q=80"
-  },
-  {
-    id: "bookshelves",
-    name: "Bookshelves",
-    slug: "bookshelves",
-    description: "Open and modular bookshelves for the modern reading room.",
-    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1600&q=80"
-  },
-  {
-    id: "decorative-lights",
-    name: "Decorative Lights",
-    slug: "decorative-lights",
-    description: "Pendant, floor and wall lighting to accent your interiors.",
-    image: "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=1600&q=80"
-  },
-  {
-    id: "study",
-    name: "Study",
-    slug: "study",
-    description: "Sleek study tables and minimal home-office setups.",
-    image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=1600&q=80"
-  }
-];
 var IMG = {
+  kitchens: [
+    "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=80",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=80",
+    "https://images.unsplash.com/photo-1556910096-6f5e72db6803?w=1600&q=80",
+    "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=1600&q=80",
+    "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1600&q=80",
+    "https://images.unsplash.com/photo-1556910110-a5a63dfd393c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1565183997392-2f6f122e5912?w=1600&q=80",
+    "https://images.unsplash.com/photo-1620626011761-996317b8d101?w=1600&q=80"
+  ],
   sofas: [
     "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=80",
     "https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=1600&q=80",
@@ -120,64 +56,500 @@ var IMG = {
     "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=1600&q=80",
     "https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?w=1600&q=80"
   ],
-  kitchens: [
-    "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=80",
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80",
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=80",
-    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=80",
-    "https://images.unsplash.com/photo-1556910096-6f5e72db6803?w=1600&q=80",
-    "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=1600&q=80",
-    "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1600&q=80",
-    "https://images.unsplash.com/photo-1556910110-a5a63dfd393c?w=1600&q=80",
-    "https://images.unsplash.com/photo-1565183997392-2f6f122e5912?w=1600&q=80",
-    "https://images.unsplash.com/photo-1620626011761-996317b8d101?w=1600&q=80"
-  ],
   tv: [
     "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1600&q=80",
     "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80",
     "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=80",
-    "https://images.unsplash.com/photo-1583845112203-29329902332e?w=1600&q=80"
+    "https://images.unsplash.com/photo-1583845112203-29329902332e?w=1600&q=80",
+    "https://images.unsplash.com/photo-1524758870432-af57e54afa26?w=1600&q=80",
+    "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1600&q=80",
+    "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1615529162924-f8605388461d?w=1600&q=80"
   ],
-  dn: [
+  diningTables: [
     "https://images.unsplash.com/photo-1615873968403-89e068629265?w=1600&q=80",
     "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=1600&q=80",
     "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=1600&q=80",
-    "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=1600&q=80"
+    "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=1600&q=80",
+    "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=1600&q=80",
+    "https://images.unsplash.com/photo-1615529162924-f8605388461d?w=1600&q=80",
+    "https://images.unsplash.com/photo-1503602642458-232111445657?w=1600&q=80",
+    "https://images.unsplash.com/photo-1449247666642-264389f5f5b1?w=1600&q=80"
+  ],
+  diningChairs: [
+    "https://images.unsplash.com/photo-1503602642458-232111445657?w=1600&q=80",
+    "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=1600&q=80",
+    "https://images.unsplash.com/photo-1517705008128-361805f42e86?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=1600&q=80",
+    "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1600&q=80",
+    "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=1600&q=80",
+    "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=1600&q=80"
   ],
   wc: [
     "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1600&q=80",
     "https://images.unsplash.com/photo-1598928636135-d146006ff4be?w=1600&q=80",
     "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=1600&q=80",
-    "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=1600&q=80"
+    "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=1600&q=80",
+    "https://images.unsplash.com/photo-1615529162924-f8605388461d?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80",
+    "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=1600&q=80",
+    "https://images.unsplash.com/photo-1503602642458-232111445657?w=1600&q=80"
   ],
   bs: [
     "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1600&q=80",
     "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=1600&q=80",
     "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=80",
-    "https://images.unsplash.com/photo-1512212621149-107ffe572d2f?w=1600&q=80"
+    "https://images.unsplash.com/photo-1512212621149-107ffe572d2f?w=1600&q=80",
+    "https://images.unsplash.com/photo-1481277542470-605612bd2d61?w=1600&q=80",
+    "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519974719765-e6559eac2575?w=1600&q=80",
+    "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600&q=80"
   ],
   dl: [
     "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=1600&q=80",
     "https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=1600&q=80",
     "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=1600&q=80",
-    "https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=1600&q=80"
+    "https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=1600&q=80",
+    "https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=1600&q=80",
+    "https://images.unsplash.com/photo-1573148195900-7845dcb9b127?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=1600&q=80",
+    "https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?w=1600&q=80"
   ],
-  st: [
+  study: [
     "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=1600&q=80",
     "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=1600&q=80",
     "https://images.unsplash.com/photo-1541558869434-2840d308329a?w=1600&q=80",
+    "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519974719765-e6559eac2575?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616627988056-1bde15c19f43?w=1600&q=80",
+    "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1587212695467-11e2b1efe6e1?w=1600&q=80"
+  ],
+  office: [
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=80",
+    "https://images.unsplash.com/photo-1524758870432-af57e54afa26?w=1600&q=80",
+    "https://images.unsplash.com/photo-1587212695467-11e2b1efe6e1?w=1600&q=80",
+    "https://images.unsplash.com/photo-1541558869434-2840d308329a?w=1600&q=80",
+    "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=1600&q=80",
+    "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519974719765-e6559eac2575?w=1600&q=80"
+  ],
+  shoeRacks: [
+    "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=80",
+    "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=1600&q=80",
+    "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?w=1600&q=80",
+    "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=1600&q=80",
+    "https://images.unsplash.com/photo-1524758870432-af57e54afa26?w=1600&q=80",
+    "https://images.unsplash.com/photo-1615529162924-f8605388461d?w=1600&q=80",
+    "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1600&q=80"
+  ],
+  coffeeTables: [
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=80",
+    "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=1600&q=80",
+    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=1600&q=80",
+    "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=1600&q=80",
+    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=80",
+    "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1600&q=80",
+    "https://images.unsplash.com/photo-1571079570759-18451d156fbe?w=1600&q=80"
+  ],
+  sideTables: [
+    "https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=1600&q=80",
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=80",
+    "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=1600&q=80",
+    "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80",
+    "https://images.unsplash.com/photo-1524758870432-af57e54afa26?w=1600&q=80",
+    "https://images.unsplash.com/photo-1541558869434-2840d308329a?w=1600&q=80",
     "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=1600&q=80"
+  ],
+  recliners: [
+    "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=1600&q=80",
+    "https://images.unsplash.com/photo-1571079570759-18451d156fbe?w=1600&q=80",
+    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=1600&q=80",
+    "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1600&q=80",
+    "https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=1600&q=80",
+    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=80"
+  ],
+  beanBags: [
+    "https://images.unsplash.com/photo-1554140361-30e4fe5c1fbc?w=1600&q=80",
+    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1600&q=80",
+    "https://images.unsplash.com/photo-1560448205-4d9b3e6bb6db?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=1600&q=80",
+    "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1600&q=80",
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=80",
+    "https://images.unsplash.com/photo-1571079570759-18451d156fbe?w=1600&q=80",
+    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=1600&q=80"
+  ],
+  barUnits: [
+    "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=1600&q=80",
+    "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1600&q=80",
+    "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1600&q=80",
+    "https://images.unsplash.com/photo-1598928636135-d146006ff4be?w=1600&q=80",
+    "https://images.unsplash.com/photo-1483058712412-4245e9b90334?w=1600&q=80",
+    "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=1600&q=80",
+    "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=1600&q=80",
+    "https://images.unsplash.com/photo-1615529162924-f8605388461d?w=1600&q=80"
+  ],
+  consoleTables: [
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=1600&q=80",
+    "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1600&q=80",
+    "https://images.unsplash.com/photo-1598928636135-d146006ff4be?w=1600&q=80",
+    "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=1600&q=80",
+    "https://images.unsplash.com/photo-1615529162924-f8605388461d?w=1600&q=80",
+    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=1600&q=80",
+    "https://images.unsplash.com/photo-1524758870432-af57e54afa26?w=1600&q=80"
+  ],
+  dressingTables: [
+    "https://images.unsplash.com/photo-1616627988056-1bde15c19f43?w=1600&q=80",
+    "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1600&q=80",
+    "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=1600&q=80",
+    "https://images.unsplash.com/photo-1558211583-d26f610c1eb1?w=1600&q=80",
+    "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?w=1600&q=80",
+    "https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?w=1600&q=80"
+  ],
+  wallShelves: [
+    "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1600&q=80",
+    "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=1600&q=80",
+    "https://images.unsplash.com/photo-1512212621149-107ffe572d2f?w=1600&q=80",
+    "https://images.unsplash.com/photo-1481277542470-605612bd2d61?w=1600&q=80",
+    "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519974719765-e6559eac2575?w=1600&q=80",
+    "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=80",
+    "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600&q=80"
+  ],
+  kids: [
+    "https://images.unsplash.com/photo-1558877385-8c1a2f45a7e0?w=1600&q=80",
+    "https://images.unsplash.com/photo-1587578932093-4c9d7db4a48b?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=1600&q=80",
+    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1600&q=80",
+    "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1600&q=80",
+    "https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?w=1600&q=80",
+    "https://images.unsplash.com/photo-1631049035182-249067d7618e?w=1600&q=80",
+    "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&q=80"
+  ],
+  bunkBeds: [
+    "https://images.unsplash.com/photo-1558877385-8c1a2f45a7e0?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=1600&q=80",
+    "https://images.unsplash.com/photo-1587578932093-4c9d7db4a48b?w=1600&q=80",
+    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1600&q=80",
+    "https://images.unsplash.com/photo-1631049035182-249067d7618e?w=1600&q=80",
+    "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1600&q=80",
+    "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80"
+  ],
+  mattresses: [
+    "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=80",
+    "https://images.unsplash.com/photo-1631049035182-249067d7618e?w=1600&q=80",
+    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1600&q=80",
+    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1600&q=80",
+    "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=1600&q=80",
+    "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80"
+  ],
+  bedsideTables: [
+    "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=1600&q=80",
+    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1600&q=80",
+    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1600&q=80",
+    "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1600&q=80",
+    "https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?w=1600&q=80",
+    "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=1600&q=80"
+  ],
+  outdoor: [
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519643381401-22c77e60520e?w=1600&q=80",
+    "https://images.unsplash.com/photo-1533377088493-a55d9e93cd75?w=1600&q=80",
+    "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=1600&q=80",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=80",
+    "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1449247666642-264389f5f5b1?w=1600&q=80",
+    "https://images.unsplash.com/photo-1503602642458-232111445657?w=1600&q=80"
+  ],
+  swings: [
+    "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519643381401-22c77e60520e?w=1600&q=80",
+    "https://images.unsplash.com/photo-1533377088493-a55d9e93cd75?w=1600&q=80",
+    "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=1600&q=80",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=80",
+    "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1554140361-30e4fe5c1fbc?w=1600&q=80",
+    "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=1600&q=80"
+  ],
+  storage: [
+    "https://images.unsplash.com/photo-1598928636135-d146006ff4be?w=1600&q=80",
+    "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1600&q=80",
+    "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=1600&q=80",
+    "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=1600&q=80",
+    "https://images.unsplash.com/photo-1615529162924-f8605388461d?w=1600&q=80",
+    "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?w=1600&q=80",
+    "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=1600&q=80"
+  ],
+  pooja: [
+    "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1600&q=80",
+    "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=1600&q=80",
+    "https://images.unsplash.com/photo-1598928636135-d146006ff4be?w=1600&q=80",
+    "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=1600&q=80",
+    "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?w=1600&q=80",
+    "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=1600&q=80",
+    "https://images.unsplash.com/photo-1615529162924-f8605388461d?w=1600&q=80"
+  ],
+  rugs: [
+    "https://images.unsplash.com/photo-1600166898405-da9535204843?w=1600&q=80",
+    "https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=1600&q=80",
+    "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=1600&q=80",
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=80",
+    "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=1600&q=80",
+    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=1600&q=80",
+    "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1600&q=80"
   ]
 };
+var collections = [
+  {
+    id: "modular-kitchen",
+    name: "Modular Kitchen",
+    slug: "modular-kitchen",
+    description: "Made-to-measure modular kitchens with chimney, hob, cabinetry and appliance provisions.",
+    image: IMG.kitchens[0],
+    heroImage: IMG.kitchens[1]
+  },
+  {
+    id: "sofas",
+    name: "Sofas",
+    slug: "sofas",
+    description: "Sofas, sectionals, loveseats and armchairs \u2014 over fifty modern designs.",
+    image: IMG.sofas[0],
+    heroImage: IMG.sofas[1]
+  },
+  {
+    id: "beds",
+    name: "Beds",
+    slug: "beds",
+    description: "Upholstered, storage, canopy and platform beds for the modern bedroom.",
+    image: IMG.beds[0],
+    heroImage: IMG.beds[1]
+  },
+  {
+    id: "wardrobes",
+    name: "Modular Wardrobes",
+    slug: "wardrobes",
+    description: "Sliding-door, hinged, mirrored and walk-in wardrobes with soft-close hardware.",
+    image: IMG.wardrobes[0],
+    heroImage: IMG.wardrobes[1]
+  },
+  {
+    id: "tv-units",
+    name: "TV Units",
+    slug: "tv-units",
+    description: "Modular TV units, media walls and living room storage in warm finishes.",
+    image: IMG.tv[0]
+  },
+  {
+    id: "dining-tables",
+    name: "Dining Tables",
+    slug: "dining-tables",
+    description: "4, 6 and 8-seater dining tables in solid wood, marble and glass tops.",
+    image: IMG.diningTables[0]
+  },
+  {
+    id: "dining-chairs",
+    name: "Dining Chairs",
+    slug: "dining-chairs",
+    description: "Upholstered, cane, metal and wooden dining chairs \u2014 sold in singles or sets.",
+    image: IMG.diningChairs[0]
+  },
+  {
+    id: "wooden-cabinets",
+    name: "Wooden Cabinets",
+    slug: "wooden-cabinets",
+    description: "Storage cabinets, sideboards and display units in solid wood.",
+    image: IMG.wc[0]
+  },
+  {
+    id: "bookshelves",
+    name: "Bookshelves",
+    slug: "bookshelves",
+    description: "Open, modular and tall bookshelves for the modern reading room.",
+    image: IMG.bs[0]
+  },
+  {
+    id: "decorative-lights",
+    name: "Decorative Lights",
+    slug: "decorative-lights",
+    description: "Pendant, floor and wall lighting to accent your interiors.",
+    image: IMG.dl[0]
+  },
+  {
+    id: "study-tables",
+    name: "Study Tables",
+    slug: "study-tables",
+    description: "Sleek study tables and minimal home-office desks for every age.",
+    image: IMG.study[0]
+  },
+  {
+    id: "office-furniture",
+    name: "Office Furniture",
+    slug: "office-furniture",
+    description: "Executive desks, ergonomic chairs and office storage for work-from-home and studios.",
+    image: IMG.office[0]
+  },
+  {
+    id: "shoe-racks",
+    name: "Shoe Racks",
+    slug: "shoe-racks",
+    description: "Entryway shoe racks and shoe cabinets with 6 to 30-pair capacity.",
+    image: IMG.shoeRacks[0]
+  },
+  {
+    id: "coffee-tables",
+    name: "Coffee Tables",
+    slug: "coffee-tables",
+    description: "Nesting, storage, marble-top and live-edge coffee tables for the living room.",
+    image: IMG.coffeeTables[0]
+  },
+  {
+    id: "side-tables",
+    name: "Side & End Tables",
+    slug: "side-tables",
+    description: "Accent side tables, end tables and nesting tables for sofas and beds.",
+    image: IMG.sideTables[0]
+  },
+  {
+    id: "recliners",
+    name: "Recliners",
+    slug: "recliners",
+    description: "Manual and motorised recliners in leatherette, fabric and premium leather.",
+    image: IMG.recliners[0]
+  },
+  {
+    id: "bean-bags",
+    name: "Bean Bags",
+    slug: "bean-bags",
+    description: "XL, XXL and XXXL bean bags with beans, in leatherette and cotton twill.",
+    image: IMG.beanBags[0]
+  },
+  {
+    id: "bar-units",
+    name: "Bar Units",
+    slug: "bar-units",
+    description: "Home bar cabinets, bar trolleys and bar stools in walnut and matte finishes.",
+    image: IMG.barUnits[0]
+  },
+  {
+    id: "console-tables",
+    name: "Console Tables",
+    slug: "console-tables",
+    description: "Foyer and hallway console tables in solid wood, metal and marble.",
+    image: IMG.consoleTables[0]
+  },
+  {
+    id: "dressing-tables",
+    name: "Dressing Tables",
+    slug: "dressing-tables",
+    description: "Mirrored dressing tables with drawers, LED lighting and matching stools.",
+    image: IMG.dressingTables[0]
+  },
+  {
+    id: "wall-shelves",
+    name: "Wall Shelves",
+    slug: "wall-shelves",
+    description: "Floating wall shelves, ledges and modular wall storage.",
+    image: IMG.wallShelves[0]
+  },
+  {
+    id: "kids-furniture",
+    name: "Kids Furniture",
+    slug: "kids-furniture",
+    description: "Kids beds, study tables, storage and playroom furniture in cheerful finishes.",
+    image: IMG.kids[0]
+  },
+  {
+    id: "bunk-beds",
+    name: "Bunk Beds",
+    slug: "bunk-beds",
+    description: "Twin, triple and study-desk bunk beds engineered for shared bedrooms.",
+    image: IMG.bunkBeds[0]
+  },
+  {
+    id: "mattresses",
+    name: "Mattresses",
+    slug: "mattresses",
+    description: "Memory foam, orthopaedic, spring and latex mattresses in all standard sizes.",
+    image: IMG.mattresses[0]
+  },
+  {
+    id: "bedside-tables",
+    name: "Bedside Tables",
+    slug: "bedside-tables",
+    description: "Nightstands and bedside tables with drawers, USB ports and storage.",
+    image: IMG.bedsideTables[0]
+  },
+  {
+    id: "outdoor-furniture",
+    name: "Outdoor Furniture",
+    slug: "outdoor-furniture",
+    description: "Weatherproof garden, balcony and patio furniture in rattan, teak and metal.",
+    image: IMG.outdoor[0]
+  },
+  {
+    id: "swings-jhoolas",
+    name: "Swings & Jhoolas",
+    slug: "swings-jhoolas",
+    description: "Indoor and outdoor jhoolas, hanging chairs and hammock swings.",
+    image: IMG.swings[0]
+  },
+  {
+    id: "storage-trunks",
+    name: "Storage & Trunks",
+    slug: "storage-trunks",
+    description: "Storage trunks, blanket boxes and ottoman storage in solid wood and leather.",
+    image: IMG.storage[0]
+  },
+  {
+    id: "pooja-units",
+    name: "Pooja Units",
+    slug: "pooja-units",
+    description: "Wall-mount and floor-standing pooja mandirs in teak, sheesham and mango wood.",
+    image: IMG.pooja[0]
+  },
+  {
+    id: "rugs-carpets",
+    name: "Rugs & Carpets",
+    slug: "rugs-carpets",
+    description: "Hand-tufted, hand-knotted and machine-woven rugs and area carpets.",
+    image: IMG.rugs[0]
+  }
+];
 var pickTwo = (arr, i) => [
   arr[i % arr.length],
   arr[(i + 1) % arr.length]
 ];
 var __codeCounter = 1e3;
 var nextCode = (prefix) => `${prefix}-${++__codeCounter}`;
+var parseDims = (s) => {
+  if (!s) return void 0;
+  const nums = s.match(/\d+/g)?.map(Number);
+  if (!nums || nums.length < 3) return void 0;
+  const [L, W, H, D] = [nums[0] ?? 0, nums[1] ?? 0, nums[2] ?? 0, nums[3] ?? nums[1] ?? 0];
+  return { lengthCm: L, widthCm: W, heightCm: H, depthCm: D };
+};
 var p = (args) => {
   const discountPercent = Math.round((args.mrp - args.price) / args.mrp * 100);
   const codePrefix = args.collection.slice(0, 3).toUpperCase();
+  const dims = args.dims ?? args.kitchenDims ?? parseDims(args.dimensions);
   return {
     id: args.id,
     name: args.name,
@@ -194,8 +566,10 @@ var p = (args) => {
     finish: args.finish ?? "Matte Oak",
     color: args.color ?? "Oak",
     style: args.style ?? "Modern",
-    dimensions: args.dimensions ?? "180 \xD7 60 \xD7 75 cm",
+    dimensions: args.dimensions ?? (dims ? `${dims.lengthCm} \xD7 ${dims.widthCm} \xD7 ${dims.heightCm} cm` : "180 \xD7 60 \xD7 75 cm"),
+    dims,
     kitchenDims: args.kitchenDims,
+    features: args.features,
     images: args.images,
     featured: args.featured,
     new: args.new,
@@ -210,230 +584,395 @@ var COLORS = ["Oak", "Walnut", "Ivory", "Charcoal", "Warm Beige", "Slate", "Sand
 var STYLES = ["Modern", "Scandinavian", "Contemporary", "Industrial Loft", "Mid-Century", "Minimalist", "Japandi", "Coastal"];
 var MATERIALS = ["Engineered Wood", "Solid Sheesham", "Solid Oak", "Solid Teak", "Rubberwood", "Metal + Wood", "Boucle + Oak", "Velvet + Walnut"];
 var v = (list, i) => list[i % list.length];
-var SOFA_TYPES = [
-  "3-Seater Sofa",
-  "2-Seater Loveseat",
-  "L-Shape Sectional",
-  "U-Shape Sectional",
-  "Modular Sectional",
-  "Chaise Lounge",
-  "Recliner Sofa",
-  "Sleeper Sofa",
-  "Boucle Armchair",
-  "Lounge Chair",
-  "Wingback Armchair",
-  "Tub Chair",
-  "Chesterfield Sofa",
-  "Tuxedo Sofa",
-  "Cabriole Sofa",
-  "Track-Arm Sofa",
-  "Curved 3-Seater",
-  "Low Lounge Sofa"
+var dim = (l, w, h, d = w) => ({
+  lengthCm: l,
+  widthCm: w,
+  heightCm: h,
+  depthCm: d
+});
+var CAT_SPECS = [
+  {
+    cid: "sofas",
+    imgs: IMG.sofas,
+    types: ["3-Seater Sofa", "2-Seater Loveseat", "L-Shape Sectional", "U-Shape Sectional", "Modular Sectional", "Chaise Lounge", "Recliner Sofa", "Sleeper Sofa", "Boucle Armchair", "Lounge Chair", "Wingback Armchair", "Tub Chair", "Chesterfield Sofa", "Tuxedo Sofa", "Cabriole Sofa", "Track-Arm Sofa", "Curved 3-Seater", "Low Lounge Sofa"],
+    prefixes: ["Alba", "Bosco", "Cove", "Drift", "Eddon", "Forge", "Grove", "Halden", "Ivo", "Juno", "Kettle", "Linden", "Marlow", "Noor", "Odin", "Pia", "Quest", "Rian"],
+    basePrice: 22999,
+    priceStep: 4200,
+    discount: 42,
+    dims: (i, t) => t.includes("Sectional") ? dim(260, 180, 82, 90) : t.includes("Loveseat") ? dim(160, 88, 82, 88) : t.includes("Chair") || t.includes("Chaise") ? dim(88, 90, 82, 90) : dim(210, 92, 84, 92),
+    features: (t) => ["Solid hardwood frame with corner blocking", "High-resilience foam cushions with fibre topper", `Removable, dry-clean-only ${t.includes("Boucle") ? "boucle" : "premium fabric"} covers`, "5-year frame warranty, 1-year fabric warranty", "Free professional assembly at delivery"]
+  },
+  {
+    cid: "beds",
+    imgs: IMG.beds,
+    types: ["Upholstered King Bed", "Upholstered Queen Bed", "Storage King Bed", "Storage Queen Bed", "Low Platform Bed", "Canopy King Bed", "Fluted Headboard Bed", "Slat Bed", "Panel Bed", "Poster Bed", "Wingback Bed", "Boucle Headboard Bed", "Solid Oak Bed", "Solid Teak Bed", "Ivory Panel Bed", "Walnut Queen Bed", "Compact Single Bed", "Hydraulic Storage Bed"],
+    prefixes: ["Aspen", "Bower", "Cove", "Drift", "Eddon", "Forge", "Grove", "Haven", "Iris", "Juno", "Kestrel", "Linden", "Marlo", "Noor", "Orion", "Pine", "Quill", "Reeve"],
+    basePrice: 28999,
+    priceStep: 5200,
+    discount: 44,
+    dims: (i, t) => t.includes("King") || t.includes("Poster") || t.includes("Canopy") ? dim(210, 200, 110, 200) : t.includes("Queen") ? dim(210, 165, 110, 165) : t.includes("Single") ? dim(200, 100, 105, 100) : dim(210, 180, 105, 180),
+    features: (t) => ["Engineered plywood + solid hardwood frame", t.includes("Storage") || t.includes("Hydraulic") ? "Full-length storage with hydraulic lift" : "Slatted base for mattress ventilation", "Premium fabric or veneer headboard", "Zero-sag support with reinforced cross members", "5-year structural warranty"]
+  },
+  {
+    cid: "wardrobes",
+    imgs: IMG.wardrobes,
+    types: ["2-Door Sliding Wardrobe", "3-Door Sliding Wardrobe", "4-Door Sliding Wardrobe", "2-Door Hinged Wardrobe", "3-Door Hinged Wardrobe", "Mirrored Wardrobe", "Walk-in Wardrobe", "Fluted-Front Wardrobe", "Handleless Wardrobe", "Loft Wardrobe", "Corner Wardrobe", "Open Wardrobe", "Glass-Front Wardrobe", "Walnut Wardrobe", "Ivory Wardrobe", "Compact Wardrobe", "Kids Wardrobe", "Dresser Wardrobe Combo"],
+    prefixes: ["Marlow", "Kyra", "Orion", "Selene", "Thera", "Uma", "Vela", "Wren", "Xara", "Yara", "Aster", "Bran", "Cedar", "Dune", "Elm", "Fern", "Grove", "Halden"],
+    basePrice: 26999,
+    priceStep: 6500,
+    discount: 45,
+    dims: (i, t) => t.includes("4-Door") ? dim(240, 60, 230, 60) : t.includes("3-Door") ? dim(180, 60, 230, 60) : t.includes("Walk-in") ? dim(300, 200, 240, 200) : dim(120, 60, 220, 60),
+    features: () => ["BWR-grade marine plywood carcass", "Soft-close hinges and drawer runners", "Anti-rust hanging rods and pull-out organisers", "Smudge-resistant matte laminate finish", "Free on-site installation across India"]
+  },
+  {
+    cid: "tv-units",
+    imgs: IMG.tv,
+    types: ["Wall-Mount TV Unit", "Floor TV Console", "Media Wall System", "Compact TV Cabinet", "Storage TV Unit", "Modular TV Rack", "Walnut TV Console", "Slim TV Panel", "Fluted TV Unit", "Live-Edge TV Console", "Corner TV Unit", "Rustic Oak TV Console", "Glass Cabinet TV Unit", "Open-Shelf TV Unit"],
+    prefixes: ["Aster", "Halden", "Linden", "Noor", "Odin", "Verse", "Wren", "Xen", "Yara", "Zara", "Bran", "Cedar", "Dune", "Elm"],
+    basePrice: 18999,
+    priceStep: 5500,
+    discount: 44,
+    dims: (i, t) => t.includes("Wall") ? dim(180, 30, 45, 30) : dim(180, 40, 55, 40),
+    features: () => ["Cable-management cutouts", "Soft-close drawers", "Anti-tip wall bracket included", "Scratch-resistant matte finish", 'Supports up to 65" TVs']
+  },
+  {
+    cid: "dining-tables",
+    imgs: IMG.diningTables,
+    types: ["4-Seater Dining Table", "6-Seater Dining Table", "8-Seater Dining Table", "Round Pedestal Table", "Extendable Dining Table", "Marble-Top Dining Table", "Live-Edge Dining Table", "Oval Dining Table", "Glass-Top Dining Table", "Rustic Farmhouse Table", "Compact 2-Seater Table", "Bar Height Dining Table"],
+    prefixes: ["Harvest", "Indie", "Juno", "Kettle", "Marlo", "Nord", "Ora", "Pia", "Quest", "Reeve", "Sable", "Thera"],
+    basePrice: 22999,
+    priceStep: 8500,
+    discount: 46,
+    dims: (i, t) => t.includes("8-Seater") ? dim(240, 100, 76, 100) : t.includes("6-Seater") || t.includes("Extendable") ? dim(180, 90, 76, 90) : t.includes("Round") ? dim(120, 120, 76, 120) : t.includes("2-Seater") ? dim(90, 60, 76, 60) : dim(150, 90, 76, 90),
+    features: () => ["Solid hardwood or marble tabletop", "Reinforced apron for zero-wobble seating", "Water-resistant matte PU finish", "Levelling feet for uneven floors", "5-year manufacturing warranty"]
+  },
+  {
+    cid: "dining-chairs",
+    imgs: IMG.diningChairs,
+    types: ["Upholstered Dining Chair", "Cane-Back Dining Chair", "Wooden Dining Chair", "Metal Dining Chair", "Boucle Dining Chair", "Windsor Dining Chair", "Cross-Back Dining Chair", "Cushioned Armchair", "Velvet Dining Chair", "Ladder-Back Chair", "Wishbone Chair", "Bar Stool Chair"],
+    prefixes: ["Alba", "Bower", "Copen", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kettle", "Linden"],
+    basePrice: 4999,
+    priceStep: 1200,
+    discount: 40,
+    dims: (i) => dim(48, 52, 88, 52),
+    features: () => ["High-density foam seat", "Solid hardwood or steel legs", "Non-marking floor glides", "Stain-guard fabric available", "Sold as single unit \u2014 pair as needed"]
+  },
+  {
+    cid: "wooden-cabinets",
+    imgs: IMG.wc,
+    types: ["Oak Sideboard", "Fluted Storage Cabinet", "Display Cabinet", "Utility Cabinet", "Tall Storage Unit", "Ivory Cabinet", "Louvered Cabinet", "Walnut Sideboard", "Compact Cabinet", "Glass-Front Cabinet", "Corner Cabinet", "Rustic Storage Cabinet"],
+    prefixes: ["Amber", "Bran", "Cedar", "Dune", "Elm", "Fern", "Grove", "Havn", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 15999,
+    priceStep: 4500,
+    discount: 43,
+    dims: (i, t) => t.includes("Tall") ? dim(90, 45, 180, 45) : dim(150, 45, 85, 45),
+    features: () => ["Solid wood construction", "Adjustable interior shelves", "Soft-close doors and drawers", "Brass or matte-black hardware", "Hand-finished, food-safe lacquer"]
+  },
+  {
+    cid: "bookshelves",
+    imgs: IMG.bs,
+    types: ["Open Bookshelf", "Ladder Bookshelf", "Modular Bookshelf", "Tall Bookcase", "Wall Bookshelf", "5-Tier Bookshelf", "Corner Bookcase", "Reading Wall Unit", "Cube Bookshelf", "Live-Edge Shelf", "Industrial Metal Bookshelf", "Compact Bookshelf"],
+    prefixes: ["Atlas", "Bower", "Copen", "Dune", "Eddon", "Forge", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 9999,
+    priceStep: 3500,
+    discount: 40,
+    dims: (i, t) => t.includes("Tall") || t.includes("5-Tier") ? dim(90, 30, 190, 30) : dim(120, 30, 150, 30),
+    features: () => ["Weight-tested up to 25kg per shelf", "Anti-tip wall anchor included", "Adjustable shelf heights", "Solid wood or metal frame", "Scratch-resistant matte finish"]
+  },
+  {
+    cid: "decorative-lights",
+    imgs: IMG.dl,
+    types: ["Pendant Light", "Rattan Pendant", "Linear Chandelier", "Paper Floor Lamp", "Brass Sconce", "Industrial Pendant", "Cluster Pendant", "Marble Table Lamp", "Wall Sconce Set", "Sculptural Floor Lamp", "Brass Chandelier", "Rice-Paper Lantern"],
+    prefixes: ["Arc", "Bower", "Copen", "Dune", "Eddon", "Forge", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 3999,
+    priceStep: 1600,
+    discount: 38,
+    dims: (i, t) => t.includes("Floor") ? dim(35, 35, 160, 35) : t.includes("Table") ? dim(30, 30, 55, 30) : dim(60, 60, 120, 60),
+    features: () => ["E27 socket, LED compatible", "IS-certified wiring", "Adjustable cord/rod length", "Warm-white 3000K recommended", "Ceiling rose and fittings included"]
+  },
+  {
+    cid: "study-tables",
+    imgs: IMG.study,
+    types: ["Compact Study Desk", "Writing Desk", "Executive Desk", "Portable Laptop Table", "Study Table & Chair Set", "L-Shaped Corner Desk", "Standing Desk", "Kids Study Table", "Wall-Mount Study Desk", "Study Table with Drawers", "Foldable Study Table", "Solid Oak Writing Desk"],
+    prefixes: ["Atlas", "Brook", "Crest", "Dune", "Elm", "Forge", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 6999,
+    priceStep: 3800,
+    discount: 42,
+    dims: (i, t) => t.includes("L-Shaped") ? dim(160, 160, 76, 60) : t.includes("Standing") ? dim(120, 60, 110, 60) : dim(120, 60, 76, 60),
+    features: () => ["Scratch-resistant laminate top", "Cable-management grommet", "Two drawers with soft-close runners", "Solid steel or wood legs", "Free assembly at delivery"]
+  },
+  {
+    cid: "office-furniture",
+    imgs: IMG.office,
+    types: ["Ergonomic Office Chair", "Executive Office Chair", "Mesh Task Chair", "Manager Desk", "L-Shape Office Desk", "Boardroom Table", "Reception Desk", "Office Storage Cabinet", "Filing Cabinet", "Workstation Cubicle", "Standing Desk Converter", "Visitor Chair"],
+    prefixes: ["Axis", "Boro", "Crest", "Dyne", "Elm", "Focus", "Grid", "Helix", "Ivo", "Juno", "Kern", "Loft"],
+    basePrice: 8999,
+    priceStep: 3500,
+    discount: 40,
+    dims: (i, t) => t.includes("Chair") ? dim(65, 65, 115, 65) : t.includes("L-Shape") ? dim(160, 160, 76, 60) : dim(150, 75, 76, 75),
+    features: () => ["BIFMA-tested for commercial use", "5-year warranty on frame and mechanism", "Lumbar support and adjustable armrests (chairs)", "Cable-management channel (desks)", "Anti-scratch laminate finish"],
+    material: () => "Engineered Wood + Steel"
+  },
+  {
+    cid: "shoe-racks",
+    imgs: IMG.shoeRacks,
+    types: ["6-Pair Shoe Rack", "12-Pair Shoe Rack", "18-Pair Shoe Rack", "24-Pair Shoe Cabinet", "Bench Shoe Rack", "Slim Shoe Cabinet", "Tall Shoe Cabinet", "Foldable Shoe Rack", "Metal Shoe Rack", "Mirrored Shoe Cabinet", "Kids Shoe Rack", "Corner Shoe Rack"],
+    prefixes: ["Arch", "Bran", "Cedar", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 3999,
+    priceStep: 1500,
+    discount: 40,
+    dims: (i, t) => t.includes("Tall") ? dim(60, 30, 180, 30) : dim(90, 30, 90, 30),
+    features: () => ["Ventilated storage compartments", "Anti-tip wall bracket", "Scratch-resistant laminate", "Space-saving flip-out design (select models)", "Assembles in under 20 minutes"]
+  },
+  {
+    cid: "coffee-tables",
+    imgs: IMG.coffeeTables,
+    types: ["Rectangular Coffee Table", "Round Coffee Table", "Nesting Coffee Tables", "Marble-Top Coffee Table", "Live-Edge Coffee Table", "Storage Coffee Table", "Lift-Top Coffee Table", "Glass Coffee Table", "Oval Coffee Table", "Drum Coffee Table", "Solid Oak Coffee Table", "Industrial Coffee Table"],
+    prefixes: ["Alba", "Bower", "Copen", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 8999,
+    priceStep: 2800,
+    discount: 42,
+    dims: (i, t) => t.includes("Round") || t.includes("Drum") ? dim(90, 90, 42, 90) : dim(120, 60, 42, 60),
+    features: () => ["Solid hardwood, marble or tempered glass top", "Concealed storage (select models)", "Water-ring resistant finish", "Floor-safe rubber feet", "5-year manufacturing warranty"]
+  },
+  {
+    cid: "side-tables",
+    imgs: IMG.sideTables,
+    types: ["Round Side Table", "Square End Table", "Nesting Side Tables", "Drum Side Table", "Marble Side Table", "Wood Side Table", "Metal Side Table", "C-Shape Side Table", "Glass Side Table", "Storage Side Table", "Live-Edge Side Table", "Kids Side Table"],
+    prefixes: ["Aster", "Bower", "Copen", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 3499,
+    priceStep: 900,
+    discount: 38,
+    dims: (i, t) => t.includes("Round") || t.includes("Drum") ? dim(45, 45, 55, 45) : dim(50, 50, 55, 50),
+    features: () => ["Solid wood, metal or marble build", "Non-scratch floor pads", "Wobble-free levelling feet", "Compact, easy-to-move footprint", "Ready-to-use, minimal assembly"]
+  },
+  {
+    cid: "recliners",
+    imgs: IMG.recliners,
+    types: ["Single-Seater Manual Recliner", "Single-Seater Motorised Recliner", "2-Seater Recliner", "3-Seater Recliner", "Corner Recliner Sofa", "Leatherette Recliner", "Fabric Recliner", "Premium Leather Recliner", "Rocker Recliner", "Wall-Hugger Recliner", "Massage Recliner", "Zero-Gravity Recliner"],
+    prefixes: ["Aria", "Bosco", "Cove", "Drift", "Eddon", "Forge", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 24999,
+    priceStep: 6500,
+    discount: 40,
+    dims: (i, t) => t.includes("3-Seater") || t.includes("Corner") ? dim(220, 95, 100, 95) : t.includes("2-Seater") ? dim(160, 95, 100, 95) : dim(90, 95, 100, 95),
+    features: () => ["Push-back or motorised reclining mechanism", "German lift-and-lock hardware", "High-density foam with fibre topper", "Anti-skid base", "3-year mechanism warranty"],
+    material: () => "Leatherette + Steel Frame"
+  },
+  {
+    cid: "bean-bags",
+    imgs: IMG.beanBags,
+    types: ["XL Bean Bag with Beans", "XXL Bean Bag with Beans", "XXXL Bean Bag with Beans", "XL Bean Bag Cover", "Leatherette Bean Bag", "Cotton Twill Bean Bag", "Lounger Bean Bag", "Round Bean Bag", "Kids Bean Bag", "Gaming Bean Bag", "Footstool Bean Bag", "Sofa Bean Bag"],
+    prefixes: ["Alba", "Bloom", "Cove", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 1999,
+    priceStep: 500,
+    discount: 45,
+    dims: (i, t) => t.includes("XXXL") ? dim(90, 90, 110, 90) : t.includes("XXL") ? dim(80, 80, 100, 80) : dim(70, 70, 90, 70),
+    features: () => ["Filled with premium virgin thermocol beans", "Double-stitched YKK zippers", "Removable, washable outer cover", "Weather-proof leatherette or cotton", "Refillable \u2014 beans available separately"],
+    material: () => "Leatherette / Cotton Twill"
+  },
+  {
+    cid: "bar-units",
+    imgs: IMG.barUnits,
+    types: ["Home Bar Cabinet", "Bar Trolley", "Wall-Mount Bar Unit", "Walnut Bar Cabinet", "Glass-Door Bar Cabinet", "Compact Bar Unit", "Bar Counter Table", "Bar Cabinet with Wine Rack", "Rustic Bar Cabinet", "LED-Lit Bar Cabinet", "Metal Bar Trolley", "Corner Bar Unit"],
+    prefixes: ["Amber", "Bosco", "Copen", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 18999,
+    priceStep: 5500,
+    discount: 42,
+    dims: (i, t) => t.includes("Trolley") ? dim(80, 45, 90, 45) : dim(120, 45, 180, 45),
+    features: () => ["Dedicated wine and stemware storage", "Soft-close doors and drawers", "Optional LED interior lighting", "Reinforced base for heavy bottles", "Scratch-resistant matte finish"]
+  },
+  {
+    cid: "console-tables",
+    imgs: IMG.consoleTables,
+    types: ["Solid Wood Console", "Metal Frame Console", "Marble-Top Console", "Fluted Console Table", "Drawer Console", "Live-Edge Console", "Mirror Console Set", "Slim Hallway Console", "Rustic Console", "Ivory Console", "Walnut Console", "Glass Console"],
+    prefixes: ["Aster", "Bower", "Copen", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 9999,
+    priceStep: 2800,
+    discount: 42,
+    dims: (i) => dim(120, 35, 80, 35),
+    features: () => ["Slim, wall-hugging profile", "One or two drawers with brass pulls", "Solid wood or metal frame", "Water-ring resistant top", "Wall-anchor bracket included"]
+  },
+  {
+    cid: "dressing-tables",
+    imgs: IMG.dressingTables,
+    types: ["Dressing Table with Mirror", "LED-Lit Dressing Table", "Compact Dressing Unit", "Wall-Mount Vanity", "Dresser with Stool", "Drawer Dressing Table", "Mirror & Bench Vanity", "Rustic Dressing Table", "Ivory Vanity", "Walnut Dressing Table", "Corner Vanity", "Kids Dressing Table"],
+    prefixes: ["Aria", "Bower", "Copen", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 8999,
+    priceStep: 2800,
+    discount: 42,
+    dims: (i) => dim(110, 45, 150, 45),
+    features: () => ["Beveled-edge mirror", "Warm-white LED strip (select models)", "Soft-close drawers with dividers", "Matching upholstered stool included", "Cable-management for hair tools"]
+  },
+  {
+    cid: "wall-shelves",
+    imgs: IMG.wallShelves,
+    types: ["Floating Wall Shelf", "3-Tier Wall Shelf", "Corner Wall Shelf", "Ladder Wall Shelf", "Hexagon Wall Shelf", "Metal Wall Shelf", "Rustic Wall Shelf", "Live-Edge Wall Shelf", "Kids Wall Shelf", "Bookshelf Wall Ledge", "Modular Wall System", "Picture Ledge Shelf"],
+    prefixes: ["Aster", "Bower", "Copen", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 999,
+    priceStep: 400,
+    discount: 38,
+    dims: (i) => dim(90, 20, 25, 20),
+    features: () => ["Concealed mounting bracket", "Weight-tested up to 10kg", "Solid wood or metal build", "Includes wall anchors and screws", "Scratch-resistant matte finish"]
+  },
+  {
+    cid: "kids-furniture",
+    imgs: IMG.kids,
+    types: ["Kids Single Bed", "Kids Study Table", "Kids Wardrobe", "Kids Bookshelf", "Kids Chair", "Toy Storage Unit", "Themed Kids Bed", "Play Table & Chair Set", "Kids Bean Bag", "Kids Bunk Bed", "Kids Dresser", "Kids Storage Bench"],
+    prefixes: ["Bloom", "Cove", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden", "Marlo"],
+    basePrice: 5999,
+    priceStep: 2200,
+    discount: 40,
+    dims: (i, t) => t.includes("Bed") ? dim(200, 100, 100, 100) : dim(90, 45, 76, 45),
+    features: () => ["Non-toxic, child-safe paints", "Rounded corners for safety", "Playful colour options", "Scratch-and-scribble resistant finish", "Easy-clean surfaces"]
+  },
+  {
+    cid: "bunk-beds",
+    imgs: IMG.bunkBeds,
+    types: ["Twin-over-Twin Bunk Bed", "Twin-over-Full Bunk Bed", "Triple Bunk Bed", "L-Shape Bunk Bed", "Bunk Bed with Storage", "Study-Desk Bunk Bed", "Loft Bunk Bed", "Metal Bunk Bed", "Wooden Bunk Bed", "Convertible Bunk Bed", "Compact Bunk Bed", "Kids Bunk Bed with Slide"],
+    prefixes: ["Aspen", "Bloom", "Cove", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 32999,
+    priceStep: 4500,
+    discount: 40,
+    dims: (i) => dim(200, 100, 170, 100),
+    features: () => ["Reinforced steel or hardwood ladder", "Guardrails on upper bunk", "Weight-tested to 120kg upper / 180kg lower", "Anti-slip ladder steps", "Free professional assembly"]
+  },
+  {
+    cid: "mattresses",
+    imgs: IMG.mattresses,
+    types: ["Memory Foam Mattress", "Orthopaedic Mattress", "Pocket Spring Mattress", "Latex Mattress", "Coir Mattress", "Dual-Comfort Mattress", "Cool-Gel Mattress", "Bonded Foam Mattress", "Kids Mattress", "Single Mattress", "Queen Mattress", "King Mattress"],
+    prefixes: ["Cloud", "Dream", "Ease", "Flair", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden", "Marlo", "Noor"],
+    basePrice: 11999,
+    priceStep: 3500,
+    discount: 45,
+    dims: (i, t) => t.includes("King") ? dim(198, 183, 15, 183) : t.includes("Queen") ? dim(198, 152, 15, 152) : t.includes("Single") || t.includes("Kids") ? dim(190, 91, 15, 91) : dim(198, 152, 15, 152),
+    features: () => ["Removable, washable outer cover", "Anti-microbial and dust-mite resistant", "Certi-PUR foam or pocket springs", "Zero motion transfer", "100-night comfort trial"],
+    material: () => "Memory Foam / Pocket Spring"
+  },
+  {
+    cid: "bedside-tables",
+    imgs: IMG.bedsideTables,
+    types: ["Bedside Table with Drawer", "Bedside Table with USB", "Compact Nightstand", "Fluted Bedside Table", "Live-Edge Bedside", "Walnut Nightstand", "Ivory Nightstand", "Round Bedside Table", "Wall-Mount Nightstand", "Rustic Bedside", "Two-Drawer Nightstand", "Floating Bedside Shelf"],
+    prefixes: ["Aster", "Bower", "Copen", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 4999,
+    priceStep: 1500,
+    discount: 40,
+    dims: (i) => dim(45, 40, 55, 40),
+    features: () => ["Soft-close drawer with dividers", "USB / power sockets (select models)", "Water-ring resistant top", "Solid hardwood legs", "Coordinates with all Rizwan bed collections"]
+  },
+  {
+    cid: "outdoor-furniture",
+    imgs: IMG.outdoor,
+    types: ["Outdoor Dining Set", "Patio Sofa Set", "Rattan Lounge Chair", "Garden Bench", "Balcony Bistro Set", "Teak Outdoor Table", "Sunbed / Lounger", "Outdoor Coffee Table", "Metal Patio Chair", "Outdoor Storage Bench", "Foldable Outdoor Chair", "Outdoor Dining Chair"],
+    prefixes: ["Breeze", "Cove", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden", "Marlo"],
+    basePrice: 12999,
+    priceStep: 3800,
+    discount: 40,
+    dims: (i, t) => t.includes("Sunbed") ? dim(190, 70, 35, 70) : t.includes("Bench") ? dim(160, 50, 85, 50) : dim(80, 80, 75, 80),
+    features: () => ["UV & weather-resistant synthetic rattan or teak", "Powder-coated aluminium frame", "Rust-proof stainless steel fittings", "Water-repellent cushion covers", "Suitable for year-round outdoor use"],
+    material: () => "Synthetic Rattan + Aluminium"
+  },
+  {
+    cid: "swings-jhoolas",
+    imgs: IMG.swings,
+    types: ["Traditional Wooden Jhoola", "Brass Chain Swing", "Hanging Egg Chair", "Hammock Swing", "Metal Frame Swing", "Rope Swing", "Kids Swing", "2-Seater Garden Swing", "Balcony Swing Chair", "Teak Wood Jhoola", "Rattan Hanging Swing", "Ceiling-Mount Swing"],
+    prefixes: ["Aria", "Breeze", "Copen", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 14999,
+    priceStep: 4200,
+    discount: 42,
+    dims: (i) => dim(140, 90, 180, 90),
+    features: () => ["Weight-tested to 150kg", "Anti-rust brass or stainless steel chains", "Includes ceiling hooks and hardware", "Weatherproof finish (outdoor models)", "Removable, washable cushion covers"],
+    material: () => "Solid Sheesham + Brass"
+  },
+  {
+    cid: "storage-trunks",
+    imgs: IMG.storage,
+    types: ["Solid Wood Storage Trunk", "Leather Storage Trunk", "Blanket Box", "Ottoman Storage", "Vintage Trunk", "Rattan Storage Basket", "Kids Toy Trunk", "Metal Storage Trunk", "Bench Storage Trunk", "Rustic Storage Chest", "Fabric Storage Ottoman", "Cane Storage Trunk"],
+    prefixes: ["Amber", "Bower", "Copen", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 6999,
+    priceStep: 1800,
+    discount: 42,
+    dims: (i, t) => t.includes("Bench") ? dim(120, 40, 45, 40) : dim(90, 45, 45, 45),
+    features: () => ["Full lift lid with soft-close hinges", "Interior fabric or cedar lining", "Reinforced corners for daily use", "Sits comfortably at the foot of any bed", "Brass or leather handles"]
+  },
+  {
+    cid: "pooja-units",
+    imgs: IMG.pooja,
+    types: ["Wall-Mount Pooja Mandir", "Floor-Standing Pooja Unit", "Compact Pooja Cabinet", "Teak Wood Mandir", "Sheesham Pooja Unit", "Mango Wood Mandir", "Traditional Carved Mandir", "Modern Pooja Cabinet", "Glass-Door Pooja Unit", "Corner Pooja Mandir", "Pooja Unit with Drawers", "Openable Pooja Cabinet"],
+    prefixes: ["Aarna", "Bhakti", "Chetan", "Divya", "Eshaan", "Gita", "Hansa", "Ishan", "Jyoti", "Kirti", "Lakshmi", "Madhav"],
+    basePrice: 8999,
+    priceStep: 3200,
+    discount: 40,
+    dims: (i, t) => t.includes("Wall") ? dim(60, 30, 90, 30) : dim(75, 45, 180, 45),
+    features: () => ["Traditional hand-carved detailing", "Space for idols, diya and puja essentials", "Bell hooks and incense holder", "Solid teak, sheesham or mango wood", "Hand-finished with natural wood polish"],
+    material: () => "Solid Teak / Sheesham"
+  },
+  {
+    cid: "rugs-carpets",
+    imgs: IMG.rugs,
+    types: ["Hand-Tufted Wool Rug", "Hand-Knotted Persian Rug", "Machine-Woven Rug", "Jute Area Rug", "Cotton Dhurrie", "Shaggy Rug", "Kilim Rug", "Vintage Rug", "Kids Play Rug", "Runner Rug", "Round Area Rug", "Outdoor Rug"],
+    prefixes: ["Aarna", "Bloom", "Copen", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
+    basePrice: 5999,
+    priceStep: 2800,
+    discount: 45,
+    dims: (i, t) => t.includes("Runner") ? dim(240, 80, 1, 80) : t.includes("Round") ? dim(180, 180, 1, 180) : dim(240, 170, 1, 170),
+    features: () => ["Premium wool, jute or cotton pile", "Anti-slip backing", "Colour-fast dyes", "Dry-clean recommended", "Handmade in India"],
+    material: () => "Wool / Jute / Cotton"
+  }
 ];
-var SOFA_PREFIXES = [
-  "Alba",
-  "Bosco",
-  "Cove",
-  "Drift",
-  "Eddon",
-  "Forge",
-  "Grove",
-  "Halden",
-  "Ivo",
-  "Juno",
-  "Kettle",
-  "Linden",
-  "Marlow",
-  "Noor",
-  "Odin",
-  "Pia",
-  "Quest",
-  "Rian"
-];
-var sofas = [];
-for (let i = 0; i < 54; i++) {
-  const type = SOFA_TYPES[i % SOFA_TYPES.length];
-  const prefix = SOFA_PREFIXES[i % SOFA_PREFIXES.length];
-  const variantN = Math.floor(i / SOFA_TYPES.length) + 1;
-  const name = `${prefix} ${type}${variantN > 1 ? ` \u2014 Edition ${variantN}` : ""}`;
-  const price = 22999 + i % 18 * 4200;
-  const mrp = Math.round(price / (1 - (38 + i % 8 * 2) / 100));
-  sofas.push(
-    p({
-      id: `sofa-${i + 1}-${prefix.toLowerCase()}`,
-      name,
-      collection: "sofas",
-      price,
-      mrp,
-      images: pickTwo(IMG.sofas, i),
-      material: v(MATERIALS, i),
-      finish: v(FINISHES, i),
-      color: v(COLORS, i),
-      style: v(STYLES, i),
-      dimensions: type.includes("Sectional") ? "260 \xD7 180 \xD7 82 cm" : type.includes("Loveseat") ? "160 \xD7 88 \xD7 82 cm" : type.includes("Chair") || type.includes("Chaise") ? "88 \xD7 90 \xD7 82 cm" : "210 \xD7 92 \xD7 84 cm",
-      description: `${type} with hand-tufted cushioning and a solid hardwood frame.`,
-      featured: i < 4,
-      new: i % 9 === 2,
-      bestSeller: i % 7 === 1,
-      trending: i % 5 === 0
-    })
-  );
-}
-var BED_TYPES = [
-  "Upholstered King Bed",
-  "Upholstered Queen Bed",
-  "Storage King Bed",
-  "Storage Queen Bed",
-  "Low Platform Bed",
-  "Canopy King Bed",
-  "Fluted Headboard Bed",
-  "Slat Bed",
-  "Panel Bed",
-  "Poster Bed",
-  "Wingback Bed",
-  "Boucle Headboard Bed",
-  "Solid Oak Bed",
-  "Solid Teak Bed",
-  "Ivory Panel Bed",
-  "Walnut Queen Bed",
-  "Compact Single Bed",
-  "Bunk Bed"
-];
-var BED_PREFIXES = [
-  "Aspen",
-  "Bower",
-  "Cove",
-  "Drift",
-  "Eddon",
-  "Forge",
-  "Grove",
-  "Haven",
-  "Iris",
-  "Juno",
-  "Kestrel",
-  "Linden",
-  "Marlo",
-  "Noor",
-  "Orion",
-  "Pine",
-  "Quill",
-  "Reeve"
-];
-var beds = [];
-for (let i = 0; i < 54; i++) {
-  const type = BED_TYPES[i % BED_TYPES.length];
-  const prefix = BED_PREFIXES[i % BED_PREFIXES.length];
-  const variantN = Math.floor(i / BED_TYPES.length) + 1;
-  const name = `${prefix} ${type}${variantN > 1 ? ` \u2014 Edition ${variantN}` : ""}`;
-  const price = 28999 + i % 18 * 5200;
-  const mrp = Math.round(price / (1 - (42 + i % 6 * 2) / 100));
-  const isKing = type.includes("King") || type.includes("Poster") || type.includes("Canopy");
-  beds.push(
-    p({
-      id: `bed-${i + 1}-${prefix.toLowerCase()}`,
-      name,
-      collection: "beds",
-      price,
-      mrp,
-      images: pickTwo(IMG.beds, i),
-      material: v(MATERIALS, i),
-      finish: v(FINISHES, i),
-      color: v(COLORS, i),
-      style: v(STYLES, i),
-      dimensions: isKing ? "210 \xD7 200 \xD7 110 cm" : type.includes("Queen") ? "210 \xD7 165 \xD7 110 cm" : type.includes("Single") ? "200 \xD7 100 \xD7 105 cm" : "210 \xD7 180 \xD7 105 cm",
-      description: `${type} with an engineered hardwood frame and premium upholstery.`,
-      featured: i < 4,
-      new: i % 9 === 3,
-      bestSeller: i % 7 === 2,
-      trending: i % 5 === 1
-    })
-  );
-}
-var WARD_TYPES = [
-  "2-Door Sliding Wardrobe",
-  "3-Door Sliding Wardrobe",
-  "4-Door Sliding Wardrobe",
-  "2-Door Hinged Wardrobe",
-  "3-Door Hinged Wardrobe",
-  "Mirrored Wardrobe",
-  "Walk-in Wardrobe",
-  "Fluted-Front Wardrobe",
-  "Handleless Wardrobe",
-  "Loft Wardrobe",
-  "Corner Wardrobe",
-  "Open Wardrobe",
-  "Glass-Front Wardrobe",
-  "Walnut Wardrobe",
-  "Ivory Wardrobe",
-  "Compact Wardrobe",
-  "Kids Wardrobe",
-  "Dresser Wardrobe Combo"
-];
-var WARD_PREFIXES = [
-  "Marlow",
-  "Kyra",
-  "Orion",
-  "Selene",
-  "Thera",
-  "Uma",
-  "Vela",
-  "Wren",
-  "Xara",
-  "Yara",
-  "Aster",
-  "Bran",
-  "Cedar",
-  "Dune",
-  "Elm",
-  "Fern",
-  "Grove",
-  "Halden"
-];
-var wardrobes = [];
-for (let i = 0; i < 54; i++) {
-  const type = WARD_TYPES[i % WARD_TYPES.length];
-  const prefix = WARD_PREFIXES[i % WARD_PREFIXES.length];
-  const variantN = Math.floor(i / WARD_TYPES.length) + 1;
-  const name = `${prefix} ${type}${variantN > 1 ? ` \u2014 Edition ${variantN}` : ""}`;
-  const price = 26999 + i % 18 * 6500;
-  const mrp = Math.round(price / (1 - (45 + i % 6 * 2) / 100));
-  wardrobes.push(
-    p({
-      id: `wardrobe-${i + 1}-${prefix.toLowerCase()}`,
-      name,
-      collection: "wardrobes",
-      price,
-      mrp,
-      images: pickTwo(IMG.wardrobes, i),
-      material: v(MATERIALS, i),
-      finish: v(FINISHES, i),
-      color: v(COLORS, i),
-      style: v(STYLES, i),
-      dimensions: type.includes("4-Door") ? "240 \xD7 60 \xD7 230 cm" : type.includes("3-Door") ? "180 \xD7 60 \xD7 230 cm" : type.includes("Walk-in") ? "300 \xD7 200 \xD7 240 cm" : "120 \xD7 60 \xD7 220 cm",
-      description: `${type} with soft-close hardware and a smudge-resistant matte finish.`,
-      featured: i < 4,
-      new: i % 9 === 4,
-      bestSeller: i % 7 === 3,
-      trending: i % 5 === 2
-    })
-  );
+var generated = [];
+for (const spec of CAT_SPECS) {
+  const count = spec.count ?? 54;
+  for (let i = 0; i < count; i++) {
+    const type = spec.types[i % spec.types.length];
+    const prefix = spec.prefixes[i % spec.prefixes.length];
+    const variantN = Math.floor(i / spec.types.length) + 1;
+    const name = `${prefix} ${type}${variantN > 1 ? ` \u2014 Edition ${variantN}` : ""}`;
+    const price = spec.basePrice + i % 18 * spec.priceStep;
+    const mrp = Math.round(price / (1 - (spec.discount + i % 6 * 2) / 100));
+    const dims = spec.dims(i, type);
+    generated.push(
+      p({
+        id: `${spec.cid}-${i + 1}-${prefix.toLowerCase()}`,
+        name,
+        collection: spec.cid,
+        price,
+        mrp,
+        images: pickTwo(spec.imgs, i),
+        material: spec.material ? spec.material(i) : v(MATERIALS, i),
+        finish: v(FINISHES, i),
+        color: v(COLORS, i),
+        style: v(STYLES, i),
+        dimensions: `${dims.lengthCm} \xD7 ${dims.widthCm} \xD7 ${dims.heightCm} cm`,
+        dims,
+        description: `${type} designed and hand-finished by Rizwan Furniture.`,
+        features: spec.features(type),
+        materials: spec.materials,
+        featured: i < 3,
+        new: i % 9 === 2,
+        bestSeller: i % 7 === 1,
+        trending: i % 5 === 0
+      })
+    );
+  }
 }
 var KITCHEN_LAYOUTS = [
-  { layout: "L-Shape", base: { lengthCm: 3600, widthCm: 2400, heightCm: 2400, depthCm: 600 } },
-  { layout: "U-Shape", base: { lengthCm: 3900, widthCm: 3e3, heightCm: 2400, depthCm: 600 } },
-  { layout: "Straight", base: { lengthCm: 3e3, widthCm: 1500, heightCm: 2400, depthCm: 600 } },
-  { layout: "Parallel", base: { lengthCm: 3600, widthCm: 2700, heightCm: 2400, depthCm: 600 } },
-  { layout: "Island", base: { lengthCm: 4200, widthCm: 3300, heightCm: 2400, depthCm: 650 } },
-  { layout: "Peninsula", base: { lengthCm: 3900, widthCm: 2700, heightCm: 2400, depthCm: 600 } },
-  { layout: "G-Shape", base: { lengthCm: 4e3, widthCm: 3200, heightCm: 2400, depthCm: 600 } },
-  { layout: "Open-Plan", base: { lengthCm: 4500, widthCm: 3600, heightCm: 2400, depthCm: 650 } },
-  { layout: "Compact", base: { lengthCm: 2400, widthCm: 1500, heightCm: 2400, depthCm: 550 } }
+  { layout: "L-Shape", base: dim(3600, 2400, 2400, 600) },
+  { layout: "U-Shape", base: dim(3900, 3e3, 2400, 600) },
+  { layout: "Straight", base: dim(3e3, 1500, 2400, 600) },
+  { layout: "Parallel", base: dim(3600, 2700, 2400, 600) },
+  { layout: "Island", base: dim(4200, 3300, 2400, 650) },
+  { layout: "Peninsula", base: dim(3900, 2700, 2400, 600) },
+  { layout: "G-Shape", base: dim(4e3, 3200, 2400, 600) },
+  { layout: "Open-Plan", base: dim(4500, 3600, 2400, 650) },
+  { layout: "Compact", base: dim(2400, 1500, 2400, 550) }
 ];
 var KITCHEN_STYLES = [
   "Handleless Matte",
   "Shaker Ivory",
   "Walnut Woodgrain",
-  "High-Gloss White"
+  "High-Gloss White",
+  "Fluted Oak",
+  "Two-Tone Charcoal"
 ];
 var KITCHEN_PREFIXES = [
   "Astra",
@@ -469,7 +1008,7 @@ KITCHEN_LAYOUTS.forEach((L, li) => {
     ].join("\n\n");
     kitchens.push(
       p({
-        id: `kitchen-${kIdx + 1}-${prefix.toLowerCase()}-${L.layout.toLowerCase().replace(/[^a-z]/g, "")}`,
+        id: `kitchen-${kIdx + 1}-${prefix.toLowerCase()}-${L.layout.toLowerCase().replace(/[^a-z]/g, "")}-${si + 1}`,
         name,
         collection: "modular-kitchen",
         price,
@@ -480,10 +1019,20 @@ KITCHEN_LAYOUTS.forEach((L, li) => {
         color: v(COLORS, kIdx),
         style: L.layout,
         dimensions: dimStr,
+        dims,
         kitchenDims: dims,
         description: `${L.layout} modular kitchen with chimney, hob, cabinetry and appliance provisions.`,
         longDescription,
         materials: "BWR marine plywood carcass, 20mm quartz countertop, soft-close hinges, stainless-steel fittings",
+        features: [
+          "90cm auto-clean chimney provision",
+          "4-burner hob + under-counter oven cavity",
+          "Tall refrigerator column and dishwasher bay",
+          "Soft-close hinges and pull-out tandem organisers",
+          "20mm quartz countertop with matching upstand",
+          "LED under-cabinet lighting",
+          "Free on-site measurement, installation and plumbing across India"
+        ],
         featured: kIdx < 3,
         new: kIdx % 8 === 1,
         bestSeller: kIdx % 6 === 2,
@@ -491,143 +1040,6 @@ KITCHEN_LAYOUTS.forEach((L, li) => {
       })
     );
     kIdx++;
-  });
-});
-var LEGACY_CATS = [
-  {
-    cid: "tv-units",
-    imgs: IMG.tv,
-    names: [
-      "Aster Wall-Mount TV Unit",
-      "Halden Floor TV Console",
-      "Linden Media Wall System",
-      "Noor Compact TV Cabinet",
-      "Odin Storage TV Unit",
-      "Verse Modular TV Rack",
-      "Wren Walnut TV Console",
-      "Xen Slim TV Panel",
-      "Yara Fluted TV Unit",
-      "Zara Live-Edge TV Console"
-    ],
-    basePrice: 18999,
-    priceStep: 5500,
-    discount: 44
-  },
-  {
-    cid: "dining",
-    imgs: IMG.dn,
-    names: [
-      "Harvest 6-Seater Dining Table",
-      "Indie Round 4-Seater Dining",
-      "Juno Extendable Dining Table",
-      "Kettle 8-Seater Dining Set",
-      "Linen Upholstered Dining Chairs (Set of 2)",
-      "Marlo Dining Bench",
-      "Nord 4-Seater Oak Table",
-      "Ora Marble-Top Dining",
-      "Pia Round Pedestal Table",
-      "Quest Live-Edge Dining Table"
-    ],
-    basePrice: 18999,
-    priceStep: 8500,
-    discount: 46
-  },
-  {
-    cid: "wooden-cabinets",
-    imgs: IMG.wc,
-    names: [
-      "Amber Oak Sideboard",
-      "Bran Fluted Storage Cabinet",
-      "Cedar Display Cabinet",
-      "Dune Utility Cabinet",
-      "Elm Tall Storage Unit",
-      "Fern Ivory Cabinet",
-      "Grove Louvered Cabinet",
-      "Havn Walnut Sideboard",
-      "Ivo Compact Cabinet",
-      "Juno Glass-Front Cabinet"
-    ],
-    basePrice: 15999,
-    priceStep: 4500,
-    discount: 43
-  },
-  {
-    cid: "bookshelves",
-    imgs: IMG.bs,
-    names: [
-      "Atlas Open Bookshelf",
-      "Bower Ladder Shelf",
-      "Copen Modular Bookshelf",
-      "Dune Tall Bookcase",
-      "Eddon Wall Bookshelf",
-      "Forge 5-Tier Bookshelf",
-      "Grove Corner Bookcase",
-      "Halden Reading Wall",
-      "Ivo Cube Bookshelf",
-      "Juno Live-Edge Shelf"
-    ],
-    basePrice: 9999,
-    priceStep: 3500,
-    discount: 40
-  },
-  {
-    cid: "decorative-lights",
-    imgs: IMG.dl,
-    names: [
-      "Arc Pendant Light",
-      "Bower Rattan Pendant",
-      "Copen Linear Chandelier",
-      "Dune Paper Floor Lamp",
-      "Eddon Brass Sconce",
-      "Forge Industrial Pendant",
-      "Grove Cluster Pendant",
-      "Halden Marble Table Lamp",
-      "Ivo Wall Sconce Set",
-      "Juno Sculptural Floor Lamp"
-    ],
-    basePrice: 3999,
-    priceStep: 1600,
-    discount: 38
-  },
-  {
-    cid: "study",
-    imgs: IMG.st,
-    names: [
-      "Atlas Compact Study Desk",
-      "Brook Writing Desk",
-      "Crest Executive Desk",
-      "Dune Portable Laptop Table",
-      "Elm Study Table & Chair Set",
-      "Forge L-Shaped Corner Desk"
-    ],
-    basePrice: 6999,
-    priceStep: 4500,
-    discount: 42
-  }
-];
-var legacyGenerated = [];
-LEGACY_CATS.forEach((cat) => {
-  cat.names.forEach((name, i) => {
-    const price = cat.basePrice + i * cat.priceStep;
-    const mrp = Math.round(price / (1 - cat.discount / 100));
-    legacyGenerated.push(
-      p({
-        id: `${cat.cid}-${i + 1}-${name.split(" ")[0].toLowerCase()}`,
-        name,
-        collection: cat.cid,
-        price,
-        mrp,
-        images: pickTwo(cat.imgs, i),
-        material: v(MATERIALS, i),
-        finish: v(FINISHES, i),
-        color: v(COLORS, i),
-        style: v(STYLES, i),
-        featured: i === 0,
-        new: i === 2 || i === 6,
-        bestSeller: i === 1 || i === 4,
-        trending: i === 0 || i === 3 || i === 8
-      })
-    );
   });
 });
 var legacyPinned = [
@@ -643,6 +1055,7 @@ var legacyPinned = [
     color: "Warm Brass",
     style: "Contemporary",
     dimensions: "60 \xD7 60 \xD7 120 cm",
+    features: ["E27 socket, LED compatible", "IS-certified wiring", "Adjustable arc height", "Warm-white 3000K recommended", "Ceiling rose included"],
     featured: true,
     trending: true,
     bestSeller: true
@@ -650,10 +1063,7 @@ var legacyPinned = [
 ];
 var products = [
   ...kitchens,
-  ...sofas,
-  ...beds,
-  ...wardrobes,
-  ...legacyGenerated,
+  ...generated,
   ...legacyPinned
 ];
 

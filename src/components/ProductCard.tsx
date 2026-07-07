@@ -15,7 +15,6 @@ export const ProductCard = ({ product, index = 0, variant = "default" }: Product
   const { addItem, removeItem, isInWishlist } = useWishlist();
   const inWishlist = isInWishlist(product.id);
   const collection = collections.find((c) => c.id === product.collection);
-  const hasSecondImage = product.images.length > 1;
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -44,20 +43,9 @@ export const ProductCard = ({ product, index = 0, variant = "default" }: Product
             alt={product.name}
             loading="lazy"
             decoding="async"
-            className={cn(
-              "w-full h-full object-cover transition-all duration-[900ms] ease-out",
-              hasSecondImage ? "group-hover:opacity-0 group-hover:scale-105" : "group-hover:scale-105",
-            )}
+            className="w-full h-full object-cover"
           />
-          {hasSecondImage && (
-            <img
-              src={product.images[1]}
-              alt=""
-              loading="lazy"
-              decoding="async"
-              className="absolute inset-0 w-full h-full object-cover opacity-0 scale-105 transition-all duration-[900ms] ease-out group-hover:opacity-100 group-hover:scale-100"
-            />
-          )}
+
 
           {product.discountPercent && product.discountPercent > 0 && (
             <span className="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold tracking-wider bg-primary text-primary-foreground rounded-sm">

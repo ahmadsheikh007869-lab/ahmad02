@@ -405,17 +405,19 @@ const ProductDetail = () => {
             </motion.div>
           </div>
 
-          {/* Kitchen dimensions — modular kitchens only */}
-          {product.collection === "modular-kitchen" && product.kitchenDims && (
+          {/* Universal dimensions grid — all products */}
+          {product.dims && (
             <div className="mt-14 max-w-4xl">
-              <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-3">Design Dimensions</p>
-              <h2 className="font-serif text-2xl md:text-3xl mb-6">Kitchen footprint & clearances</h2>
+              <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-3">Dimensions</p>
+              <h2 className="font-serif text-2xl md:text-3xl mb-6">
+                {product.collection === "modular-kitchen" ? "Kitchen footprint & clearances" : "Length, width, height & depth"}
+              </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                 {[
-                  { label: "Length", value: product.kitchenDims.lengthCm },
-                  { label: "Width", value: product.kitchenDims.widthCm },
-                  { label: "Height", value: product.kitchenDims.heightCm },
-                  { label: "Depth", value: product.kitchenDims.depthCm },
+                  { label: "Length", value: product.dims.lengthCm },
+                  { label: "Width", value: product.dims.widthCm },
+                  { label: "Height", value: product.dims.heightCm },
+                  { label: "Depth", value: product.dims.depthCm },
                 ].map((d) => (
                   <div key={d.label} className="p-5 bg-linen rounded-sm border border-border/60">
                     <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-muted-foreground mb-1">
@@ -428,10 +430,41 @@ const ProductDetail = () => {
                 ))}
               </div>
               <p className="text-xs text-muted-foreground mt-3">
-                Overall footprint: L {product.kitchenDims.lengthCm} × W {product.kitchenDims.widthCm} × H {product.kitchenDims.heightCm} × D {product.kitchenDims.depthCm} cm. Every kitchen is re-measured on site before manufacturing.
+                Overall: L {product.dims.lengthCm} × W {product.dims.widthCm} × H {product.dims.heightCm} × D {product.dims.depthCm} cm.
+                {product.collection === "modular-kitchen" && " Every kitchen is re-measured on site before manufacturing."}
               </p>
             </div>
           )}
+
+          {/* Attributes + Features — all products */}
+          <div className="mt-14 max-w-4xl grid md:grid-cols-2 gap-8">
+            <div>
+              <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-3">Attributes</p>
+              <dl className="text-sm divide-y divide-border">
+                {[
+                  ["Material", product.material],
+                  ["Color", product.color],
+                  ["Finish", product.finish],
+                  ["Style", product.style],
+                  ["Product Code", product.productCode],
+                ].map(([k, val]) => (
+                  <div key={k} className="flex justify-between py-3">
+                    <dt className="text-muted-foreground">{k}</dt>
+                    <dd className="text-foreground text-right">{val}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            {product.features && product.features.length > 0 && (
+              <div>
+                <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-3">Features</p>
+                <ul className="text-sm text-foreground leading-[1.9] space-y-2 list-disc pl-5">
+                  {product.features.map((f, i) => (<li key={i}>{f}</li>))}
+                </ul>
+              </div>
+            )}
+          </div>
+
 
           {/* Details Accordion */}
           <div className="mt-16 max-w-4xl">
