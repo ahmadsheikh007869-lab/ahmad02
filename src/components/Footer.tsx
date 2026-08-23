@@ -12,9 +12,12 @@ export const Footer = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div>
               <Link to="/" className="flex items-center gap-3 text-background">
-                <span className="w-11 h-11 rounded-sm bg-primary text-primary-foreground grid place-items-center font-serif text-2xl">R</span>
+                <span className="w-11 h-11 rounded-sm bg-primary grid place-items-center shrink-0">
+                  <img src={brandMark} alt="Nordhaven logo" width={44} height={44} className="w-6 h-6 object-contain" />
+                </span>
                 <span className="flex flex-col leading-none">
                   <span className="font-serif text-2xl md:text-3xl">Nordhaven</span>
+
                   <span className="text-[11px] tracking-[0.25em] uppercase text-background/50 mt-1">
                     Premium modern homes
                   </span>

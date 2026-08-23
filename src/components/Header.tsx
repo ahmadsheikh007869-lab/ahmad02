@@ -80,11 +80,14 @@ export const Header = () => {
       <div className="container-full">
         <div className="flex items-center gap-4 md:gap-8 h-16 md:h-20">
           <Link to="/" className="flex items-center gap-2 shrink-0 text-foreground hover:text-primary transition-colors">
-            <span className="w-9 h-9 rounded-sm bg-primary text-primary-foreground grid place-items-center font-serif text-xl">R</span>
+            <span className="w-9 h-9 md:w-10 md:h-10 rounded-sm bg-primary grid place-items-center shrink-0">
+              <img src={brandMark} alt="Nordhaven logo" width={40} height={40} className="w-5 h-5 md:w-6 md:h-6 object-contain" />
+            </span>
             <span className="hidden sm:flex flex-col leading-none">
               <span className="font-serif text-xl md:text-2xl tracking-tight">Nordhaven</span>
               <span className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground">Furniture</span>
             </span>
+
           </Link>
 
           <div className="flex-1 max-w-2xl hidden md:block">
