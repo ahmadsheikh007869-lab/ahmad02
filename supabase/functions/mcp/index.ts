@@ -30,7 +30,7 @@ var IMG = {
     "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1600&q=80",
     "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=1600&q=80",
     "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=80",
-    "https://images.unsplash.com/photo-1571079570759-18451d156fbe?w=1600&q=80",
+    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=80",
     "https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=1600&q=80",
     "https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=1600&q=80"
   ],
@@ -50,8 +50,8 @@ var IMG = {
     "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1600&q=80",
     "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=1600&q=80",
     "https://images.unsplash.com/photo-1558211583-d26f610c1eb1?w=1600&q=80",
-    "https://images.unsplash.com/photo-1616627988056-1bde15c19f43?w=1600&q=80",
-    "https://images.unsplash.com/photo-1616627451515-4d0b17e2f8f6?w=1600&q=80",
+    "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1600&q=80",
+    "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=1600&q=80",
     "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=1600&q=80",
     "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=1600&q=80",
     "https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?w=1600&q=80"
@@ -122,15 +122,15 @@ var IMG = {
     "https://images.unsplash.com/photo-1541558869434-2840d308329a?w=1600&q=80",
     "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=1600&q=80",
     "https://images.unsplash.com/photo-1519974719765-e6559eac2575?w=1600&q=80",
-    "https://images.unsplash.com/photo-1616627988056-1bde15c19f43?w=1600&q=80",
+    "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=1600&q=80",
     "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1600&q=80",
-    "https://images.unsplash.com/photo-1587212695467-11e2b1efe6e1?w=1600&q=80"
+    "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=1600&q=80"
   ],
   office: [
     "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80",
     "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=80",
     "https://images.unsplash.com/photo-1524758870432-af57e54afa26?w=1600&q=80",
-    "https://images.unsplash.com/photo-1587212695467-11e2b1efe6e1?w=1600&q=80",
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80",
     "https://images.unsplash.com/photo-1541558869434-2840d308329a?w=1600&q=80",
     "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=1600&q=80",
     "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=1600&q=80",
@@ -154,7 +154,7 @@ var IMG = {
     "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=1600&q=80",
     "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=80",
     "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1600&q=80",
-    "https://images.unsplash.com/photo-1571079570759-18451d156fbe?w=1600&q=80"
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=80"
   ],
   sideTables: [
     "https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=1600&q=80",
@@ -169,7 +169,7 @@ var IMG = {
   recliners: [
     "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=1600&q=80",
     "https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=1600&q=80",
-    "https://images.unsplash.com/photo-1571079570759-18451d156fbe?w=1600&q=80",
+    "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=1600&q=80",
     "https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=1600&q=80",
     "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1600&q=80",
     "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1600&q=80",
@@ -177,13 +177,13 @@ var IMG = {
     "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=80"
   ],
   beanBags: [
-    "https://images.unsplash.com/photo-1554140361-30e4fe5c1fbc?w=1600&q=80",
+    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1600&q=80",
     "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1600&q=80",
     "https://images.unsplash.com/photo-1560448205-4d9b3e6bb6db?w=1600&q=80",
     "https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=1600&q=80",
     "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1600&q=80",
     "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=80",
-    "https://images.unsplash.com/photo-1571079570759-18451d156fbe?w=1600&q=80",
+    "https://images.unsplash.com/photo-1560448205-4d9b3e6bb6db?w=1600&q=80",
     "https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=1600&q=80"
   ],
   barUnits: [
@@ -207,7 +207,7 @@ var IMG = {
     "https://images.unsplash.com/photo-1524758870432-af57e54afa26?w=1600&q=80"
   ],
   dressingTables: [
-    "https://images.unsplash.com/photo-1616627988056-1bde15c19f43?w=1600&q=80",
+    "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=1600&q=80",
     "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=1600&q=80",
     "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1600&q=80",
     "https://images.unsplash.com/photo-1596079890744-c1a0462d0975?w=1600&q=80",
@@ -227,8 +227,8 @@ var IMG = {
     "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600&q=80"
   ],
   kids: [
-    "https://images.unsplash.com/photo-1558877385-8c1a2f45a7e0?w=1600&q=80",
-    "https://images.unsplash.com/photo-1587578932093-4c9d7db4a48b?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=1600&q=80",
+    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1600&q=80",
     "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=1600&q=80",
     "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1600&q=80",
     "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1600&q=80",
@@ -237,9 +237,9 @@ var IMG = {
     "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1600&q=80"
   ],
   bunkBeds: [
-    "https://images.unsplash.com/photo-1558877385-8c1a2f45a7e0?w=1600&q=80",
     "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=1600&q=80",
-    "https://images.unsplash.com/photo-1587578932093-4c9d7db4a48b?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=1600&q=80",
+    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1600&q=80",
     "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1600&q=80",
     "https://images.unsplash.com/photo-1631049035182-249067d7618e?w=1600&q=80",
     "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1600&q=80",
@@ -269,7 +269,7 @@ var IMG = {
   outdoor: [
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80",
     "https://images.unsplash.com/photo-1519643381401-22c77e60520e?w=1600&q=80",
-    "https://images.unsplash.com/photo-1533377088493-a55d9e93cd75?w=1600&q=80",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80",
     "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=1600&q=80",
     "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=80",
     "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=1600&q=80",
@@ -279,11 +279,11 @@ var IMG = {
   swings: [
     "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=1600&q=80",
     "https://images.unsplash.com/photo-1519643381401-22c77e60520e?w=1600&q=80",
-    "https://images.unsplash.com/photo-1533377088493-a55d9e93cd75?w=1600&q=80",
+    "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=1600&q=80",
     "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=1600&q=80",
     "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=80",
     "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=1600&q=80",
-    "https://images.unsplash.com/photo-1554140361-30e4fe5c1fbc?w=1600&q=80",
+    "https://images.unsplash.com/photo-1519643381401-22c77e60520e?w=1600&q=80",
     "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=1600&q=80"
   ],
   storage: [
@@ -546,8 +546,16 @@ var parseDims = (s) => {
   const [L, W, H, D] = [nums[0] ?? 0, nums[1] ?? 0, nums[2] ?? 0, nums[3] ?? nums[1] ?? 0];
   return { lengthCm: L, widthCm: W, heightCm: H, depthCm: D };
 };
+var toUsd = (value) => {
+  const raw = value / 80;
+  if (raw < 60) return Math.max(19, Math.round(raw / 5) * 5 - 1);
+  if (raw < 400) return Math.round(raw / 10) * 10 - 1;
+  return Math.round(raw / 50) * 50 - 1;
+};
 var p = (args) => {
-  const discountPercent = Math.round((args.mrp - args.price) / args.mrp * 100);
+  const price = toUsd(args.price);
+  const mrp = Math.max(price + 20, toUsd(args.mrp));
+  const discountPercent = Math.round((mrp - price) / mrp * 100);
   const codePrefix = args.collection.slice(0, 3).toUpperCase();
   const dims = args.dims ?? args.kitchenDims ?? parseDims(args.dimensions);
   return {
@@ -556,11 +564,11 @@ var p = (args) => {
     slug: args.id,
     collection: args.collection,
     productCode: nextCode(codePrefix),
-    price: args.price,
-    mrp: args.mrp,
+    price,
+    mrp,
     discountPercent,
     description: args.description ?? "Premium modern furniture crafted for lasting everyday use.",
-    longDescription: args.longDescription ?? "Rizwan Furniture designs each piece with honest materials, hand-finished detailing and a build quality meant to last decades. Every join, edge and finish is inspected before it leaves our workshop.",
+    longDescription: args.longDescription ?? "Nordhaven designs each piece with honest materials, hand-finished detailing and a build quality meant to last decades. Every join, edge and finish is inspected before it leaves our workshop.",
     materials: args.materials ?? "Engineered wood, solid hardwood frame, matte PU finish",
     material: args.material ?? "Engineered Wood",
     finish: args.finish ?? "Matte Oak",
@@ -857,7 +865,7 @@ var CAT_SPECS = [
     priceStep: 1500,
     discount: 40,
     dims: (i) => dim(45, 40, 55, 40),
-    features: () => ["Soft-close drawer with dividers", "USB / power sockets (select models)", "Water-ring resistant top", "Solid hardwood legs", "Coordinates with all Rizwan bed collections"]
+    features: () => ["Soft-close drawer with dividers", "USB / power sockets (select models)", "Water-ring resistant top", "Solid hardwood legs", "Coordinates with all Nordhaven bed collections"]
   },
   {
     cid: "outdoor-furniture",
@@ -944,7 +952,7 @@ for (const spec of CAT_SPECS) {
         style: v(STYLES, i),
         dimensions: `${dims.lengthCm} \xD7 ${dims.widthCm} \xD7 ${dims.heightCm} cm`,
         dims,
-        description: `${type} designed and hand-finished by Rizwan Furniture.`,
+        description: `${type} designed and hand-finished by Nordhaven.`,
         features: spec.features(type),
         materials: spec.materials,
         featured: i < 3,
@@ -1071,7 +1079,7 @@ var products = [
 var list_categories_default = defineTool({
   name: "list_categories",
   title: "List categories",
-  description: "List all furniture categories in the Rizwan Furniture catalog with product counts.",
+  description: "List all furniture categories in the Nordhaven catalog with product counts.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => {
@@ -1095,12 +1103,12 @@ import { z } from "npm:zod@^4.4.3";
 var search_products_default = defineTool2({
   name: "search_products",
   title: "Search products",
-  description: "Search the Rizwan Furniture catalog by keyword, category, price range, or flags (new, bestSeller, trending). Returns matching products with name, category, price, and product code.",
+  description: "Search the Nordhaven catalog by keyword, category, price range, or flags (new, bestSeller, trending). Returns matching products with name, category, price, and product code.",
   inputSchema: {
     query: z.string().optional().describe("Free-text query matched against name, description, material, finish, color, style, and product code."),
     category: z.string().optional().describe("Category id or slug (e.g. 'beds', 'wardrobes')."),
-    minPrice: z.number().optional().describe("Minimum price in INR."),
-    maxPrice: z.number().optional().describe("Maximum price in INR."),
+    minPrice: z.number().optional().describe("Minimum price in USD."),
+    maxPrice: z.number().optional().describe("Maximum price in USD."),
     onlyNew: z.boolean().optional(),
     onlyBestSeller: z.boolean().optional(),
     onlyTrending: z.boolean().optional(),
@@ -1191,22 +1199,22 @@ var CONTACT = {
   /** WhatsApp number in international format, digits only */
   whatsapp: "919876543210",
   /** Support email */
-  email: "hello@rizwanfurniture.com",
+  email: "hello@nordhaven.com",
   /** Full brand address (for footer / contact) */
-  address: "Rizwan Furniture Studio, MG Road, Bengaluru 560001",
+  address: "Nordhaven Studio, MG Road, Bengaluru 560001",
   /** Business hours */
   hours: [
     { days: "Monday \u2013 Saturday", time: "10:00 AM \u2013 8:00 PM" },
     { days: "Sunday", time: "11:00 AM \u2013 6:00 PM" }
   ]
 };
-var whatsappUrl = (message = "Hi Rizwan Furniture, I'd like to know more.") => `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
+var whatsappUrl = (message = "Hi Nordhaven, I'd like to know more.") => `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
 
 // src/lib/mcp/tools/contact-info.ts
 var contact_info_default = defineTool4({
   name: "get_contact_info",
   title: "Get store contact info",
-  description: "Return the Rizwan Furniture store's phone, WhatsApp, and email contact details.",
+  description: "Return the Nordhaven store's phone, WhatsApp, and email contact details.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => {
@@ -1227,9 +1235,9 @@ var contact_info_default = defineTool4({
 // src/lib/mcp/index.ts
 var mcp_default = defineMcp({
   name: "rizwan-furniture-mcp",
-  title: "Rizwan Furniture MCP",
+  title: "Nordhaven MCP",
   version: "0.1.0",
-  instructions: "Tools for the Rizwan Furniture catalog. Use `list_categories` to see all product categories, `search_products` to find items by keyword/category/price, `get_product` for full details on one product, and `get_contact_info` for store phone/WhatsApp/email.",
+  instructions: "Tools for the Nordhaven catalog. Use `list_categories` to see all product categories, `search_products` to find items by keyword/category/price, `get_product` for full details on one product, and `get_contact_info` for store phone/WhatsApp/email.",
   tools: [list_categories_default, search_products_default, get_product_default, contact_info_default]
 });
 

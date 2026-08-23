@@ -49,7 +49,7 @@ const persistBooking = (b: Booking) => {
 };
 
 const buildWaMessage = (b: Booking) =>
-  `Hello Rizwan Furniture,%0A%0AI have submitted my booking.%0A%0A` +
+  `Hello Nordhaven,%0A%0AI have submitted my booking.%0A%0A` +
   `*Customer Name:* ${encodeURIComponent(b.name)}%0A` +
   `*Product:* ${encodeURIComponent(b.productName)} (${encodeURIComponent(b.productCode)})%0A` +
   `*Price:* ${encodeURIComponent(formatPrice(b.price))}%0A` +

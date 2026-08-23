@@ -6,9 +6,9 @@ import contactInfoTool from "./tools/contact-info";
 
 export default defineMcp({
   name: "rizwan-furniture-mcp",
-  title: "Rizwan Furniture MCP",
+  title: "Nordhaven MCP",
   version: "0.1.0",
   instructions:
-    "Tools for the Rizwan Furniture catalog. Use `list_categories` to see all product categories, `search_products` to find items by keyword/category/price, `get_product` for full details on one product, and `get_contact_info` for store phone/WhatsApp/email.",
+    "Tools for the Nordhaven catalog. Use `list_categories` to see all product categories, `search_products` to find items by keyword/category/price, `get_product` for full details on one product, and `get_contact_info` for store phone/WhatsApp/email.",
   tools: [listCategoriesTool, searchProductsTool, getProductTool, contactInfoTool],
 });

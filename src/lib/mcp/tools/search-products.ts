@@ -6,12 +6,12 @@ export default defineTool({
   name: "search_products",
   title: "Search products",
   description:
-    "Search the Rizwan Furniture catalog by keyword, category, price range, or flags (new, bestSeller, trending). Returns matching products with name, category, price, and product code.",
+    "Search the Nordhaven catalog by keyword, category, price range, or flags (new, bestSeller, trending). Returns matching products with name, category, price, and product code.",
   inputSchema: {
     query: z.string().optional().describe("Free-text query matched against name, description, material, finish, color, style, and product code."),
     category: z.string().optional().describe("Category id or slug (e.g. 'beds', 'wardrobes')."),
-    minPrice: z.number().optional().describe("Minimum price in INR."),
-    maxPrice: z.number().optional().describe("Maximum price in INR."),
+    minPrice: z.number().optional().describe("Minimum price in USD."),
+    maxPrice: z.number().optional().describe("Maximum price in USD."),
     onlyNew: z.boolean().optional(),
     onlyBestSeller: z.boolean().optional(),
     onlyTrending: z.boolean().optional(),

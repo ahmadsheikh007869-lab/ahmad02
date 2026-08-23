@@ -14,11 +14,11 @@ export const whyUs = [
   {
     icon: Truck,
     title: "Free Delivery & Install",
-    body: "Free pan-India delivery on orders above ₹15,000 with complimentary assembly on modular units.",
+    body: "Free nationwide delivery on orders above $999 with complimentary assembly on modular units.",
   },
   {
     icon: Sparkles,
     title: "Free Design Consult",
-    body: "Talk to a Rizwan interior designer over video call and receive a 3D room layout within 48 hours.",
+    body: "Talk to a Nordhaven interior designer over video call and receive a 3D room layout within 48 hours.",
   },
 ];

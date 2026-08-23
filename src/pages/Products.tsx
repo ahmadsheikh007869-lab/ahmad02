@@ -1,3 +1,4 @@
+import listHero from "@/assets/hero-kitchen-3.jpg";
 import { useMemo } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -76,7 +77,7 @@ const Products = () => {
       {/* Hero */}
       <section className="relative h-[36vh] md:h-[46vh] overflow-hidden">
         <img
-          src={currentCollection?.heroImage || "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=2000&q=80"}
+          src={currentCollection?.heroImage || listHero}
           alt=""
           className="w-full h-full object-cover"
         />
