@@ -1,3 +1,4 @@
+import aboutHero from "@/assets/hero-kitchen-2.jpg";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Phone } from "lucide-react";
@@ -10,7 +11,7 @@ const About = () => {
       {/* Hero */}
       <section className="relative h-[70vh] overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=2000&q=80"
+          src={aboutHero}
           alt="Nordhaven showroom"
           className="w-full h-full object-cover"
         />

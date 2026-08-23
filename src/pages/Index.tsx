@@ -1,3 +1,4 @@
+import kitchenShowcase from "@/assets/hero-kitchen-1.jpg";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Phone, Star, MessageCircle, Mail } from "lucide-react";
@@ -35,7 +36,7 @@ const kitchenShowcase = {
   title: "The Modular Kitchen",
   subtitle: "Layouts, cabinetry & appliance provisions — made to order",
   href: "/products?collection=modular-kitchen",
-  image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=2000&q=80",
+  image: kitchenShowcase,
 };
 
 const ContactForm = () => {
