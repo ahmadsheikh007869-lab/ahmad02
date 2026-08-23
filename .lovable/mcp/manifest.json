@@ -9,13 +9,13 @@
     "server": {
       "name": "rizwan-furniture-mcp",
       "version": "0.1.0",
-      "title": "Rizwan Furniture MCP"
+      "title": "Nordhaven MCP"
     },
     "tools": [
       {
         "name": "list_categories",
         "title": "List categories",
-        "description": "List all furniture categories in the Rizwan Furniture catalog with product counts.",
+        "description": "List all furniture categories in the Nordhaven catalog with product counts.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -31,7 +31,7 @@
       {
         "name": "search_products",
         "title": "Search products",
-        "description": "Search the Rizwan Furniture catalog by keyword, category, price range, or flags (new, bestSeller, trending). Returns matching products with name, category, price, and product code.",
+        "description": "Search the Nordhaven catalog by keyword, category, price range, or flags (new, bestSeller, trending). Returns matching products with name, category, price, and product code.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -104,7 +104,7 @@
       {
         "name": "get_contact_info",
         "title": "Get store contact info",
-        "description": "Return the Rizwan Furniture store's phone, WhatsApp, and email contact details.",
+        "description": "Return the Nordhaven store's phone, WhatsApp, and email contact details.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,

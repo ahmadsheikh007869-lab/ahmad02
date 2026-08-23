@@ -237,7 +237,7 @@ const Index = () => {
       <section className="py-16 md:py-24 bg-linen">
         <div className="container-full">
           <div className="text-center mb-12">
-            <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-2">The Rizwan Promise</p>
+            <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-2">The Nordhaven Promise</p>
             <h2 className="font-serif text-3xl md:text-5xl">Why Choose Us</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">

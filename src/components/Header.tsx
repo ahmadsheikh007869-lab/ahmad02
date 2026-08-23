@@ -82,7 +82,7 @@ export const Header = () => {
           <Link to="/" className="flex items-center gap-2 shrink-0 text-foreground hover:text-primary transition-colors">
             <span className="w-9 h-9 rounded-sm bg-primary text-primary-foreground grid place-items-center font-serif text-xl">R</span>
             <span className="hidden sm:flex flex-col leading-none">
-              <span className="font-serif text-xl md:text-2xl tracking-tight">Rizwan</span>
+              <span className="font-serif text-xl md:text-2xl tracking-tight">Nordhaven</span>
               <span className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground">Furniture</span>
             </span>
           </Link>

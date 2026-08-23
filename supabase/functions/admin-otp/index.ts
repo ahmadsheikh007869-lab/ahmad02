@@ -84,7 +84,7 @@ Deno.serve(async (req) => {
       });
 
       const msg = encodeURIComponent(
-        `Rizwan Furniture — Admin OTP: ${code}\nValid for ${OTP_TTL_MINUTES} minutes.\nDo not share.`,
+        `Nordhaven — Admin OTP: ${code}\nValid for ${OTP_TTL_MINUTES} minutes.\nDo not share.`,
       );
       const whatsappUrl = `https://wa.me/${AUTHORIZED_WHATSAPP}?text=${msg}`;
 

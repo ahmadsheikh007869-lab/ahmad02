@@ -61,7 +61,7 @@ const Contact = () => {
     setErrors({});
     setSubmitting(true);
     const msg =
-      `Hello Rizwan Furniture,%0A%0A` +
+      `Hello Nordhaven,%0A%0A` +
       `*Name:* ${encodeURIComponent(parsed.data.name)}%0A` +
       `*Phone:* ${encodeURIComponent(parsed.data.phone)}%0A` +
       (parsed.data.email ? `*Email:* ${encodeURIComponent(parsed.data.email)}%0A` : "") +
@@ -96,7 +96,7 @@ const Contact = () => {
             className="lg:col-span-2 space-y-8"
           >
             <div>
-              <h2 className="font-serif text-2xl mb-4">Rizwan Furniture Studio</h2>
+              <h2 className="font-serif text-2xl mb-4">Nordhaven Studio</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Visit our flagship showroom for a hands-on experience of every finish, fabric and material. Walk-ins welcome.
               </p>
@@ -166,7 +166,7 @@ const Contact = () => {
                 style={{ border: 0 }}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Rizwan Furniture Studio location"
+                title="Nordhaven Studio location"
               />
             </div>
           </motion.div>

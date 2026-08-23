@@ -11,7 +11,7 @@ const About = () => {
       <section className="relative h-[70vh] overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=2000&q=80"
-          alt="Rizwan Furniture showroom"
+          alt="Nordhaven showroom"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-foreground/20 to-foreground/60" />
@@ -32,7 +32,7 @@ const About = () => {
         <div className="container-narrow text-center">
           <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-5">Our Philosophy</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.25]">
-            At Rizwan Furniture we believe great homes are built one considered piece at a time — in a warm oak palette that ages beautifully.
+            At Nordhaven we believe great homes are built one considered piece at a time — in a warm oak palette that ages beautifully.
           </h2>
         </div>
       </section>
@@ -62,7 +62,7 @@ const About = () => {
         <div className="container-narrow">
           <h2 className="font-serif text-4xl md:text-5xl mb-6">Design your home with us</h2>
           <p className="text-muted-foreground max-w-lg mx-auto mb-8">
-            Talk to a Rizwan interior designer — free consultation, in-store, at home or over video call.
+            Talk to a Nordhaven interior designer — free consultation, in-store, at home or over video call.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button asChild size="lg" className="rounded-sm px-10 py-6 text-sm tracking-[0.2em] uppercase">

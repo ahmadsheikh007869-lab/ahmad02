@@ -1,4 +1,4 @@
-// Single source of truth for Rizwan Furniture contact details.
+// Single source of truth for Nordhaven contact details.
 // Edit these values to update Call/WhatsApp/Email links across the app.
 
 export const CONTACT = {
@@ -9,9 +9,9 @@ export const CONTACT = {
   /** WhatsApp number in international format, digits only */
   whatsapp: "919876543210",
   /** Support email */
-  email: "hello@rizwanfurniture.com",
+  email: "hello@nordhaven.com",
   /** Full brand address (for footer / contact) */
-  address: "Rizwan Furniture Studio, MG Road, Bengaluru 560001",
+  address: "Nordhaven Studio, MG Road, Bengaluru 560001",
   /** Business hours */
   hours: [
     { days: "Monday – Saturday", time: "10:00 AM – 8:00 PM" },
@@ -19,5 +19,5 @@ export const CONTACT = {
   ],
 } as const;
 
-export const whatsappUrl = (message = "Hi Rizwan Furniture, I'd like to know more."): string =>
+export const whatsappUrl = (message = "Hi Nordhaven, I'd like to know more."): string =>
   `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;

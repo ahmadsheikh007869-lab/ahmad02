@@ -560,7 +560,7 @@ var p = (args) => {
     mrp: args.mrp,
     discountPercent,
     description: args.description ?? "Premium modern furniture crafted for lasting everyday use.",
-    longDescription: args.longDescription ?? "Rizwan Furniture designs each piece with honest materials, hand-finished detailing and a build quality meant to last decades. Every join, edge and finish is inspected before it leaves our workshop.",
+    longDescription: args.longDescription ?? "Nordhaven designs each piece with honest materials, hand-finished detailing and a build quality meant to last decades. Every join, edge and finish is inspected before it leaves our workshop.",
     materials: args.materials ?? "Engineered wood, solid hardwood frame, matte PU finish",
     material: args.material ?? "Engineered Wood",
     finish: args.finish ?? "Matte Oak",
@@ -857,7 +857,7 @@ var CAT_SPECS = [
     priceStep: 1500,
     discount: 40,
     dims: (i) => dim(45, 40, 55, 40),
-    features: () => ["Soft-close drawer with dividers", "USB / power sockets (select models)", "Water-ring resistant top", "Solid hardwood legs", "Coordinates with all Rizwan bed collections"]
+    features: () => ["Soft-close drawer with dividers", "USB / power sockets (select models)", "Water-ring resistant top", "Solid hardwood legs", "Coordinates with all Nordhaven bed collections"]
   },
   {
     cid: "outdoor-furniture",
@@ -944,7 +944,7 @@ for (const spec of CAT_SPECS) {
         style: v(STYLES, i),
         dimensions: `${dims.lengthCm} \xD7 ${dims.widthCm} \xD7 ${dims.heightCm} cm`,
         dims,
-        description: `${type} designed and hand-finished by Rizwan Furniture.`,
+        description: `${type} designed and hand-finished by Nordhaven.`,
         features: spec.features(type),
         materials: spec.materials,
         featured: i < 3,
@@ -1071,7 +1071,7 @@ var products = [
 var list_categories_default = defineTool({
   name: "list_categories",
   title: "List categories",
-  description: "List all furniture categories in the Rizwan Furniture catalog with product counts.",
+  description: "List all furniture categories in the Nordhaven catalog with product counts.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => {
@@ -1095,7 +1095,7 @@ import { z } from "npm:zod@^4.4.3";
 var search_products_default = defineTool2({
   name: "search_products",
   title: "Search products",
-  description: "Search the Rizwan Furniture catalog by keyword, category, price range, or flags (new, bestSeller, trending). Returns matching products with name, category, price, and product code.",
+  description: "Search the Nordhaven catalog by keyword, category, price range, or flags (new, bestSeller, trending). Returns matching products with name, category, price, and product code.",
   inputSchema: {
     query: z.string().optional().describe("Free-text query matched against name, description, material, finish, color, style, and product code."),
     category: z.string().optional().describe("Category id or slug (e.g. 'beds', 'wardrobes')."),
@@ -1191,22 +1191,22 @@ var CONTACT = {
   /** WhatsApp number in international format, digits only */
   whatsapp: "919876543210",
   /** Support email */
-  email: "hello@rizwanfurniture.com",
+  email: "hello@nordhaven.com",
   /** Full brand address (for footer / contact) */
-  address: "Rizwan Furniture Studio, MG Road, Bengaluru 560001",
+  address: "Nordhaven Studio, MG Road, Bengaluru 560001",
   /** Business hours */
   hours: [
     { days: "Monday \u2013 Saturday", time: "10:00 AM \u2013 8:00 PM" },
     { days: "Sunday", time: "11:00 AM \u2013 6:00 PM" }
   ]
 };
-var whatsappUrl = (message = "Hi Rizwan Furniture, I'd like to know more.") => `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
+var whatsappUrl = (message = "Hi Nordhaven, I'd like to know more.") => `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
 
 // src/lib/mcp/tools/contact-info.ts
 var contact_info_default = defineTool4({
   name: "get_contact_info",
   title: "Get store contact info",
-  description: "Return the Rizwan Furniture store's phone, WhatsApp, and email contact details.",
+  description: "Return the Nordhaven store's phone, WhatsApp, and email contact details.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => {
@@ -1227,9 +1227,9 @@ var contact_info_default = defineTool4({
 // src/lib/mcp/index.ts
 var mcp_default = defineMcp({
   name: "rizwan-furniture-mcp",
-  title: "Rizwan Furniture MCP",
+  title: "Nordhaven MCP",
   version: "0.1.0",
-  instructions: "Tools for the Rizwan Furniture catalog. Use `list_categories` to see all product categories, `search_products` to find items by keyword/category/price, `get_product` for full details on one product, and `get_contact_info` for store phone/WhatsApp/email.",
+  instructions: "Tools for the Nordhaven catalog. Use `list_categories` to see all product categories, `search_products` to find items by keyword/category/price, `get_product` for full details on one product, and `get_contact_info` for store phone/WhatsApp/email.",
   tools: [list_categories_default, search_products_default, get_product_default, contact_info_default]
 });
 

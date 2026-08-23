@@ -19,6 +19,6 @@ export const whyUs = [
   {
     icon: Sparkles,
     title: "Free Design Consult",
-    body: "Talk to a Rizwan interior designer over video call and receive a 3D room layout within 48 hours.",
+    body: "Talk to a Nordhaven interior designer over video call and receive a 3D room layout within 48 hours.",
   },
 ];
