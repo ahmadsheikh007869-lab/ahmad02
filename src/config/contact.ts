@@ -3,11 +3,11 @@
 
 export const CONTACT = {
   /** Displayed phone number */
-  phone: "+91 63942 49533",
+  phone: "+91 98765 43210",
   /** Number for tel: links (no spaces) */
-  phoneTel: "+916394249533",
+  phoneTel: "+919876543210",
   /** WhatsApp number in international format, digits only */
-  whatsapp: "916394249533",
+  whatsapp: "919876543210",
   /** Support email */
   email: "hello@rizwanfurniture.com",
   /** Full brand address (for footer / contact) */
