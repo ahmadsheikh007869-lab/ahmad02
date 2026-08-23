@@ -14,7 +14,7 @@ export const whyUs = [
   {
     icon: Truck,
     title: "Free Delivery & Install",
-    body: "Free pan-India delivery on orders above ₹15,000 with complimentary assembly on modular units.",
+    body: "Free nationwide delivery on orders above $999 with complimentary assembly on modular units.",
   },
   {
     icon: Sparkles,

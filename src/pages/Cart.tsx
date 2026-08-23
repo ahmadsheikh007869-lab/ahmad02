@@ -129,7 +129,7 @@ const Cart = () => {
                     <span>{shipping === 0 ? "Free" : formatPrice(shipping)}</span>
                   </div>
                   {subtotal < 15000 && (
-                    <p className="text-xs text-muted-foreground">Free delivery on orders over ₹15,000</p>
+                    <p className="text-xs text-muted-foreground">Free delivery on orders over $999</p>
                   )}
                 </div>
 

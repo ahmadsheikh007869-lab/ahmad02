@@ -50,11 +50,11 @@
               "type": "string"
             },
             "minPrice": {
-              "description": "Minimum price in INR.",
+              "description": "Minimum price in USD.",
               "type": "number"
             },
             "maxPrice": {
-              "description": "Maximum price in INR.",
+              "description": "Maximum price in USD.",
               "type": "number"
             },
             "onlyNew": {

@@ -58,7 +58,7 @@ export const Header = () => {
             >
               <MessageCircle className="w-3 h-3" /> WhatsApp
             </a>
-            <span className="opacity-60">Free delivery over ₹15,000</span>
+            <span className="opacity-60">Free delivery over $999</span>
           </div>
           <div className="flex items-center gap-5">
             {user ? (

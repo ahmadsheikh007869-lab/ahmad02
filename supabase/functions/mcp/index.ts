@@ -1099,8 +1099,8 @@ var search_products_default = defineTool2({
   inputSchema: {
     query: z.string().optional().describe("Free-text query matched against name, description, material, finish, color, style, and product code."),
     category: z.string().optional().describe("Category id or slug (e.g. 'beds', 'wardrobes')."),
-    minPrice: z.number().optional().describe("Minimum price in INR."),
-    maxPrice: z.number().optional().describe("Maximum price in INR."),
+    minPrice: z.number().optional().describe("Minimum price in USD."),
+    maxPrice: z.number().optional().describe("Maximum price in USD."),
     onlyNew: z.boolean().optional(),
     onlyBestSeller: z.boolean().optional(),
     onlyTrending: z.boolean().optional(),
