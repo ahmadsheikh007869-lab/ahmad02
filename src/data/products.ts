@@ -1021,6 +1021,7 @@ export const searchProducts = (query: string): Product[] => {
   );
 };
 
-/** Format an INR price with ₹ and locale grouping. */
+/** Format a USD price with $ and locale grouping. */
 export const formatPrice = (value: number): string =>
-  `₹${value.toLocaleString("en-IN")}`;
+  `$${value.toLocaleString("en-US")}`;
+
