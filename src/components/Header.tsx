@@ -1,3 +1,4 @@
+import brandMark from "@/assets/nordhaven-mark.png";
 import { Link } from "react-router-dom";
 import { Heart, Menu, User, Package, X, Phone, MessageCircle, LogIn } from "lucide-react";
 import { useState, useEffect } from "react";

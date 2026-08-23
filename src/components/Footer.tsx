@@ -1,3 +1,4 @@
+import brandMark from "@/assets/nordhaven-mark.png";
 import { Link } from "react-router-dom";
 import { ArrowRight, Phone, Mail, Instagram, Facebook, MessageCircle, MapPin } from "lucide-react";
 import { collections } from "@/data/products";
