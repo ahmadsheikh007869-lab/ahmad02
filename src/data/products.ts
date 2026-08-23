@@ -505,8 +505,21 @@ interface PArgs {
   reviewCount?: number;
 }
 
+/**
+ * Source figures are authored on a base scale; convert to realistic,
+ * professionally rounded USD retail prices (…9 endings).
+ */
+const toUsd = (value: number): number => {
+  const raw = value / 80;
+  if (raw < 60) return Math.max(19, Math.round(raw / 5) * 5 - 1);
+  if (raw < 400) return Math.round(raw / 10) * 10 - 1;
+  return Math.round(raw / 50) * 50 - 1;
+};
+
 const p = (args: PArgs): Product => {
-  const discountPercent = Math.round(((args.mrp - args.price) / args.mrp) * 100);
+  const price = toUsd(args.price);
+  const mrp = Math.max(price + 20, toUsd(args.mrp));
+  const discountPercent = Math.round(((mrp - price) / mrp) * 100);
   const codePrefix = args.collection.slice(0, 3).toUpperCase();
   const dims = args.dims ?? args.kitchenDims ?? parseDims(args.dimensions);
   return {
@@ -515,9 +528,10 @@ const p = (args: PArgs): Product => {
     slug: args.id,
     collection: args.collection,
     productCode: nextCode(codePrefix),
-    price: args.price,
-    mrp: args.mrp,
+    price,
+    mrp,
     discountPercent,
+
     description: args.description ?? "Premium modern furniture crafted for lasting everyday use.",
     longDescription:
       args.longDescription ??

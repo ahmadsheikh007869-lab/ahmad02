@@ -546,8 +546,16 @@ var parseDims = (s) => {
   const [L, W, H, D] = [nums[0] ?? 0, nums[1] ?? 0, nums[2] ?? 0, nums[3] ?? nums[1] ?? 0];
   return { lengthCm: L, widthCm: W, heightCm: H, depthCm: D };
 };
+var toUsd = (value) => {
+  const raw = value / 80;
+  if (raw < 60) return Math.max(19, Math.round(raw / 5) * 5 - 1);
+  if (raw < 400) return Math.round(raw / 10) * 10 - 1;
+  return Math.round(raw / 50) * 50 - 1;
+};
 var p = (args) => {
-  const discountPercent = Math.round((args.mrp - args.price) / args.mrp * 100);
+  const price = toUsd(args.price);
+  const mrp = Math.max(price + 20, toUsd(args.mrp));
+  const discountPercent = Math.round((mrp - price) / mrp * 100);
   const codePrefix = args.collection.slice(0, 3).toUpperCase();
   const dims = args.dims ?? args.kitchenDims ?? parseDims(args.dimensions);
   return {
@@ -556,8 +564,8 @@ var p = (args) => {
     slug: args.id,
     collection: args.collection,
     productCode: nextCode(codePrefix),
-    price: args.price,
-    mrp: args.mrp,
+    price,
+    mrp,
     discountPercent,
     description: args.description ?? "Premium modern furniture crafted for lasting everyday use.",
     longDescription: args.longDescription ?? "Nordhaven designs each piece with honest materials, hand-finished detailing and a build quality meant to last decades. Every join, edge and finish is inspected before it leaves our workshop.",
