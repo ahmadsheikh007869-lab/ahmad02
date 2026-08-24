@@ -51,6 +51,7 @@ var IMG = {
     "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1600&q=80"
   ],
   wardrobes: [
+    wardrobeImg,
     "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1600&q=80",
     "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=1600&q=80",
     "https://images.unsplash.com/photo-1558211583-d26f610c1eb1?w=1600&q=80",
