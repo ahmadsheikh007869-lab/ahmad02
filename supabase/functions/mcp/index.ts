@@ -11,7 +11,9 @@ import { defineTool } from "npm:@lovable.dev/mcp-js@0.20.0";
 // src/data/products.ts
 var IMG = {
   kitchens: [
-    "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=80",
+    kitchenHero1,
+    kitchenHero2,
+    kitchenHero3,
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80",
     "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=80",
     "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=80",
