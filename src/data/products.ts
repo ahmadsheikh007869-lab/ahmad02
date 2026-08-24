@@ -110,6 +110,8 @@ const IMG = {
     "https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?w=1600&q=80",
   ],
   tv: [
+    tvUnitImg,
+
     "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1600&q=80",
     "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80",
     "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=80",
