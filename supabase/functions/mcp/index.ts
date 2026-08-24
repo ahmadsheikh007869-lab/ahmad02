@@ -3,7 +3,7 @@
 // supabase function: mcp
 // Bundled from src/lib/mcp/index.ts by @lovable.dev/mcp-js.
 // src/lib/mcp/index.ts
-import { defineMcp } from "npm:@lovable.dev/mcp-js@0.20.0";
+import { auth, defineMcp } from "npm:@lovable.dev/mcp-js@0.20.0";
 
 // src/lib/mcp/tools/list-categories.ts
 import { defineTool } from "npm:@lovable.dev/mcp-js@0.20.0";
@@ -1246,11 +1246,21 @@ var contact_info_default = defineTool4({
 });
 
 // src/lib/mcp/index.ts
+var SUPABASE_URL = "https://c--fe8864a7-395a-41b2-bbcc-de56988a8930-prod.lovable.cloud";
+var MCP_RESOURCE = `${SUPABASE_URL}/functions/v1/mcp`;
 var mcp_default = defineMcp({
   name: "rizwan-furniture-mcp",
   title: "Nordhaven MCP",
   version: "0.1.0",
   instructions: "Tools for the Nordhaven catalog. Use `list_categories` to see all product categories, `search_products` to find items by keyword/category/price, `get_product` for full details on one product, and `get_contact_info` for store phone/WhatsApp/email.",
+  // Require an OAuth access token issued by this project's auth server, so the
+  // MCP endpoint is not callable anonymously once published.
+  auth: auth.oauth.issuer({
+    issuer: `${SUPABASE_URL}/auth/v1`,
+    resource: MCP_RESOURCE,
+    acceptedAudiences: ["authenticated"],
+    resourceName: "Nordhaven MCP"
+  }),
   tools: [list_categories_default, search_products_default, get_product_default, contact_info_default]
 });
 
