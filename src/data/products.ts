@@ -84,6 +84,8 @@ const IMG = {
     "https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=1600&q=80",
   ],
   beds: [
+    bedImg,
+
     "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=1600&q=80",
     "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1600&q=80",
     "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1600&q=80",
