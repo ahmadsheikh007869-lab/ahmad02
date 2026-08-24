@@ -1,6 +1,7 @@
 import kitchenHero1 from "@/assets/hero-kitchen-1.jpg";
 import kitchenHero2 from "@/assets/hero-kitchen-2.jpg";
 import kitchenHero3 from "@/assets/hero-kitchen-3.jpg";
+import kitchenLuxecraftUshape from "@/assets/kitchen-luxecraft-ushape.jpg";
 import sofaImg from "@/assets/cat-sofa.jpg";
 import bedImg from "@/assets/cat-bed.jpg";
 import wardrobeImg from "@/assets/cat-wardrobe.jpg";
@@ -933,7 +934,10 @@ let kIdx = 0;
 KITCHEN_LAYOUTS.forEach((L, li) => {
   KITCHEN_STYLES.forEach((style, si) => {
     const prefix = KITCHEN_PREFIXES[(li + si) % KITCHEN_PREFIXES.length];
-    const name = `${prefix} ${L.layout} ${style} Kitchen`;
+    const isSignatureKitchen = L.layout === "U-Shape" && style === "High-Gloss White";
+    const name = isSignatureKitchen
+      ? "LuxeCraft U-Shape Modular Kitchen"
+      : `${prefix} ${L.layout} ${style} Kitchen`;
     const price = 89999 + (kIdx % 18) * 12500;
     const mrp = Math.round(price / (1 - (40 + (kIdx % 6) * 2) / 100));
     const dims: Dims = {
@@ -957,7 +961,9 @@ KITCHEN_LAYOUTS.forEach((L, li) => {
         collection: "modular-kitchen",
         price,
         mrp,
-        images: pickTwo(IMG.kitchens, kIdx),
+        images: isSignatureKitchen
+          ? [kitchenLuxecraftUshape, pickTwo(IMG.kitchens, kIdx)[1]]
+          : pickTwo(IMG.kitchens, kIdx),
         material: "Marine Plywood + Quartz",
         finish: style,
         color: v(COLORS, kIdx),
