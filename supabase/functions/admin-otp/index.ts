@@ -4,6 +4,7 @@ import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 const AUTHORIZED_WHATSAPP = "916394249533";
 const OTP_TTL_MINUTES = 5;
 const MAX_OTP_ATTEMPTS = 5;
+const SESSION_TTL_HOURS = 12;
 
 async function sha256(text: string): Promise<string> {
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
@@ -67,6 +68,43 @@ Deno.serve(async (req) => {
     const body = await req.json().catch(() => ({}));
     const action = body?.action as string;
 
+    // A 2FA-verified admin session must exist (and be fresh) for privileged actions.
+    const hasVerifiedSession = async (): Promise<boolean> => {
+      const cutoff = new Date(Date.now() - SESSION_TTL_HOURS * 3_600_000).toISOString();
+      const { data } = await admin.from("admin_sessions")
+        .select("id").eq("user_id", userId).is("revoked_at", null)
+        .gt("last_active_at", cutoff).limit(1);
+      return (data ?? []).length > 0;
+    };
+
+    const startVerifiedSession = async () => {
+      await admin.from("admin_sessions")
+        .update({ revoked_at: new Date().toISOString() })
+        .eq("user_id", userId).is("revoked_at", null);
+      await admin.from("admin_sessions").insert({
+        user_id: userId,
+        session_token: crypto.randomUUID(),
+        user_agent: req.headers.get("user-agent"),
+        last_active_at: new Date().toISOString(),
+      });
+    };
+
+    if (action === "status") {
+      return new Response(JSON.stringify({ ok: true, verified: await hasVerifiedSession() }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (action === "sign_out") {
+      await admin.from("admin_sessions")
+        .update({ revoked_at: new Date().toISOString() })
+        .eq("user_id", userId).is("revoked_at", null);
+      return new Response(JSON.stringify({ ok: true }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+
     if (action === "request") {
       const code = randomCode(6);
       const codeHash = await sha256(code);
@@ -128,6 +166,7 @@ Deno.serve(async (req) => {
       await admin.from("audit_logs").insert({
         actor_id: userId, actor_email: claimsData.claims.email as string, action: "admin_otp_verified",
       });
+      await startVerifiedSession();
       return new Response(JSON.stringify({ ok: true }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
@@ -149,6 +188,7 @@ Deno.serve(async (req) => {
       await admin.from("audit_logs").insert({
         actor_id: userId, actor_email: claimsData.claims.email as string, action: "recovery_code_used",
       });
+      await startVerifiedSession();
       return new Response(JSON.stringify({ ok: true }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
@@ -158,6 +198,11 @@ Deno.serve(async (req) => {
       if (!isSuper) return new Response(JSON.stringify({ ok: false, error: "Super Admin only" }), {
         status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
+      if (!(await hasVerifiedSession())) {
+        return new Response(JSON.stringify({ ok: false, error: "Two-factor verification required" }), {
+          status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
       const codes = Array.from({ length: 10 }, () => randomRecovery());
       // Replace existing unused codes
       await admin.from("recovery_codes").delete().eq("user_id", userId).is("used_at", null);

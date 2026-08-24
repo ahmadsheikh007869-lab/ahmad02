@@ -35,20 +35,30 @@ const AdminDashboard = () => {
   const [logins, setLogins] = useState<LoginRow[]>([]);
   const [recoveryCodes, setRecoveryCodes] = useState<string[] | null>(null);
   const [genLoading, setGenLoading] = useState(false);
+  // Server-verified two-factor session state: null = still checking.
+  const [twoFactorOk, setTwoFactorOk] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (loading) return;
-    if (!user) navigate("/admin/login", { replace: true });
-    else if (!isAdminOrHigher) navigate("/", { replace: true });
+    if (!user) return navigate("/admin/login", { replace: true });
+    if (!isAdminOrHigher) return navigate("/", { replace: true });
+    let active = true;
+    supabase.functions.invoke("admin-otp", { body: { action: "status" } }).then(({ data }) => {
+      if (!active) return;
+      const verified = Boolean(data?.verified);
+      setTwoFactorOk(verified);
+      if (!verified) navigate("/admin/login", { replace: true });
+    });
+    return () => { active = false; };
   }, [loading, user, isAdminOrHigher, navigate]);
 
   useEffect(() => {
-    if (!isAdminOrHigher) return;
+    if (!isAdminOrHigher || twoFactorOk !== true) return;
     supabase.from("bookings").select("*").order("created_at", { ascending: false }).limit(100)
       .then(({ data }) => setBookings((data as Booking[]) ?? []));
     supabase.from("login_history").select("*").order("created_at", { ascending: false }).limit(20)
       .then(({ data }) => setLogins((data as LoginRow[]) ?? []));
-  }, [isAdminOrHigher]);
+  }, [isAdminOrHigher, twoFactorOk]);
 
   const updateStatus = async (id: string, status: string) => {
     const { error } = await supabase.from("bookings").update({ status: status as "pending" | "confirmed" | "in_progress" | "completed" | "cancelled" }).eq("id", id);
@@ -68,9 +78,13 @@ const AdminDashboard = () => {
     toast.success("Save these codes — they won't be shown again");
   };
 
-  const signOut = async () => { await supabase.auth.signOut(); navigate("/"); };
+  const signOut = async () => {
+    await supabase.functions.invoke("admin-otp", { body: { action: "sign_out" } }).catch(() => undefined);
+    await supabase.auth.signOut();
+    navigate("/");
+  };
 
-  if (loading || !user || !isAdminOrHigher) return null;
+  if (loading || !user || !isAdminOrHigher || twoFactorOk !== true) return null;
 
   return (
     <Layout>

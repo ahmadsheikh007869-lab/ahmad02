@@ -3,7 +3,13 @@
   "sdk_version": "0.20.0",
   "path": "/functions/v1/mcp",
   "auth": {
-    "type": "none"
+    "type": "oauth",
+    "issuer": "https://c--fe8864a7-395a-41b2-bbcc-de56988a8930-prod.lovable.cloud/auth/v1",
+    "resource": "https://c--fe8864a7-395a-41b2-bbcc-de56988a8930-prod.lovable.cloud/functions/v1/mcp",
+    "resource_name": "Nordhaven MCP",
+    "accepted_audiences": [
+      "authenticated"
+    ]
   },
   "mcp": {
     "server": {
