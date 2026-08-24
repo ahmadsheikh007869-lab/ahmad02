@@ -25,6 +25,7 @@ var IMG = {
     "https://images.unsplash.com/photo-1620626011761-996317b8d101?w=1600&q=80"
   ],
   sofas: [
+    sofaImg,
     "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=80",
     "https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=1600&q=80",
     "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1600&q=80",
