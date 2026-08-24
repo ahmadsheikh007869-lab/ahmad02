@@ -4,6 +4,7 @@ import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 const AUTHORIZED_WHATSAPP = "916394249533";
 const OTP_TTL_MINUTES = 5;
 const MAX_OTP_ATTEMPTS = 5;
+const SESSION_TTL_HOURS = 12;
 
 async function sha256(text: string): Promise<string> {
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
@@ -165,6 +166,7 @@ Deno.serve(async (req) => {
       await admin.from("audit_logs").insert({
         actor_id: userId, actor_email: claimsData.claims.email as string, action: "admin_otp_verified",
       });
+      await startVerifiedSession();
       return new Response(JSON.stringify({ ok: true }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
@@ -186,6 +188,7 @@ Deno.serve(async (req) => {
       await admin.from("audit_logs").insert({
         actor_id: userId, actor_email: claimsData.claims.email as string, action: "recovery_code_used",
       });
+      await startVerifiedSession();
       return new Response(JSON.stringify({ ok: true }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
@@ -195,6 +198,11 @@ Deno.serve(async (req) => {
       if (!isSuper) return new Response(JSON.stringify({ ok: false, error: "Super Admin only" }), {
         status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
+      if (!(await hasVerifiedSession())) {
+        return new Response(JSON.stringify({ ok: false, error: "Two-factor verification required" }), {
+          status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
       const codes = Array.from({ length: 10 }, () => randomRecovery());
       // Replace existing unused codes
       await admin.from("recovery_codes").delete().eq("user_id", userId).is("used_at", null);
