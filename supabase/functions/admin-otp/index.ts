@@ -67,6 +67,43 @@ Deno.serve(async (req) => {
     const body = await req.json().catch(() => ({}));
     const action = body?.action as string;
 
+    // A 2FA-verified admin session must exist (and be fresh) for privileged actions.
+    const hasVerifiedSession = async (): Promise<boolean> => {
+      const cutoff = new Date(Date.now() - SESSION_TTL_HOURS * 3_600_000).toISOString();
+      const { data } = await admin.from("admin_sessions")
+        .select("id").eq("user_id", userId).is("revoked_at", null)
+        .gt("last_active_at", cutoff).limit(1);
+      return (data ?? []).length > 0;
+    };
+
+    const startVerifiedSession = async () => {
+      await admin.from("admin_sessions")
+        .update({ revoked_at: new Date().toISOString() })
+        .eq("user_id", userId).is("revoked_at", null);
+      await admin.from("admin_sessions").insert({
+        user_id: userId,
+        session_token: crypto.randomUUID(),
+        user_agent: req.headers.get("user-agent"),
+        last_active_at: new Date().toISOString(),
+      });
+    };
+
+    if (action === "status") {
+      return new Response(JSON.stringify({ ok: true, verified: await hasVerifiedSession() }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (action === "sign_out") {
+      await admin.from("admin_sessions")
+        .update({ revoked_at: new Date().toISOString() })
+        .eq("user_id", userId).is("revoked_at", null);
+      return new Response(JSON.stringify({ ok: true }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+
     if (action === "request") {
       const code = randomCode(6);
       const codeHash = await sha256(code);
