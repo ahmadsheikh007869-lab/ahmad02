@@ -1035,7 +1035,7 @@ KITCHEN_LAYOUTS.forEach((L, li) => {
         collection: "modular-kitchen",
         price,
         mrp,
-        images: pickTwo(IMG.kitchens, kIdx),
+        images: isSignatureKitchen ? [kitchenLuxecraftUshape, pickTwo(IMG.kitchens, kIdx)[1]] : pickTwo(IMG.kitchens, kIdx),
         material: "Marine Plywood + Quartz",
         finish: style,
         color: v(COLORS, kIdx),
