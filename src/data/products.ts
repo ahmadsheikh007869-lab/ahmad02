@@ -933,7 +933,10 @@ let kIdx = 0;
 KITCHEN_LAYOUTS.forEach((L, li) => {
   KITCHEN_STYLES.forEach((style, si) => {
     const prefix = KITCHEN_PREFIXES[(li + si) % KITCHEN_PREFIXES.length];
-    const name = `${prefix} ${L.layout} ${style} Kitchen`;
+    const isSignatureKitchen = L.layout === "U-Shape" && style === "High-Gloss White";
+    const name = isSignatureKitchen
+      ? "LuxeCraft U-Shape Modular Kitchen"
+      : `${prefix} ${L.layout} ${style} Kitchen`;
     const price = 89999 + (kIdx % 18) * 12500;
     const mrp = Math.round(price / (1 - (40 + (kIdx % 6) * 2) / 100));
     const dims: Dims = {
