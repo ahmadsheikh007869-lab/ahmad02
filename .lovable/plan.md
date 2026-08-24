@@ -1,83 +1,23 @@
+# Replace the featured modular kitchen product photo
 
-## Goal
+Swap only the central image on the featured modular kitchen product card (currently "LuxeCraft U-Shape Modular Kitchen") for a newly generated, premium classic modular kitchen catalog photograph.
 
-Turn the catalog into 28+ strictly-siloed categories, each with 50+ designs, disable the hover image swap on cards, and expand every product detail page with full dimensions (L/W/H/D in cm) plus material, color, finish, features and specifications.
+## What changes
 
-## 1. Category expansion (28+ dedicated categories)
+- Generate one new high-resolution, photorealistic kitchen image:
+  - Classic luxury U-shaped modular kitchen, full layout clearly visible
+  - Panel-style wooden cabinet doors, warm walnut with cream/beige tones
+  - Marble/quartz countertop, brass/gold hardware, built-in appliances
+  - Luxury showroom setting, warm professional lighting, realistic shadows and reflections
+  - No people, text, watermarks, or logos
+- Replace the existing asset used by that product so the card, carousels and product page all pick up the new photo automatically.
+- Keep the image in the same aspect ratio/dimensions so it fills the existing image area identically.
 
-Extend `collections` in `src/data/products.ts` from 10 to 30 categories. Each has its own curated image pool and its own factory-generated set of 54 designs, so `getProductsByCollection(slug)` never returns anything from another category.
+## What stays exactly the same
 
-Categories (new ones marked *):
+Card layout, borders, discount and "New" badges, price, MRP, rating, review count, product code, buttons, typography, product name, category, and every surrounding UI element.
 
-```text
-1  Modular Kitchen          11  Study Tables *
-2  Sofas                    12  Office Furniture *
-3  Beds                     13  Shoe Racks *
-4  Modular Wardrobes        14  Coffee Tables *
-5  TV Units                 15  Side & End Tables *
-6  Dining Tables *          16  Recliners *
-7  Dining Chairs *          17  Bean Bags *
-8  Wooden Cabinets          18  Bar Units *
-9  Bookshelves              19  Console Tables *
-10 Decorative Lights        20  Dressing Tables *
-                            21  Wall Shelves *
-                            22  Kids Furniture *
-                            23  Bunk Beds *
-                            24  Mattresses *
-                            25  Bedside Tables *
-                            26  Outdoor Furniture *
-                            27  Swings & Jhoolas *
-                            28  Storage & Trunks *
-                            29  Poojas & Temples *
-                            30  Rugs & Carpets *
-```
+## Technical notes
 
-For each new category:
-- Add a `Collection` entry with `id`, `slug`, `name`, `description`, `image`.
-- Add a category-specific image pool (8–12 curated Unsplash URLs of ONLY that furniture type) inside the `IMG` map.
-- Generate 54 designs via the existing `p()` factory using `TYPES` + `PREFIXES` arrays for that category.
-
-### Honest caveat on "50+ unique images per category"
-
-Sourcing 50 unique, licensed, on-topic photos for 30 different furniture types (1500+ images) isn't feasible in-catalog with free stock URLs. The plan uses ~8–12 curated per-category Unsplash images cycled across 54 uniquely-named, uniquely-priced designs (same approach already shipped for Sofas/Beds/Wardrobes). Every image in a category still shows only that furniture type, and no cross-category leakage occurs. If you want literally 50 unique photos per category, we'd need either paid stock, AI-generated images, or your own photography — happy to switch to AI-generated per-product images if you approve the extra generation cost.
-
-## 2. Disable hover image swap on product cards
-
-In `src/components/ProductCard.tsx`:
-- Remove the second `<img>` overlay and the `group-hover:opacity-0` transition on the primary image.
-- Keep only a subtle `group-hover:scale-105` (or remove entirely if you'd prefer the image completely static — say the word).
-- Thumbnail stays identical before/during/after hover.
-
-## 3. Extended product detail page
-
-In `src/pages/ProductDetail.tsx`, replace the current Specifications accordion contents with a full spec block shown for **every** product (not just kitchens):
-
-- **Dimensions grid**: Length, Width, Height, Depth (cm) as four tiles — same visual treatment currently used for kitchens, now applied to all categories.
-- **Attributes list**: Material, Color, Finish, Style, Product Code.
-- **Features**: bullet list (soft-close hardware, 5-year warranty, free assembly, etc.).
-- **Additional information**: care, warranty, shipping.
-
-To support this, extend `Product` in `src/data/products.ts`:
-- Add optional `dims?: { lengthCm: number; widthCm: number; heightCm: number; depthCm: number }` populated for every product (not just kitchens). The factory derives it by parsing/replacing the existing `dimensions` string, so nothing else breaks.
-- Add optional `features?: string[]` with 4–6 category-appropriate bullets generated by the factory.
-- Keep `kitchenDims` for backwards compatibility; the new `dims` supersedes it visually.
-
-Related-designs carousel below the detail page already filters by same-category only (`getRelatedProducts`) — no change needed.
-
-## 4. Homepage
-
-Already kitchen-only banner (done in prior phase). Only tweak: extend the "Featured Collections" row into a scrollable strip / larger grid so 8–12 of the 30 categories are showcased instead of just 4. All 30 remain reachable from the `/products` page's category filter.
-
-## Out of scope
-
-- Backend/auth/database changes (none needed).
-- Real photography — see caveat above.
-- Redesign of header nav (30 categories will be surfaced via the shop page filter, not a mega-menu, unless you ask).
-
-## Files touched
-
-- `src/data/products.ts` — 30 collections, 30 image pools, 30 factories (~54 items each = ~1,600 products), `Product.dims` + `Product.features`.
-- `src/components/ProductCard.tsx` — remove hover swap.
-- `src/pages/ProductDetail.tsx` — universal L/W/H/D grid + attributes + features section.
-- `src/data/heroSlides.ts` — unchanged (already kitchen-only).
-- `src/pages/Index.tsx` — small tweak to show more featured categories.
+- Asset: regenerate `src/assets/kitchen-luxecraft-ushape.jpg` (4:5-friendly framing, high resolution). The import in `src/data/products.ts` stays untouched, so no code changes are required beyond the asset swap.
+- If a second gallery image looks mismatched on the detail page, only the primary slot is touched; secondary images stay as-is unless you ask otherwise.
