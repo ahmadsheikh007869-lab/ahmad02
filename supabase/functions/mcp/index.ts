@@ -9,6 +9,13 @@ import { defineMcp } from "npm:@lovable.dev/mcp-js@0.20.0";
 import { defineTool } from "npm:@lovable.dev/mcp-js@0.20.0";
 
 // src/data/products.ts
+import kitchenHero1 from "npm:@/assets/hero-kitchen-1.jpg";
+import kitchenHero2 from "npm:@/assets/hero-kitchen-2.jpg";
+import kitchenHero3 from "npm:@/assets/hero-kitchen-3.jpg";
+import sofaImg from "npm:@/assets/cat-sofa.jpg";
+import bedImg from "npm:@/assets/cat-bed.jpg";
+import wardrobeImg from "npm:@/assets/cat-wardrobe.jpg";
+import tvUnitImg from "npm:@/assets/cat-tv-unit.jpg";
 var IMG = {
   kitchens: [
     kitchenHero1,
