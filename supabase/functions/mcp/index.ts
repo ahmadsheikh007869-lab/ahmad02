@@ -12,6 +12,7 @@ import { defineTool } from "npm:@lovable.dev/mcp-js@0.20.0";
 import kitchenHero1 from "npm:@/assets/hero-kitchen-1.jpg";
 import kitchenHero2 from "npm:@/assets/hero-kitchen-2.jpg";
 import kitchenHero3 from "npm:@/assets/hero-kitchen-3.jpg";
+import kitchenLuxecraftUshape from "npm:@/assets/kitchen-luxecraft-ushape.jpg";
 import sofaImg from "npm:@/assets/cat-sofa.jpg";
 import bedImg from "npm:@/assets/cat-bed.jpg";
 import wardrobeImg from "npm:@/assets/cat-wardrobe.jpg";

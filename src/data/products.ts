@@ -1,6 +1,7 @@
 import kitchenHero1 from "@/assets/hero-kitchen-1.jpg";
 import kitchenHero2 from "@/assets/hero-kitchen-2.jpg";
 import kitchenHero3 from "@/assets/hero-kitchen-3.jpg";
+import kitchenLuxecraftUshape from "@/assets/kitchen-luxecraft-ushape.jpg";
 import sofaImg from "@/assets/cat-sofa.jpg";
 import bedImg from "@/assets/cat-bed.jpg";
 import wardrobeImg from "@/assets/cat-wardrobe.jpg";
