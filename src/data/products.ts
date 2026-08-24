@@ -1,4 +1,13 @@
+import kitchenHero1 from "@/assets/hero-kitchen-1.jpg";
+import kitchenHero2 from "@/assets/hero-kitchen-2.jpg";
+import kitchenHero3 from "@/assets/hero-kitchen-3.jpg";
+import sofaImg from "@/assets/cat-sofa.jpg";
+import bedImg from "@/assets/cat-bed.jpg";
+import wardrobeImg from "@/assets/cat-wardrobe.jpg";
+import tvUnitImg from "@/assets/cat-tv-unit.jpg";
+
 export interface Collection {
+
   id: string;
   name: string;
   slug: string;
@@ -55,7 +64,10 @@ export interface Product {
 
 const IMG = {
   kitchens: [
-    "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=80",
+    kitchenHero1,
+    kitchenHero2,
+    kitchenHero3,
+
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80",
     "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=80",
     "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=80",
@@ -67,6 +79,8 @@ const IMG = {
     "https://images.unsplash.com/photo-1620626011761-996317b8d101?w=1600&q=80",
   ],
   sofas: [
+    sofaImg,
+
     "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=80",
     "https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=1600&q=80",
     "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1600&q=80",
@@ -79,6 +93,8 @@ const IMG = {
     "https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=1600&q=80",
   ],
   beds: [
+    bedImg,
+
     "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=1600&q=80",
     "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1600&q=80",
     "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1600&q=80",
@@ -91,6 +107,8 @@ const IMG = {
     "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1600&q=80",
   ],
   wardrobes: [
+    wardrobeImg,
+
     "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1600&q=80",
     "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=1600&q=80",
     "https://images.unsplash.com/photo-1558211583-d26f610c1eb1?w=1600&q=80",
@@ -101,6 +119,8 @@ const IMG = {
     "https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?w=1600&q=80",
   ],
   tv: [
+    tvUnitImg,
+
     "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1600&q=80",
     "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80",
     "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=80",
