@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Heart, Star } from "lucide-react";
 import { motion } from "framer-motion";
@@ -13,6 +14,7 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product, index = 0, variant = "default" }: ProductCardProps) => {
   const { addItem, removeItem, isInWishlist } = useWishlist();
+  const [loaded, setLoaded] = useState(false);
   const inWishlist = isInWishlist(product.id);
   const collection = collections.find((c) => c.id === product.collection);
 
@@ -34,30 +36,40 @@ export const ProductCard = ({ product, index = 0, variant = "default" }: Product
       <Link to={`/product/${product.slug}`} className="block h-full">
         <div
           className={cn(
-            "relative overflow-hidden furniture-tile mb-4 rounded-sm",
+            "relative overflow-hidden furniture-tile mb-4 rounded-sm transition-all duration-500",
+            "group-hover:-translate-y-1 group-hover:shadow-[0_18px_40px_-18px_hsl(var(--foreground)/0.35)]",
             variant === "large" ? "aspect-[3/4]" : "aspect-[4/5]",
           )}
         >
+          {/* Loading skeleton */}
+          {!loaded && <div className="absolute inset-0 animate-pulse bg-muted" aria-hidden="true" />}
+
           <img
             src={product.images[0]}
             alt={product.name}
             loading="lazy"
             decoding="async"
-            className="w-full h-full object-cover"
+            onLoad={() => setLoaded(true)}
+            onError={() => setLoaded(true)}
+            className={cn(
+              "w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.04]",
+              loaded ? "opacity-100" : "opacity-0",
+            )}
           />
 
-
-          {product.discountPercent && product.discountPercent > 0 && (
-            <span className="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold tracking-wider bg-primary text-primary-foreground rounded-sm">
-              {product.discountPercent}% OFF
-            </span>
-          )}
-
-          {product.new && (
-            <span className="absolute top-3 right-14 px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] uppercase bg-foreground text-background rounded-sm">
-              New
-            </span>
-          )}
+          {/* Badges — single top-left stack so nothing overlaps the wishlist button */}
+          <div className="absolute top-3 left-3 flex flex-col items-start gap-1.5">
+            {product.discountPercent && product.discountPercent > 0 && (
+              <span className="px-2.5 py-1 text-[10px] font-bold tracking-[0.12em] uppercase bg-primary text-primary-foreground rounded-sm shadow-sm">
+                {product.discountPercent}% OFF
+              </span>
+            )}
+            {product.new && (
+              <span className="px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] uppercase bg-foreground text-background rounded-sm shadow-sm">
+                New
+              </span>
+            )}
+          </div>
 
           <button
             onClick={handleWishlistToggle}
@@ -95,12 +107,7 @@ export const ProductCard = ({ product, index = 0, variant = "default" }: Product
           <div className="flex items-baseline gap-2 flex-wrap pt-1">
             <span className="text-base font-semibold text-foreground">{formatPrice(product.price)}</span>
             {product.mrp && product.mrp > product.price && (
-              <>
-                <span className="text-xs text-muted-foreground line-through">{formatPrice(product.mrp)}</span>
-                {product.discountPercent && (
-                  <span className="text-xs font-semibold text-primary">{product.discountPercent}% OFF</span>
-                )}
-              </>
+              <span className="text-xs text-muted-foreground line-through">{formatPrice(product.mrp)}</span>
             )}
           </div>
         </div>
