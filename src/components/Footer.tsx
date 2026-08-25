@@ -1,8 +1,10 @@
 import brandMark from "@/assets/nordhaven-mark.png";
 import { Link } from "react-router-dom";
-import { ArrowRight, Phone, Mail, Instagram, Facebook, MessageCircle, MapPin } from "lucide-react";
+import { ArrowRight, Phone, Mail, Instagram, Github, Linkedin, MessageCircle, MapPin, Code2 } from "lucide-react";
 import { collections } from "@/data/products";
 import { CONTACT, whatsappUrl } from "@/config/contact";
+import { DEVELOPER } from "@/config/developer";
+
 
 export const Footer = () => {
   const shopCats = collections.slice(0, 8);
@@ -93,6 +95,7 @@ export const Footer = () => {
               <li>
                 <a href={`tel:${CONTACT.phoneTel}`} className="flex items-center gap-2 text-sm text-background/60 hover:text-background transition-colors">
                   <Phone className="w-4 h-4" /> {CONTACT.phone}
+                  <span className="text-[10px] tracking-[0.2em] uppercase text-background/35">({CONTACT.label})</span>
                 </a>
               </li>
               <li>
@@ -109,15 +112,43 @@ export const Footer = () => {
                 <MapPin className="w-4 h-4 mt-0.5 shrink-0" /> {CONTACT.address}
               </li>
               <li className="flex items-center gap-3 pt-2">
-                <a href="#" aria-label="Instagram" className="p-2 border border-background/15 rounded-sm hover:bg-background/10 transition-colors">
-                  <Instagram className="w-4 h-4" />
+                <a href={DEVELOPER.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-2 border border-background/15 rounded-sm hover:bg-background/10 transition-colors">
+                  <Github className="w-4 h-4" />
                 </a>
-                <a href="#" aria-label="Facebook" className="p-2 border border-background/15 rounded-sm hover:bg-background/10 transition-colors">
-                  <Facebook className="w-4 h-4" />
+                <a href={DEVELOPER.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2 border border-background/15 rounded-sm hover:bg-background/10 transition-colors">
+                  <Linkedin className="w-4 h-4" />
+                </a>
+                <a href={DEVELOPER.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-2 border border-background/15 rounded-sm hover:bg-background/10 transition-colors">
+                  <Instagram className="w-4 h-4" />
                 </a>
               </li>
             </ul>
           </div>
+        </div>
+      </div>
+
+
+      {/* Developer credit */}
+      <div className="border-t border-background/10">
+        <div className="container-full py-7 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+          <p className="text-sm text-background/60 flex items-center gap-2">
+            <Code2 className="w-4 h-4 text-primary shrink-0" />
+            <span>
+              Designed &amp; Developed by{" "}
+              <a
+                href={DEVELOPER.portfolio}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-background font-medium underline decoration-primary/50 underline-offset-4 hover:decoration-primary transition-colors"
+              >
+                {DEVELOPER.name}
+              </a>{" "}
+              — {DEVELOPER.role}
+            </span>
+          </p>
+          <p className="text-xs text-background/40">
+            Demo project showcasing full-stack e-commerce development
+          </p>
         </div>
       </div>
 
@@ -126,13 +157,15 @@ export const Footer = () => {
           <p className="text-xs text-background/40">
             © {new Date().getFullYear()} Nordhaven. All rights reserved.
           </p>
-          <div className="flex gap-8">
-            <a href="#" className="text-xs text-background/40 hover:text-background/70 transition-colors">Privacy Policy</a>
-            <a href="#" className="text-xs text-background/40 hover:text-background/70 transition-colors">Terms of Service</a>
-            <a href="#" className="text-xs text-background/40 hover:text-background/70 transition-colors">Cookies</a>
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8">
+            <Link to="/about" className="text-xs text-background/40 hover:text-background/70 transition-colors">About</Link>
+            <Link to="/contact" className="text-xs text-background/40 hover:text-background/70 transition-colors">Contact</Link>
+            <Link to="/privacy" className="text-xs text-background/40 hover:text-background/70 transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="text-xs text-background/40 hover:text-background/70 transition-colors">Terms</Link>
           </div>
         </div>
       </div>
     </footer>
   );
 };
+

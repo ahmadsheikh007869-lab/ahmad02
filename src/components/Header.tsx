@@ -50,6 +50,7 @@ export const Header = () => {
           <div className="flex items-center gap-5">
             <a href={`tel:${CONTACT.phoneTel}`} className="flex items-center gap-2 hover:text-background transition-colors">
               <Phone className="w-3 h-3" /> {CONTACT.phone}
+              <span className="opacity-50">({CONTACT.label})</span>
             </a>
             <a
               href={whatsappUrl()}
@@ -69,13 +70,24 @@ export const Header = () => {
               </>
             ) : (
               <>
-                <Link to="/auth" className="hover:text-background transition-colors">Login</Link>
-                <Link to="/admin/login" className="hover:text-background transition-colors">Admin</Link>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link to="/auth" className="hover:text-background transition-colors">Demo Login</Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">Demo account flow — sign up with any email to explore</TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link to="/admin/login" className="hover:text-background transition-colors">Demo Admin</Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">Demo admin console — requires an admin role</TooltipContent>
+                </Tooltip>
               </>
             )}
           </div>
         </div>
       </div>
+
 
       {/* Main bar */}
       <div className="container-full">

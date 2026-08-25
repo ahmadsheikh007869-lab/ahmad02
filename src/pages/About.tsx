@@ -28,8 +28,33 @@ const About = () => {
         </div>
       </section>
 
+      {/* Brand story */}
+      <section className="pt-20 md:pt-28 pb-4">
+        <div className="container-narrow">
+          <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-5">The Brand</p>
+          <div className="space-y-5 text-lg md:text-xl text-muted-foreground leading-[1.85]">
+            <p>
+              Nordhaven designs premium modular furniture for homes that are meant to be lived in —
+              modular kitchens, wardrobes, beds and lounge pieces finished in warm oak and cream.
+            </p>
+            <p>
+              Every collection is built to order in our own workshop, so proportions, storage and finish
+              are tuned to your room rather than a catalogue. Fewer, better pieces that last decades.
+            </p>
+          </div>
+
+          <div className="mt-10 border border-border bg-linen/70 rounded-sm p-6 md:p-7">
+            <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-primary mb-2">Note</p>
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+              This is a demo project built to showcase full-stack e-commerce development skills.
+              Products, prices and orders are sample data.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Philosophy */}
-      <section className="py-24 md:py-32">
+      <section className="py-20 md:py-28">
         <div className="container-narrow text-center">
           <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-5">Our Philosophy</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.25]">
@@ -37,6 +62,7 @@ const About = () => {
           </h2>
         </div>
       </section>
+
 
       {/* Values */}
       <section className="py-20 md:py-28 bg-linen">
