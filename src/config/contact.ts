@@ -3,11 +3,14 @@
 
 export const CONTACT = {
   /** Displayed phone number */
-  phone: "527717",
+  phone: "+91-98765-43210",
   /** Number for tel: links (no spaces) */
-  phoneTel: "527717",
+  phoneTel: "+919876543210",
   /** WhatsApp number in international format, digits only */
-  whatsapp: "527717",
+  whatsapp: "919876543210",
+  /** Shown next to the number to make the demo nature clear */
+  label: "Demo Contact",
+
   /** Support email */
   email: "hello@nordhaven.com",
   /** Full brand address (for footer / contact) */
