@@ -1,8 +1,10 @@
 import brandMark from "@/assets/nordhaven-mark.png";
 import { Link } from "react-router-dom";
-import { ArrowRight, Phone, Mail, Instagram, Facebook, MessageCircle, MapPin } from "lucide-react";
+import { ArrowRight, Phone, Mail, Instagram, Github, Linkedin, MessageCircle, MapPin, Code2 } from "lucide-react";
 import { collections } from "@/data/products";
 import { CONTACT, whatsappUrl } from "@/config/contact";
+import { DEVELOPER } from "@/config/developer";
+
 
 export const Footer = () => {
   const shopCats = collections.slice(0, 8);
