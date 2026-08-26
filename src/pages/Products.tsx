@@ -4,6 +4,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import {
   products, collections, getCollectionBySlug, searchProducts,
 } from "@/data/products";
@@ -74,6 +75,18 @@ const Products = () => {
 
   return (
     <Layout>
+      <Breadcrumbs
+        items={[
+          { label: "Home", to: "/" },
+          { label: "Shop", to: "/products" },
+          ...(q
+            ? [{ label: `Search: ${q}` }]
+            : currentCollection
+              ? [{ label: currentCollection.name }]
+              : []),
+        ]}
+      />
+
       {/* Hero */}
       <section className="relative h-[36vh] md:h-[46vh] overflow-hidden">
         <img

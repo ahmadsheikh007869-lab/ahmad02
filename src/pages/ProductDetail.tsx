@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { ProductCarousel } from "@/components/ProductCarousel";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { QuantitySelector } from "@/components/QuantitySelector";
 import { ImageZoom } from "@/components/ImageZoom";
 import { BookingDialog } from "@/components/BookingDialog";
