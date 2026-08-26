@@ -113,8 +113,9 @@ const Products = () => {
       {/* Filters */}
       <section className="py-4 border-b border-border sticky top-16 md:top-[7.5rem] bg-background/95 backdrop-blur z-40">
         <div className="container-full">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-            <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-2 px-2">
+          <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
+            <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-2 px-2 min-w-0 flex-1">
+
               <Button
                 variant="ghost"
                 size="sm"
