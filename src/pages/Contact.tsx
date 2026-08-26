@@ -108,8 +108,9 @@ const Contact = () => {
                   <Phone className="w-4 h-4" />
                 </span>
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Phone</p>
+                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Phone · {CONTACT.label}</p>
                   <ContactNumberButton />
+
                 </div>
               </div>
 

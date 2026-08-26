@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { ProductCarousel } from "@/components/ProductCarousel";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { QuantitySelector } from "@/components/QuantitySelector";
 import { ImageZoom } from "@/components/ImageZoom";
 import { BookingDialog } from "@/components/BookingDialog";
@@ -128,23 +129,17 @@ const ProductDetail = () => {
   return (
     <Layout>
       {/* Breadcrumb */}
-      <div className="container-full py-4 border-b border-border">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <Link to="/" className="hover:text-foreground">Home</Link>
-          <ChevronRight className="w-3 h-3" />
-          <Link to="/products" className="hover:text-foreground">Shop</Link>
-          {collection && (
-            <>
-              <ChevronRight className="w-3 h-3" />
-              <Link to={`/products?collection=${collection.slug}`} className="hover:text-foreground">
-                {collection.name}
-              </Link>
-            </>
-          )}
-          <ChevronRight className="w-3 h-3" />
-          <span className="text-foreground truncate">{product.name}</span>
-        </div>
-      </div>
+      <Breadcrumbs
+        items={[
+          { label: "Home", to: "/" },
+          { label: "Shop", to: "/products" },
+          ...(collection
+            ? [{ label: collection.name, to: `/products?collection=${collection.slug}` }]
+            : []),
+          { label: product.name },
+        ]}
+      />
+
 
       {/* Main content */}
       <section className="py-8 md:py-12">
@@ -226,10 +221,11 @@ const ProductDetail = () => {
                     </span>
                   )}
                   {product.discountPercent && (
-                    <span className="px-2 py-0.5 text-xs font-bold bg-primary text-primary-foreground rounded-sm">
+                    <span className="px-2.5 py-1 text-[10px] font-bold tracking-[0.12em] uppercase bg-primary text-primary-foreground rounded-sm shadow-sm">
                       {product.discountPercent}% OFF
                     </span>
                   )}
+
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">Inclusive of all taxes</p>
 

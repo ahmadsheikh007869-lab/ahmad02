@@ -6,6 +6,8 @@ import sofaImg from "@/assets/cat-sofa.jpg";
 import bedImg from "@/assets/cat-bed.jpg";
 import wardrobeImg from "@/assets/cat-wardrobe.jpg";
 import tvUnitImg from "@/assets/cat-tv-unit.jpg";
+import tvUnitOakImg from "@/assets/tv-unit-oak-wall.jpg";
+import tvUnitWalnutImg from "@/assets/tv-unit-walnut-floor.jpg";
 
 export interface Collection {
 
@@ -121,14 +123,12 @@ const IMG = {
   ],
   tv: [
     tvUnitImg,
+    tvUnitOakImg,
+    tvUnitWalnutImg,
 
     "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1600&q=80",
     "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80",
-    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=80",
     "https://images.unsplash.com/photo-1583845112203-29329902332e?w=1600&q=80",
-    "https://images.unsplash.com/photo-1524758870432-af57e54afa26?w=1600&q=80",
-    "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1600&q=80",
-    "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=1600&q=80",
     "https://images.unsplash.com/photo-1615529162924-f8605388461d?w=1600&q=80",
   ],
   diningTables: [

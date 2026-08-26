@@ -6,6 +6,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Layout } from "@/components/Layout";
 import { HeroSlider } from "@/components/HeroSlider";
+import { TrustBadges } from "@/components/TrustBadges";
+
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -90,6 +92,10 @@ const Index = () => {
     <Layout>
       {/* 1. Hero Slider */}
       <HeroSlider />
+
+      {/* Trust badges */}
+      <TrustBadges />
+
 
       {/* 2. Featured Categories */}
       <section className="py-16 md:py-24">
