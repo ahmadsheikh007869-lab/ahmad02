@@ -128,23 +128,17 @@ const ProductDetail = () => {
   return (
     <Layout>
       {/* Breadcrumb */}
-      <div className="container-full py-4 border-b border-border">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <Link to="/" className="hover:text-foreground">Home</Link>
-          <ChevronRight className="w-3 h-3" />
-          <Link to="/products" className="hover:text-foreground">Shop</Link>
-          {collection && (
-            <>
-              <ChevronRight className="w-3 h-3" />
-              <Link to={`/products?collection=${collection.slug}`} className="hover:text-foreground">
-                {collection.name}
-              </Link>
-            </>
-          )}
-          <ChevronRight className="w-3 h-3" />
-          <span className="text-foreground truncate">{product.name}</span>
-        </div>
-      </div>
+      <Breadcrumbs
+        items={[
+          { label: "Home", to: "/" },
+          { label: "Shop", to: "/products" },
+          ...(collection
+            ? [{ label: collection.name, to: `/products?collection=${collection.slug}` }]
+            : []),
+          { label: product.name },
+        ]}
+      />
+
 
       {/* Main content */}
       <section className="py-8 md:py-12">
