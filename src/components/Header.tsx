@@ -48,15 +48,14 @@ export const Header = () => {
       <div className="hidden md:block bg-foreground text-background/80 text-[11px]">
         <div className="container-full flex items-center justify-between h-8">
           <div className="flex items-center gap-5">
-            <a href={`tel:${CONTACT.phoneTel}`} className="flex items-center gap-2 hover:text-background transition-colors">
+            <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center gap-2 hover:text-background transition-colors cursor-default">
               <Phone className="w-3 h-3" /> {CONTACT.phone}
               <span className="opacity-50">({CONTACT.label})</span>
             </a>
             <a
-              href={whatsappUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-background transition-colors"
+              href="#"
+              onClick={(e) => e.preventDefault()}
+              className="flex items-center gap-2 hover:text-background transition-colors cursor-default"
             >
               <MessageCircle className="w-3 h-3" /> WhatsApp
             </a>
@@ -94,10 +93,10 @@ export const Header = () => {
         <div className="flex items-center gap-4 md:gap-8 h-16 md:h-20">
           <Link to="/" className="flex items-center gap-2 shrink-0 text-foreground hover:text-primary transition-colors">
             <span className="w-9 h-9 md:w-10 md:h-10 rounded-sm bg-primary grid place-items-center shrink-0">
-              <img src={brandMark} alt="Nordhaven logo" width={40} height={40} className="w-5 h-5 md:w-6 md:h-6 object-contain" />
+              <img src={brandMark} alt="Mohd Ahmad logo" width={40} height={40} className="w-5 h-5 md:w-6 md:h-6 object-contain" />
             </span>
             <span className="hidden sm:flex flex-col leading-none">
-              <span className="font-serif text-xl md:text-2xl tracking-tight">Nordhaven</span>
+              <span className="font-serif text-xl md:text-2xl tracking-tight">Mohd Ahmad</span>
               <span className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground">Furniture</span>
             </span>
 
