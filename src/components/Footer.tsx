@@ -93,9 +93,12 @@ export const Footer = () => {
             <h4 className="text-[11px] font-semibold tracking-[0.25em] uppercase text-background/40 mb-5">Contact</h4>
             <ul className="space-y-3">
               <li>
-                <a href={`tel:${CONTACT.phoneTel}`} className="flex items-center gap-2 text-sm text-background/60 hover:text-background transition-colors">
-                  <Phone className="w-4 h-4" /> {CONTACT.phone}
-                  <span className="text-[10px] tracking-[0.2em] uppercase text-background/35">({CONTACT.label})</span>
+                <a href={`tel:${CONTACT.phoneTel}`} className="flex items-start gap-2 text-sm text-background/60 hover:text-background transition-colors">
+                  <Phone className="w-4 h-4 mt-0.5 shrink-0" />
+                  <span className="flex flex-col leading-tight">
+                    <span>{CONTACT.phone}</span>
+                    <span className="text-[10px] tracking-[0.2em] uppercase text-background/35 mt-1">{CONTACT.label}</span>
+                  </span>
                 </a>
               </li>
               <li>
@@ -130,7 +133,7 @@ export const Footer = () => {
 
       {/* Developer credit */}
       <div className="border-t border-background/10">
-        <div className="container-full py-7 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+        <div className="container-full py-7 md:pr-24 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           <p className="text-sm text-background/60 flex items-center gap-2">
             <Code2 className="w-4 h-4 text-primary shrink-0" />
             <span>
@@ -153,7 +156,7 @@ export const Footer = () => {
       </div>
 
       <div className="border-t border-background/10">
-        <div className="container-full py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="container-full py-6 md:pr-24 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-background/40">
             © {new Date().getFullYear()} Nordhaven. All rights reserved.
           </p>
