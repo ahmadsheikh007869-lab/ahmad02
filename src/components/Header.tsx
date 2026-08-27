@@ -48,15 +48,14 @@ export const Header = () => {
       <div className="hidden md:block bg-foreground text-background/80 text-[11px]">
         <div className="container-full flex items-center justify-between h-8">
           <div className="flex items-center gap-5">
-            <a href={`tel:${CONTACT.phoneTel}`} className="flex items-center gap-2 hover:text-background transition-colors">
+            <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center gap-2 hover:text-background transition-colors cursor-default">
               <Phone className="w-3 h-3" /> {CONTACT.phone}
               <span className="opacity-50">({CONTACT.label})</span>
             </a>
             <a
-              href={whatsappUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-background transition-colors"
+              href="#"
+              onClick={(e) => e.preventDefault()}
+              className="flex items-center gap-2 hover:text-background transition-colors cursor-default"
             >
               <MessageCircle className="w-3 h-3" /> WhatsApp
             </a>
