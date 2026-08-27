@@ -1208,24 +1208,24 @@ import { defineTool as defineTool4 } from "npm:@lovable.dev/mcp-js@0.20.0";
 // src/config/contact.ts
 var CONTACT = {
   /** Displayed phone number */
-  phone: "+91-98765-43210",
-  /** Number for tel: links (no spaces) */
-  phoneTel: "+919876543210",
-  /** WhatsApp number in international format, digits only */
-  whatsapp: "919876543210",
+  phone: "+91 80****12",
+  /** Number for tel: links (no spaces) — kept non-functional in the demo UI */
+  phoneTel: "+910000000000",
+  /** WhatsApp number in international format, digits only — kept non-functional in the demo UI */
+  whatsapp: "910000000000",
   /** Shown next to the number to make the demo nature clear */
   label: "Demo Contact",
   /** Support email */
-  email: "hello@nordhaven.com",
+  email: "hello@mohdahmad.dev",
   /** Full brand address (for footer / contact) */
-  address: "Nordhaven Studio, MG Road, Bengaluru 560001",
+  address: "Mohd Ahmad Studio, MG Road, Bengaluru 560001",
   /** Business hours */
   hours: [
     { days: "Monday \u2013 Saturday", time: "10:00 AM \u2013 8:00 PM" },
     { days: "Sunday", time: "11:00 AM \u2013 6:00 PM" }
   ]
 };
-var whatsappUrl = (message = "Hi Nordhaven, I'd like to know more.") => `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
+var whatsappUrl = (message = "Hi Mohd Ahmad, I'd like to know more.") => `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
 
 // src/lib/mcp/tools/contact-info.ts
 var contact_info_default = defineTool4({

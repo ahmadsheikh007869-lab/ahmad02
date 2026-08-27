@@ -1,20 +1,20 @@
-// Single source of truth for Nordhaven contact details.
+// Single source of truth for Mohd Ahmad contact details.
 // Edit these values to update Call/WhatsApp/Email links across the app.
 
 export const CONTACT = {
   /** Displayed phone number */
-  phone: "+91-98765-43210",
-  /** Number for tel: links (no spaces) */
-  phoneTel: "+919876543210",
-  /** WhatsApp number in international format, digits only */
-  whatsapp: "919876543210",
+  phone: "+91 80****12",
+  /** Number for tel: links (no spaces) — kept non-functional in the demo UI */
+  phoneTel: "+910000000000",
+  /** WhatsApp number in international format, digits only — kept non-functional in the demo UI */
+  whatsapp: "910000000000",
   /** Shown next to the number to make the demo nature clear */
   label: "Demo Contact",
 
   /** Support email */
-  email: "hello@nordhaven.com",
+  email: "hello@mohdahmad.dev",
   /** Full brand address (for footer / contact) */
-  address: "Nordhaven Studio, MG Road, Bengaluru 560001",
+  address: "Mohd Ahmad Studio, MG Road, Bengaluru 560001",
   /** Business hours */
   hours: [
     { days: "Monday – Saturday", time: "10:00 AM – 8:00 PM" },
@@ -22,5 +22,5 @@ export const CONTACT = {
   ],
 } as const;
 
-export const whatsappUrl = (message = "Hi Nordhaven, I'd like to know more."): string =>
+export const whatsappUrl = (message = "Hi Mohd Ahmad, I'd like to know more."): string =>
   `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;
