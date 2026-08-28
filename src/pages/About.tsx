@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Phone } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
+import { CONTACT } from "@/config/contact";
 
 const About = () => {
   return (
