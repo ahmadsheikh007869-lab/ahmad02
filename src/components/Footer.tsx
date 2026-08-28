@@ -93,7 +93,7 @@ export const Footer = () => {
             <h4 className="text-[11px] font-semibold tracking-[0.25em] uppercase text-background/40 mb-5">Contact</h4>
             <ul className="space-y-3">
               <li>
-                <a href={`tel:${CONTACT.phoneTel}`} className="flex items-start gap-2 text-sm text-background/60 hover:text-background transition-colors">
+                <a href="#" onClick={(e) => e.preventDefault()} className="flex items-start gap-2 text-sm text-background/60 hover:text-background transition-colors cursor-default">
                   <Phone className="w-4 h-4 mt-0.5 shrink-0" />
                   <span className="flex flex-col leading-tight">
                     <span>{CONTACT.phone}</span>
@@ -102,7 +102,7 @@ export const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-background/60 hover:text-background transition-colors">
+                <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center gap-2 text-sm text-background/60 hover:text-background transition-colors cursor-default">
                   <MessageCircle className="w-4 h-4" /> WhatsApp
                 </a>
               </li>
