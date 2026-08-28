@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   Popover, PopoverContent, PopoverTrigger,
 } from "@/components/ui/popover";
-import { CONTACT, whatsappUrl } from "@/config/contact";
+import { CONTACT } from "@/config/contact";
 
 const MAP_EMBED_URL =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5074347573604!2d77.6033!3d12.9752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU4JzMwLjciTiA3N8KwMzYnMTEuOSJF!5e0!3m2!1sen!2sin!4v1700000000000";
@@ -31,11 +31,11 @@ const ContactNumberButton = () => (
       </button>
     </PopoverTrigger>
     <PopoverContent className="w-56 p-2" align="start">
-      <a href={`tel:${CONTACT.phoneTel}`} className="flex items-center gap-3 px-3 py-2 rounded-sm hover:bg-accent">
+      <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center gap-3 px-3 py-2 rounded-sm hover:bg-accent cursor-default">
         <Phone className="w-4 h-4 text-primary" />
         <div><p className="text-sm font-medium">Call now</p><p className="text-xs text-muted-foreground">{CONTACT.phone}</p></div>
       </a>
-      <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-3 py-2 rounded-sm hover:bg-accent">
+      <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center gap-3 px-3 py-2 rounded-sm hover:bg-accent cursor-default">
         <MessageCircle className="w-4 h-4 text-[#25D366]" />
         <div><p className="text-sm font-medium">WhatsApp</p><p className="text-xs text-muted-foreground">Chat instantly</p></div>
       </a>
@@ -60,16 +60,10 @@ const Contact = () => {
     }
     setErrors({});
     setSubmitting(true);
-    const msg =
-      `Hello Nordhaven,%0A%0A` +
-      `*Name:* ${encodeURIComponent(parsed.data.name)}%0A` +
-      `*Phone:* ${encodeURIComponent(parsed.data.phone)}%0A` +
-      (parsed.data.email ? `*Email:* ${encodeURIComponent(parsed.data.email)}%0A` : "") +
-      `*Subject:* ${encodeURIComponent(parsed.data.subject)}%0A%0A` +
-      `${encodeURIComponent(parsed.data.message)}`;
-    toast.success("Message ready", { description: "Opening WhatsApp to send your enquiry…" });
-    window.setTimeout(() => {
-      window.location.href = `https://wa.me/${CONTACT.whatsapp}?text=${msg}`;
+    setTimeout(() => {
+      toast.success("Message recorded", { description: "This is a demo contact form. No message was sent." });
+      setForm({ name: "", phone: "", email: "", subject: "", message: "" });
+      setSubmitting(false);
     }, 600);
   };
 
@@ -96,7 +90,7 @@ const Contact = () => {
             className="lg:col-span-2 space-y-8"
           >
             <div>
-              <h2 className="font-serif text-2xl mb-4">Nordhaven Studio</h2>
+              <h2 className="font-serif text-2xl mb-4">Mohd Ahmad Studio</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Visit our flagship showroom for a hands-on experience of every finish, fabric and material. Walk-ins welcome.
               </p>
@@ -120,7 +114,7 @@ const Contact = () => {
                 </span>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-muted-foreground">WhatsApp</p>
-                  <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="text-primary font-medium hover:underline">
+                  <a href="#" onClick={(e) => e.preventDefault()} className="text-primary font-medium hover:underline cursor-default">
                     {CONTACT.phone}
                   </a>
                 </div>
@@ -167,7 +161,7 @@ const Contact = () => {
                 style={{ border: 0 }}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Nordhaven Studio location"
+                title="Mohd Ahmad Studio location"
               />
             </div>
           </motion.div>
@@ -186,7 +180,7 @@ const Contact = () => {
               <p className="text-[11px] tracking-[0.3em] uppercase text-primary mb-1">Send an enquiry</p>
               <h2 className="font-serif text-3xl">Tell us what you're looking for</h2>
               <p className="text-xs text-muted-foreground mt-2">
-                Your message opens WhatsApp with these details prefilled for the fastest response.
+                This is a demo form — your message is not transmitted.
               </p>
             </div>
 
@@ -221,7 +215,7 @@ const Contact = () => {
             </div>
 
             <Button type="submit" size="lg" className="w-full rounded-sm py-6" disabled={submitting}>
-              {submitting ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Opening WhatsApp…</> : <><Send className="w-4 h-4 mr-2" /> Send via WhatsApp</>}
+              {submitting ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Sending…</> : <><Send className="w-4 h-4 mr-2" /> Send Message</>}
             </Button>
           </motion.form>
         </div>

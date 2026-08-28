@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { CartIcon } from "@/components/CartIcon";
 import { LiveSearch } from "@/components/LiveSearch";
 import { collections } from "@/data/products";
-import { CONTACT, whatsappUrl } from "@/config/contact";
+import { CONTACT } from "@/config/contact";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
@@ -164,10 +164,9 @@ export const Header = () => {
 
             {/* WhatsApp quick action (desktop) */}
             <a
-              href={whatsappUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden lg:inline-flex items-center gap-2 ml-2 px-3 py-2 text-[11px] tracking-[0.15em] uppercase bg-primary text-primary-foreground hover:bg-primary/90 rounded-sm transition-colors"
+              href="#"
+              onClick={(e) => e.preventDefault()}
+              className="hidden lg:inline-flex items-center gap-2 ml-2 px-3 py-2 text-[11px] tracking-[0.15em] uppercase bg-primary text-primary-foreground hover:bg-primary/90 rounded-sm transition-colors cursor-default"
               aria-label="Chat on WhatsApp"
             >
               <MessageCircle className="w-4 h-4" /> Chat
@@ -266,14 +265,13 @@ export const Header = () => {
                 <Link to={user ? "/account" : "/auth"} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
                   <LogIn className="w-4 h-4" /> {user ? "My Account" : "Login / Sign up"}
                 </Link>
-                <a href={`tel:${CONTACT.phoneTel}`} className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
+                <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center gap-2 py-2 text-sm text-muted-foreground cursor-default">
                   <Phone className="w-4 h-4" /> {CONTACT.phone}
                 </a>
                 <a
-                  href={whatsappUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 py-2 text-sm text-primary"
+                  href="#"
+                  onClick={(e) => e.preventDefault()}
+                  className="flex items-center gap-2 py-2 text-sm text-primary cursor-default"
                 >
                   <MessageCircle className="w-4 h-4" /> WhatsApp us
                 </a>

@@ -22,7 +22,7 @@ import {
 import { reviews } from "@/data/reviews";
 import { faqs } from "@/data/faqs";
 import { whyUs } from "@/data/whyUs";
-import { CONTACT, whatsappUrl } from "@/config/contact";
+import { CONTACT } from "@/config/contact";
 
 // Home page leads with Modular Kitchen, then the three dedicated category sections.
 const homepageCategoryIds = [
@@ -244,7 +244,7 @@ const Index = () => {
       <section className="py-16 md:py-24 bg-linen">
         <div className="container-full">
           <div className="text-center mb-12">
-            <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-2">The Nordhaven Promise</p>
+            <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary mb-2">The Mohd Ahmad Promise</p>
             <h2 className="font-serif text-3xl md:text-5xl">Why Choose Us</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
@@ -294,11 +294,11 @@ const Index = () => {
               Book a free consultation — in-store, at home or over video call. Our designers will send a 3D layout within 48 hours.
             </p>
             <div className="space-y-3">
-              <a href={`tel:${CONTACT.phoneTel}`} className="flex items-center gap-3 text-sm text-background/80 hover:text-background transition-colors">
+              <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center gap-3 text-sm text-background/80 hover:text-background transition-colors cursor-default">
                 <span className="w-10 h-10 grid place-items-center rounded-sm bg-background/10"><Phone className="w-4 h-4" /></span>
                 {CONTACT.phone}
               </a>
-              <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-background/80 hover:text-background transition-colors">
+              <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center gap-3 text-sm text-background/80 hover:text-background transition-colors cursor-default">
                 <span className="w-10 h-10 grid place-items-center rounded-sm bg-background/10"><MessageCircle className="w-4 h-4" /></span>
                 Chat on WhatsApp
               </a>

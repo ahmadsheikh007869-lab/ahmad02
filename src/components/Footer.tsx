@@ -2,7 +2,7 @@ import brandMark from "@/assets/nordhaven-mark.png";
 import { Link } from "react-router-dom";
 import { ArrowRight, Phone, Mail, Instagram, Github, Linkedin, MessageCircle, MapPin, Code2 } from "lucide-react";
 import { collections } from "@/data/products";
-import { CONTACT, whatsappUrl } from "@/config/contact";
+import { CONTACT } from "@/config/contact";
 import { DEVELOPER } from "@/config/developer";
 
 
@@ -16,10 +16,10 @@ export const Footer = () => {
             <div>
               <Link to="/" className="flex items-center gap-3 text-background">
                 <span className="w-11 h-11 rounded-sm bg-primary grid place-items-center shrink-0">
-                  <img src={brandMark} alt="Nordhaven logo" width={44} height={44} className="w-6 h-6 object-contain" />
+                  <img src={brandMark} alt="Mohd Ahmad logo" width={44} height={44} className="w-6 h-6 object-contain" />
                 </span>
                 <span className="flex flex-col leading-none">
-                  <span className="font-serif text-2xl md:text-3xl">Nordhaven</span>
+                  <span className="font-serif text-2xl md:text-3xl">Mohd Ahmad</span>
 
                   <span className="text-[11px] tracking-[0.25em] uppercase text-background/50 mt-1">
                     Premium modern homes
@@ -93,7 +93,7 @@ export const Footer = () => {
             <h4 className="text-[11px] font-semibold tracking-[0.25em] uppercase text-background/40 mb-5">Contact</h4>
             <ul className="space-y-3">
               <li>
-                <a href={`tel:${CONTACT.phoneTel}`} className="flex items-start gap-2 text-sm text-background/60 hover:text-background transition-colors">
+                <a href="#" onClick={(e) => e.preventDefault()} className="flex items-start gap-2 text-sm text-background/60 hover:text-background transition-colors cursor-default">
                   <Phone className="w-4 h-4 mt-0.5 shrink-0" />
                   <span className="flex flex-col leading-tight">
                     <span>{CONTACT.phone}</span>
@@ -102,7 +102,7 @@ export const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-background/60 hover:text-background transition-colors">
+                <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center gap-2 text-sm text-background/60 hover:text-background transition-colors cursor-default">
                   <MessageCircle className="w-4 h-4" /> WhatsApp
                 </a>
               </li>
@@ -158,7 +158,7 @@ export const Footer = () => {
       <div className="border-t border-background/10">
         <div className="container-full py-6 md:pr-24 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-background/40">
-            © {new Date().getFullYear()} Nordhaven. All rights reserved.
+            © {new Date().getFullYear()} Mohd Ahmad. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-center gap-6 md:gap-8">
             <Link to="/about" className="text-xs text-background/40 hover:text-background/70 transition-colors">About</Link>
