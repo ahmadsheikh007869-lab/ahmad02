@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   Popover, PopoverContent, PopoverTrigger,
 } from "@/components/ui/popover";
-import { CONTACT, whatsappUrl } from "@/config/contact";
+import { CONTACT } from "@/config/contact";
 
 const MAP_EMBED_URL =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5074347573604!2d77.6033!3d12.9752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU4JzMwLjciTiA3N8KwMzYnMTEuOSJF!5e0!3m2!1sen!2sin!4v1700000000000";
