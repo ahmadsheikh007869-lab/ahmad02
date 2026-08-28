@@ -2,7 +2,7 @@ import brandMark from "@/assets/nordhaven-mark.png";
 import { Link } from "react-router-dom";
 import { ArrowRight, Phone, Mail, Instagram, Github, Linkedin, MessageCircle, MapPin, Code2 } from "lucide-react";
 import { collections } from "@/data/products";
-import { CONTACT, whatsappUrl } from "@/config/contact";
+import { CONTACT } from "@/config/contact";
 import { DEVELOPER } from "@/config/developer";
 
 
@@ -158,7 +158,7 @@ export const Footer = () => {
       <div className="border-t border-background/10">
         <div className="container-full py-6 md:pr-24 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-background/40">
-            © {new Date().getFullYear()} Nordhaven. All rights reserved.
+            © {new Date().getFullYear()} Mohd Ahmad. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-center gap-6 md:gap-8">
             <Link to="/about" className="text-xs text-background/40 hover:text-background/70 transition-colors">About</Link>
