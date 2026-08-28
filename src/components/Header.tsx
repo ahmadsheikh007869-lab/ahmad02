@@ -164,10 +164,9 @@ export const Header = () => {
 
             {/* WhatsApp quick action (desktop) */}
             <a
-              href={whatsappUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden lg:inline-flex items-center gap-2 ml-2 px-3 py-2 text-[11px] tracking-[0.15em] uppercase bg-primary text-primary-foreground hover:bg-primary/90 rounded-sm transition-colors"
+              href="#"
+              onClick={(e) => e.preventDefault()}
+              className="hidden lg:inline-flex items-center gap-2 ml-2 px-3 py-2 text-[11px] tracking-[0.15em] uppercase bg-primary text-primary-foreground hover:bg-primary/90 rounded-sm transition-colors cursor-default"
               aria-label="Chat on WhatsApp"
             >
               <MessageCircle className="w-4 h-4" /> Chat
