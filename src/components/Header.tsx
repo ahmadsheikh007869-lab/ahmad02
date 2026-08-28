@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { CartIcon } from "@/components/CartIcon";
 import { LiveSearch } from "@/components/LiveSearch";
 import { collections } from "@/data/products";
-import { CONTACT, whatsappUrl } from "@/config/contact";
+import { CONTACT } from "@/config/contact";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
