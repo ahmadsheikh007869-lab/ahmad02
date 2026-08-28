@@ -265,14 +265,13 @@ export const Header = () => {
                 <Link to={user ? "/account" : "/auth"} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
                   <LogIn className="w-4 h-4" /> {user ? "My Account" : "Login / Sign up"}
                 </Link>
-                <a href={`tel:${CONTACT.phoneTel}`} className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
+                <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center gap-2 py-2 text-sm text-muted-foreground cursor-default">
                   <Phone className="w-4 h-4" /> {CONTACT.phone}
                 </a>
                 <a
-                  href={whatsappUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 py-2 text-sm text-primary"
+                  href="#"
+                  onClick={(e) => e.preventDefault()}
+                  className="flex items-center gap-2 py-2 text-sm text-primary cursor-default"
                 >
                   <MessageCircle className="w-4 h-4" /> WhatsApp us
                 </a>
