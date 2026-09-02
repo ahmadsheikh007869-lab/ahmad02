@@ -90,7 +90,7 @@ const Contact = () => {
             className="lg:col-span-2 space-y-8"
           >
             <div>
-              <h2 className="font-serif text-2xl mb-4">Mohd Ahmad Studio</h2>
+              <h2 className="font-serif text-2xl mb-4">Velmora Home Studio</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Visit our flagship showroom for a hands-on experience of every finish, fabric and material. Walk-ins welcome.
               </p>
@@ -161,7 +161,7 @@ const Contact = () => {
                 style={{ border: 0 }}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Mohd Ahmad Studio location"
+                title="Velmora Home Studio location"
               />
             </div>
           </motion.div>

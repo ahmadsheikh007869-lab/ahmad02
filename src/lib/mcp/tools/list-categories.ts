@@ -4,7 +4,7 @@ import { collections, products } from "../../../data/products.ts";
 export default defineTool({
   name: "list_categories",
   title: "List categories",
-  description: "List all furniture categories in the Nordhaven catalog with product counts.",
+  description: "List all furniture categories in the Velmora Home catalog with product counts.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => {

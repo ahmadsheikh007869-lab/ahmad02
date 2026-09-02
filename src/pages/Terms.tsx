@@ -3,7 +3,7 @@ import { Layout } from "@/components/Layout";
 const sections = [
   {
     h: "Using this site",
-    p: "Nordhaven is presented here as a portfolio demonstration. Product listings, prices and stock are sample data and no commercial transaction is completed.",
+    p: "Velmora Home is presented here as a portfolio demonstration. Product listings, prices and stock are sample data and no commercial transaction is completed.",
   },
   {
     h: "Orders & bookings",

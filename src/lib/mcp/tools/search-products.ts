@@ -6,7 +6,7 @@ export default defineTool({
   name: "search_products",
   title: "Search products",
   description:
-    "Search the Nordhaven catalog by keyword, category, price range, or flags (new, bestSeller, trending). Returns matching products with name, category, price, and product code.",
+    "Search the Velmora Home catalog by keyword, category, price range, or flags (new, bestSeller, trending). Returns matching products with name, category, price, and product code.",
   inputSchema: {
     query: z.string().optional().describe("Free-text query matched against name, description, material, finish, color, style, and product code."),
     category: z.string().optional().describe("Category id or slug (e.g. 'beds', 'wardrobes')."),

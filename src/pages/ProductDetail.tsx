@@ -25,7 +25,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { toast as sonner } from "sonner";
 import { cn } from "@/lib/utils";
-import { CONTACT } from "@/config/contact";
+import { CONTACT, whatsappUrl } from "@/config/contact";
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";

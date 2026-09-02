@@ -4,7 +4,7 @@ import { CONTACT, whatsappUrl } from "../../../config/contact.ts";
 export default defineTool({
   name: "get_contact_info",
   title: "Get store contact info",
-  description: "Return the Nordhaven store's phone, WhatsApp, and email contact details.",
+  description: "Return the Velmora Home store's phone, WhatsApp, and email contact details.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => {

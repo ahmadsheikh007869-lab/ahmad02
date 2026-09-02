@@ -1,4 +1,4 @@
-// Single source of truth for Mohd Ahmad contact details.
+// Single source of truth for Velmora Home contact details.
 // Edit these values to update Call/WhatsApp/Email links across the app.
 
 export const CONTACT = {
@@ -12,9 +12,9 @@ export const CONTACT = {
   label: "Demo Contact",
 
   /** Support email */
-  email: "hello@mohdahmad.dev",
+  email: "hello@velmorahome.com",
   /** Full brand address (for footer / contact) */
-  address: "Mohd Ahmad Studio, MG Road, Bengaluru 560001",
+  address: "Velmora Home Studio, MG Road, Bengaluru 560001",
   /** Business hours */
   hours: [
     { days: "Monday – Saturday", time: "10:00 AM – 8:00 PM" },
@@ -22,5 +22,5 @@ export const CONTACT = {
   ],
 } as const;
 
-export const whatsappUrl = (message = "Hi Mohd Ahmad, I'd like to know more."): string =>
+export const whatsappUrl = (message = "Hi Velmora Home, I'd like to know more."): string =>
   `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`;

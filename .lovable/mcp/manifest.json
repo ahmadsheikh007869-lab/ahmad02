@@ -6,7 +6,7 @@
     "type": "oauth",
     "issuer": "https://c--fe8864a7-395a-41b2-bbcc-de56988a8930-prod.lovable.cloud/auth/v1",
     "resource": "https://c--fe8864a7-395a-41b2-bbcc-de56988a8930-prod.lovable.cloud/functions/v1/mcp",
-    "resource_name": "Nordhaven MCP",
+    "resource_name": "Velmora Home MCP",
     "accepted_audiences": [
       "authenticated"
     ]
@@ -15,13 +15,13 @@
     "server": {
       "name": "rizwan-furniture-mcp",
       "version": "0.1.0",
-      "title": "Nordhaven MCP"
+      "title": "Velmora Home MCP"
     },
     "tools": [
       {
         "name": "list_categories",
         "title": "List categories",
-        "description": "List all furniture categories in the Nordhaven catalog with product counts.",
+        "description": "List all furniture categories in the Velmora Home catalog with product counts.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -37,7 +37,7 @@
       {
         "name": "search_products",
         "title": "Search products",
-        "description": "Search the Nordhaven catalog by keyword, category, price range, or flags (new, bestSeller, trending). Returns matching products with name, category, price, and product code.",
+        "description": "Search the Velmora Home catalog by keyword, category, price range, or flags (new, bestSeller, trending). Returns matching products with name, category, price, and product code.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -110,7 +110,7 @@
       {
         "name": "get_contact_info",
         "title": "Get store contact info",
-        "description": "Return the Nordhaven store's phone, WhatsApp, and email contact details.",
+        "description": "Return the Velmora Home store's phone, WhatsApp, and email contact details.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
