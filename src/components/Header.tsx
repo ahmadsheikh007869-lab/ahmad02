@@ -1,4 +1,4 @@
-import brandMark from "@/assets/velmora-home-mark.png";
+import brandMarkAsset from "@/assets/velmora-home-mark.png.asset.json";
 import { Link } from "react-router-dom";
 import { Heart, Menu, User, Package, X, Phone, MessageCircle, LogIn } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -26,6 +26,7 @@ const homepageCategoryIds = [
 const primaryCategories = collections.filter((c) => homepageCategoryIds.includes(c.id));
 
 export const Header = () => {
+  const brandMark = brandMarkAsset.url;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { items } = useWishlist();
