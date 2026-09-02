@@ -1,4 +1,3 @@
-import brandMarkAsset from "@/assets/velmora-home-mark.png.asset.json";
 import { Link } from "react-router-dom";
 import { Heart, Menu, User, Package, X, Phone, MessageCircle, LogIn } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -26,7 +25,6 @@ const homepageCategoryIds = [
 const primaryCategories = collections.filter((c) => homepageCategoryIds.includes(c.id));
 
 export const Header = () => {
-  const brandMark = brandMarkAsset.url;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { items } = useWishlist();
@@ -94,7 +92,7 @@ export const Header = () => {
         <div className="flex items-center gap-4 md:gap-8 h-16 md:h-20">
           <Link to="/" className="flex items-center gap-2 shrink-0 text-foreground hover:text-primary transition-colors">
             <span className="w-9 h-9 md:w-10 md:h-10 rounded-sm bg-primary grid place-items-center shrink-0">
-              <img src={brandMark} alt="Velmora Home logo" width={40} height={40} className="w-5 h-5 md:w-6 md:h-6 object-contain" />
+              <img src="/favicon.png" alt="Velmora Home logo" width={40} height={40} className="w-5 h-5 md:w-6 md:h-6 object-contain" />
             </span>
             <span className="hidden sm:flex flex-col leading-none">
               <span className="font-serif text-xl md:text-2xl tracking-tight">Velmora Home</span>

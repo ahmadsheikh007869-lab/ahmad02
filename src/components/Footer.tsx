@@ -1,4 +1,3 @@
-import brandMarkAsset from "@/assets/velmora-home-mark.png.asset.json";
 import { Link } from "react-router-dom";
 import { ArrowRight, Phone, Mail, Instagram, Github, Linkedin, MessageCircle, MapPin, Code2 } from "lucide-react";
 import { collections } from "@/data/products";
@@ -7,7 +6,6 @@ import { DEVELOPER } from "@/config/developer";
 
 
 export const Footer = () => {
-  const brandMark = brandMarkAsset.url;
   const shopCats = collections.slice(0, 8);
   return (
     <footer className="bg-foreground text-background">
@@ -17,7 +15,7 @@ export const Footer = () => {
             <div>
               <Link to="/" className="flex items-center gap-3 text-background">
                 <span className="w-11 h-11 rounded-sm bg-primary grid place-items-center shrink-0">
-                  <img src={brandMark} alt="Velmora Home logo" width={44} height={44} className="w-6 h-6 object-contain" />
+                  <img src="/favicon.png" alt="Velmora Home logo" width={44} height={44} className="w-6 h-6 object-contain" />
                 </span>
                 <span className="flex flex-col leading-none">
                   <span className="font-serif text-2xl md:text-3xl">Velmora Home</span>
