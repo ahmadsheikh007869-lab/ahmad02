@@ -1,0 +1,4 @@
+- [ ] Audit product identifiers, routing, and every product navigation entry point
+- [ ] Implement a single scalable product URL/lookup contract
+- [ ] Add resilient missing/loading/error states without changing design
+- [ ] Verify homepage, category, search, related products, direct URLs, refresh, back/forward, mobile and desktop
