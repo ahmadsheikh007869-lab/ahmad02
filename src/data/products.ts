@@ -556,7 +556,7 @@ const p = (args: PArgs): Product => {
     description: args.description ?? "Premium modern furniture crafted for lasting everyday use.",
     longDescription:
       args.longDescription ??
-      "Nordhaven designs each piece with honest materials, hand-finished detailing and a build quality meant to last decades. Every join, edge and finish is inspected before it leaves our workshop.",
+      "Velmora Home designs each piece with honest materials, hand-finished detailing and a build quality meant to last decades. Every join, edge and finish is inspected before it leaves our workshop.",
     materials: args.materials ?? "Engineered wood, solid hardwood frame, matte PU finish",
     material: args.material ?? "Engineered Wood",
     finish: args.finish ?? "Matte Oak",
@@ -817,7 +817,7 @@ const CAT_SPECS: CatSpec[] = [
     prefixes: ["Aster", "Bower", "Copen", "Dune", "Elm", "Fern", "Grove", "Halden", "Ivo", "Juno", "Kestrel", "Linden"],
     basePrice: 4999, priceStep: 1500, discount: 40,
     dims: (i) => dim(45, 40, 55, 40),
-    features: () => ["Soft-close drawer with dividers", "USB / power sockets (select models)", "Water-ring resistant top", "Solid hardwood legs", "Coordinates with all Nordhaven bed collections"],
+    features: () => ["Soft-close drawer with dividers", "USB / power sockets (select models)", "Water-ring resistant top", "Solid hardwood legs", "Coordinates with all Velmora Home bed collections"],
   },
   {
     cid: "outdoor-furniture", imgs: IMG.outdoor,
@@ -894,7 +894,7 @@ for (const spec of CAT_SPECS) {
         style: v(STYLES, i),
         dimensions: `${dims.lengthCm} × ${dims.widthCm} × ${dims.heightCm} cm`,
         dims,
-        description: `${type} designed and hand-finished by Nordhaven.`,
+        description: `${type} designed and hand-finished by Velmora Home.`,
         features: spec.features(type),
         materials: spec.materials,
         featured: i < 3,

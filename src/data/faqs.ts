@@ -9,7 +9,7 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: "What warranty do you offer?",
-    a: "Every Nordhaven piece is backed by a 5-year structural warranty. Modular kitchens carry a 10-year warranty on carcass and hardware.",
+    a: "Every Velmora Home piece is backed by a 5-year structural warranty. Modular kitchens carry a 10-year warranty on carcass and hardware.",
   },
   {
     q: "Can I customise a design?",
